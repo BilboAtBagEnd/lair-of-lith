@@ -1,53 +1,5 @@
 <script>
-var CHARACTER_CSV = 'v4|A Very, Very, Very Long Name Indeed|The Example|Ancient|Faer|Lord|Woman|7|4|6|6|2|2|5|3|7|8|8|2|5|3|5|6|3|1|2|5|0|single|4|3|2|1|Auto Pistol,Auto Rifle|Blade,Brawler|1|1|1|Bot,Gadget,Mount|1|1|1|Move cost 1 in Swamp.|10|0|0|0|This character leaps over other character whenever damage is dealt using its natural melee attack. Just like how the quick red fox jumped over the lazy brown dogs.|10|10|0|0'
-var CHARACTER = function() { 
-    var character = new DOA2.Character();
-    character.name = "A Very, Very, Very Long Name Indeed",
-    character.title = "The Example",
-    character.age = "Ancient", 
-    character.setting = "Faer",
-    character.circle = "Lord",
-    character.nature = "Woman",
-    character.speed = 7;
-    character.health = 4;
-    character.wits = 6; 
-    character.melee = 6;
-    character.power = 2;
-    character.damage = 2;
-    character.aim = 5;
-    character.point = 3;
-    character['throw'] = 7;
-    character.react = 8;
-    character.stealth = 8;
-    character.armor = 2;
-    character.strength = 5;
-    character.intellect = 3;
-    character.honor = 5;
-    character.respect = 6;
-    character.rangedWeapon.power = 3;
-    character.rangedWeapon.damage = 1;
-    character.rangedWeapon.opfire = 2;
-    character.rangedWeapon.rangeMax = 5;
-    character.rangedWeapon.area = 'single';
-    character.bonuses.ranged.push('Auto Pistol', 'Auto Rifle');
-    character.bonuses.melee.push('Blade', 'Brawler');
-    character.bonuses.other.push('Bot', 'Gadget', 'Mount');
-    character.bonuses.stealth = 1;
-    character.bonuses.medical = 1;
-    character.bonuses.armor = 1;
-    character.cards.noGive = true;
-    character.cards.noTrade = true;
-    character.cards.noLimit = true;
-    character.cards.henchmen = 1;
-    character.cards.elite = 2;
-    character.cards.secret = 3;
-    character.cards.common = 4;
-    character.specials.push(
-        { description: "Move cost 1 in Swamp.", value: { survival: 10, melee: 0, ranged: 0, adventure: 0 } },
-        { description: "This character leaps over other character whenever damage is dealt using its natural melee attack. Just like how the quick red fox jumped over the lazy brown dogs.", value: { survival: 10, melee: 10, ranged: 0, adventure: 0 }}
-    );    
-    return character;
-}();
+var CHARACTER_CSV = 'v4|Somewhat A Very, Very, Very Long Name Indeed|The Example|Ancient|Faer|Lord|Woman|7|4|6|6|2|2|5|3|7|8|8|2|5|3|5|6|3|1|2|5|0|single|4|3|2|1|Auto Pistol,Auto Rifle|Blade,Brawler|1|1|1|Bot,Gadget,Mount|1|1|1|Move cost 1 in Swamp.|10|0|0|0|This character leaps over other character whenever damage is dealt using its natural melee attack. Just like how the quick red fox jumped over the lazy brown dogs.|10|10|0|0'
 var CHARACTER_UNDO_STACK = [];
 var CHARACTER_REDO_STACK = [];
 var PORTRAIT_IMAGE = null;
@@ -856,6 +808,8 @@ function generateCard() {
 }
 
 $(document).ready(function() {    
+    parseCSV(CHARACTER_CSV);
+
     fillInAgeSelector();
     fillInSettingSelector();
     setUpAbilityFields();
