@@ -130,10 +130,14 @@ ul.topnav a, ul.topnav a:visited {
 #site-content h2 {
   margin: 0 0 0.5em 0;
 }
+#site-content hr {
+  width: 80%;
+  margin: 1em 0 1em 0;
+}
 
 .flash { 
   padding: 1em;
-  width: 30%;
+  width: 80%;
   margin: 1em;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -148,3 +152,14 @@ ul.topnav a, ul.topnav a:visited {
   border: 1px solid #ff0000;
   background-color: #eeaaaa;
 }
+
+table.form th { 
+  text-align: right;
+}
+table.form th, table.form td { 
+  padding: 0.5em;
+}
+input.text { 
+  width: 25em;
+}
+
