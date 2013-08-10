@@ -1,4 +1,5 @@
 <script>
+var CHARACTER_CSV = 'v4|A Very, Very, Very Long Name Indeed|The Example|Ancient|Faer|Lord|Woman|7|4|6|6|2|2|5|3|7|8|8|2|5|3|5|6|3|1|2|5|0|single|4|3|2|1|Auto Pistol,Auto Rifle|Blade,Brawler|1|1|1|Bot,Gadget,Mount|1|1|1|Move cost 1 in Swamp.|10|0|0|0|This character leaps over other character whenever damage is dealt using its natural melee attack. Just like how the quick red fox jumped over the lazy brown dogs.|10|10|0|0'
 var CHARACTER = function() { 
     var character = new DOA2.Character();
     character.name = "A Very, Very, Very Long Name Indeed",
@@ -300,7 +301,7 @@ function outputBGGCharacterCode() {
     $("#text-output").val(code);
 }
 
-function outputCSV() {
+function getCSV() {
     var header = [];
     var row = [];
     
@@ -359,11 +360,13 @@ function outputCSV() {
     //text += header.join('|') + "\n";
     text += row.join('|') + "\n";
 
-    $("#text-output").val(text);
+    return text;
+}
+function outputCSV() {
+    $("#text-output").val(getCSV());
 }
 
-function loadCSV() {
-    var csv = $("#text-input").val();    
+function parseCSV(csv) {
     var lines = csv.split("\n");
     if (lines.length < 1 || lines[0] == "") {
         // nop
@@ -438,6 +441,10 @@ function loadCSV() {
         });
     }
     CHARACTER.specials = specials;
+}
+function loadCSV() {
+    var csv = $("#text-input").val();    
+    parseCSV(csv);
 }
 
 function generateCard() {
@@ -1006,7 +1013,24 @@ $(document).ready(function() {
     });
 
     $("#save-card").click(function() {
-        $("#save-window").html("<p>Saved!</p>").toggle(true).delay(1500).fadeOut();
+        var saveURL = "<%= url_for controller: 'characters', action: 'save' %>";
+        var postData = "name=" + encodeURIComponent($("#name").val()) + "&" 
+                       + "csv=" + encodeURIComponent(getCSV());
+        $.ajax({
+          url: saveURL, 
+          type: 'POST',
+          beforeSend: function(xhr) {
+              xhr.setRequestHeader('X-CSRF-Token', 
+              $('meta[name="csrf-token"]').attr('content'))
+          },
+          data: postData,
+          success: function(response) {
+              $("#save-window").html("Saved!").toggle(true).delay(1500).fadeOut();
+          },
+          error: function(xhr, textStatus, errorThrown) {
+              $("#save-window").html("Error: " + textStatus + " " + errorThrown).toggle(true).delay(3000).fadeOut();
+          },
+        });
     });
 });
 </script>

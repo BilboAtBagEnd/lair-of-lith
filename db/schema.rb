@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130810195247) do
+ActiveRecord::Schema.define(version: 20130810225405) do
 
   create_table "character_versions", force: true do |t|
     t.integer  "character_id"
-    t.string   "version"
-    t.string   "csv"
+    t.integer  "version"
+    t.text     "csv"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 20130810195247) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",       limit: 1000
   end
 
-  add_index "characters", ["name"], name: "index_characters_on_name", using: :btree
+  add_index "characters", ["name"], name: "index_characters_on_name", length: {"name"=>255}, using: :btree
   add_index "characters", ["user_id"], name: "index_characters_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
