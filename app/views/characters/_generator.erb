@@ -447,10 +447,12 @@ function generateCard() {
     
     var cardImage = document.getElementById("card-image");
     var cardLink = document.getElementById("card-image-link");
+    var progressText = $("#progress-text");
     
     context.clearRect(0, 0, canvas.width, canvas.height);
     cardImage.src = "/images/loading.gif";
     cardLink.href = "";
+    progressText.text('Rendering...');
     
     var hasRangedWeapon = (
         CHARACTER.rangedWeapon.area == "area" 
@@ -728,6 +730,7 @@ function generateCard() {
             var dataURL = canvas.toDataURL();
             cardImage.src = dataURL;
             cardLink.href = dataURL;
+            progressText.text('Finished.');
         }
         else {
             var element = elements.shift();
@@ -1001,10 +1004,21 @@ $(document).ready(function() {
         $("#image-editor-window").toggle(false);
         generateCard();
     });
+
+    $("#save-card").click(function() {
+        $("#save-window").html("<p>Saved!</p>").toggle(true).delay(1500).fadeOut();
+    });
 });
 </script>
 
 <noscript><p>You need Javascript enabled to use this tool.</p></noscript>
+
+<% unless user_signed_in? %>
+  <p class="alert">
+  You will not be able to save this card until you 
+  <%= link_to 'log in', new_user_session_path %>!
+  </p>
+<% end %>
 
 <div id="breakdown-panel">
   <p>
@@ -1016,20 +1030,29 @@ $(document).ready(function() {
     <span class="note">(balanced = 500 ± 3)</span>
   </p>
   <p>
+    <span class="title">Import</span>
     <button id="load">Load CSV</button>
+  </p>
+  <p>
+    <span class="title">Export</span>
+    <button id="open-bgg-window">BGG</button>
+    <button id="open-csv-window">CSV</button>
+  </p>
+  <p>
+    <span class="title">Render</span>
+    <button id="generate-image">Get Card</button>
+  </p>
+<% if user_signed_in? %>
+  <p>
+    <span class="title">Save</span>
+    <button id="save-card">Save Card</button>
+  </p>
+<% end %>
+  <p>
+    <span class="title">Edit</span>
     <button id="undo">Undo</button>
     <button id="redo">Redo</button>
     <button id="reset">Clear</button>
-  </p>
-  <p>
-    <a href="#" id="open-bgg-window">Get BGG Code</a><br />
-    <a href="#" id="open-csv-window">Get CSV</a><br />
-    <a href="#" id="generate-image">Get Card</a>
-    <a href="http://boardgamegeek.com/thread/1010922/doa-ii-character-value-calculator-v0-5">Updates</a>
-  </p>
-  <p>
-    <a  href="https://docs.google.com/file/d/0By4uD_cay8nsUXd6VmpqenBEc2M/edit?usp=sharing">mltdwn's Corel card generator</a><br />
-    <a href="http://boardgamegeek.com/thread/1011889/final-fan-revised-character-templates-for-coreldr/page/1">Updates</a>
   </p>
 </div>
 
@@ -1059,6 +1082,7 @@ $(document).ready(function() {
     <div id="image-description">
       <p><strong>Only supported in HTML5-capable browsers.</strong></p>
       <p><strong>Portrait not supported in Safari.</strong></p>
+      <p id="progress-text"></p>
       <p>For portrait to fit exactly, use the crop option.</p>
       <p>This image is actually much bigger, it's scaled down for this window. To save, either:</p>
       <p>
@@ -1071,7 +1095,9 @@ $(document).ready(function() {
 <div id="image-editor-window">
   <button id="image-crop-button">Crop</button>
 </div>
-
+<div id="save-window">
+  <div id="save-window-contents"></div>
+</div>
 
 <table style="float: right;">
   <tr><th>Speed</th><td><input class="number stat" id="speed" type="text" /></td></tr>

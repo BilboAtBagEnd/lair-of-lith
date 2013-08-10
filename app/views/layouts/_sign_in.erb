@@ -1,0 +1,13 @@
+<div id="sign-in">
+  <% if user_signed_in? %>
+    <span class="greeting">Hello, <%= link_to current_user.name, controller: 'users', action: 'view', id: current_user.id %>!</span>
+    |
+    <span class="edit"><%= link_to 'Edit profile', edit_user_registration_path %></span>
+    |
+    <span class="logout"><%= link_to 'Logout', destroy_user_session_path, :method => 'delete' %></span>
+  <% else %>
+    <span class="login"><%= link_to 'Login', new_user_session_path %></span>
+    |
+    <span class="signup"><%= link_to 'Sign up', new_user_registration_path %></span>
+  <% end %>
+</div>

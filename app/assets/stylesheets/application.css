@@ -120,8 +120,9 @@ ul.topnav a, ul.topnav a:visited {
 }
 
 #site-content {
-  width: 78%;
+  width: 75%;
   float: right;
+  padding: 0 1em 0 1em;
 }
 
 #site-content p { 
@@ -135,9 +136,8 @@ ul.topnav a, ul.topnav a:visited {
   margin: 1em 0 1em 0;
 }
 
-.flash { 
+.flash, .alert { 
   padding: 1em;
-  width: 80%;
   margin: 1em;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -148,7 +148,7 @@ ul.topnav a, ul.topnav a:visited {
   background-color: #aaeeaa;
 }
 
-.flash_error {
+.flash_error, .alert {
   border: 1px solid #ff0000;
   background-color: #eeaaaa;
 }

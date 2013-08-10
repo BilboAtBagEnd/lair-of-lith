@@ -2,99 +2,117 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-  #font-loader { color: #ffffff; }
-  #font-loader .bold { font-family: "Eras Bold"; }
-  #font-loader .demi { font-family: "Eras Demi"; }
-  #font-loader .light { font-family: "Eras Light"; }
-  #font-loader .medium { font-family: "Eras Medium"; }
-  
+#font-loader {
+  color: #ffffff;
+  .bold { font-family: 'Eras Bold'; }
+  .demi { font-family: 'Eras Demi'; }
+  .light { font-family: 'Eras Light'; }
+  .medium { font-family: 'Eras Medium'; }
+}
+
+#calculator {
+  float: left;
+  background-color: black;
+  color: white;
+  width: 78%;
+  minimum-width: 35em;
+  display: table;
+  padding: 0 0 0 0.5em;
+
   table { 
     float: left; 
     background-color: black; 
     color: white;
+
+    .stat-title {
+        color: yellow;
+    }
   }
-  table .stat-title { 
-    color: yellow;
-  }
+
   th, td { 
     font-weight: normal;
     vertical-align: top;
   }
   
-  input.number { 
-    width: 2em;
-  }
-  input.text {
-    width: 20em;
-  }
-  #calculator textarea { 
+  input.number { width: 2em; }
+  input.text { width: 20em; }
+  textarea { 
     width: 20em;
     height: 10em;
   }
+}
   
-  #breakdown-panel { 
+#breakdown-panel { 
     float: left;
     background-color: white;
-    padding:0em 1em 0em 1em;
-    width: 10em;
+    padding:0em 1em 0em 0em;
+    width: 15%;
+    minimum-width: 10em;
     height: 34em;
-  }
-  #breakdown-panel .note { 
+
+  .note { 
     font-size: 0.8em;
     font-style: italic;
   }
-  #output-window, #input-window {
-    position: absolute;
-    background-color: white;
-    color: black;
-    padding: 1em;
-    height: 15em;
-    width: 30em;
-    display: none;
-    border: 1px solid #cccccc;
+
+  .title {
+    font-weight: bold;
+    font-style: italic;
+    display: block;
+    margin-bottom: 0.25em;
   }
-  #output-window textarea, #input-window textarea {
+}
+
+#total-value {
+  font-weight: bold;
+  font-size: 2em;
+  display: block;
+}
+
+#output-window, #input-window, #save-window {
+  position: absolute;
+  background-color: white;
+  color: black;
+  padding: 1em;
+  height: 15em;
+  width: 30em;
+  display: none;
+  border: 1px solid #cccccc;
+
+  textarea {
     font-size: 1em;
     width: 28em;
     height: 13em;
   }
-  #image-window, #image-editor-window {
-    position: absolute;
-    background-color: white;
-    color: black;
-    padding: 1em; 
-    height: 28em; 
-    width: 30em; 
-    display: none;
-    border: 1px solid #cccccc;
-  }
-  #image-description p:first-child {
-    margin-top: 0px;
-    padding-top: 0px;
-  }
-  #image-editor-window {
-    overflow: scroll;
-  }
-  #image-editor { 
-    float: left;
-    margin: 0 1em 0 0;
-  }
-  #total-value {
-    font-weight: bold;
-    font-size: 2em;
-    display: block;
-  }
-  #introduction { 
-    display: none;
-    padding-left: 9em;
-  }
-  #calculator {
-    float: left;
-    background-color: black;
-    color: white;
-    width: 33em;
-    display: table;
-  }
-  
-  #card-image { float: left; margin-right: 1em; }
+}
 
+#image-window, #image-editor-window {
+  position: absolute;
+  background-color: white;
+  color: black;
+  padding: 1em; 
+  height: 28em; 
+  width: 30em; 
+  display: none;
+  border: 1px solid #cccccc;
+}
+
+#image-description p:first-child {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+#progress-text {
+  color: #0000dd;
+}
+
+#card-image { float: left; margin-right: 1em; }
+
+#image-editor-window {
+  overflow: scroll;
+}
+
+#image-editor { 
+  float: left;
+  margin: 0 1em 0 0;
+}
