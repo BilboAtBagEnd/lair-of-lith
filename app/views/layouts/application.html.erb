@@ -1,16 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lair of Lith</title>
+  <title>Lair of Lith <%= if @title then "| #{@title}" else '' end %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <script>
+$(function() {
+  $(".flash").delay(2500).fadeOut();
+});
+  </script>
 </head>
 <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <h1 id="site-title"><%= link_to 'Lair of Lith', root_path %></h1>
+  <h2 id="site-description">Character Card Generator</h2>
 
-<%= yield %>
+  <div id="sign-in">
+    <% if user_signed_in? %>
+      <span class="greeting">Hello, <%= current_user.name || current_user.email %>!</span>
+      |
+      <span class="edit"><%= link_to 'Edit profile', edit_user_registration_path %></span>
+      |
+      <span class="logout"><%= link_to 'Logout', destroy_user_session_path, :method => 'delete' %></span>
+    <% else %>
+      <span class="login"><%= link_to 'Login', new_user_session_path %></span>
+      |
+      <span class="signup"><%= link_to 'Sign up', new_user_registration_path %></span>
+    <% end %>
+  </div>
 
+  <div id="site-wrapper">
+    <div class="topnav">
+      <ul class="topnav">
+        <li><a href="#">Cards</a></li>
+      </ul>
+    </div> <!-- #topnav -->
+
+    <div id="site-content">
+      <% flash.each do |name, msg| %>
+        <% if msg.is_a?(String) %>
+          <%= content_tag :div, msg, :class => "flash flash_#{name}" %>
+        <% end %>
+      <% end %>
+
+      <%= yield %>
+
+    </div> <!-- #site-content -->
+
+    <div id="sidebar">
+      Sidebar
+    </div> <!-- #sidebar -->
+
+  </div> <!-- #site-wrapper -->
 </body>
 </html>
