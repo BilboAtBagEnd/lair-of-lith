@@ -1,0 +1,1190 @@
+<script>
+var CHARACTER = function() { 
+    var character = new DOA2.Character();
+    character.name = "A Very, Very, Very Long Name Indeed",
+    character.title = "The Example",
+    character.age = "Ancient", 
+    character.setting = "Faer",
+    character.circle = "Lord",
+    character.nature = "Woman",
+    character.speed = 7;
+    character.health = 4;
+    character.wits = 6; 
+    character.melee = 6;
+    character.power = 2;
+    character.damage = 2;
+    character.aim = 5;
+    character.point = 3;
+    character['throw'] = 7;
+    character.react = 8;
+    character.stealth = 8;
+    character.armor = 2;
+    character.strength = 5;
+    character.intellect = 3;
+    character.honor = 5;
+    character.respect = 6;
+    character.rangedWeapon.power = 3;
+    character.rangedWeapon.damage = 1;
+    character.rangedWeapon.opfire = 2;
+    character.rangedWeapon.rangeMax = 5;
+    character.rangedWeapon.area = 'single';
+    character.bonuses.ranged.push('Auto Pistol', 'Auto Rifle');
+    character.bonuses.melee.push('Blade', 'Brawler');
+    character.bonuses.other.push('Bot', 'Gadget', 'Mount');
+    character.bonuses.stealth = 1;
+    character.bonuses.medical = 1;
+    character.bonuses.armor = 1;
+    character.cards.noGive = true;
+    character.cards.noTrade = true;
+    character.cards.noLimit = true;
+    character.cards.henchmen = 1;
+    character.cards.elite = 2;
+    character.cards.secret = 3;
+    character.cards.common = 4;
+    character.specials.push(
+        { description: "Move cost 1 in Swamp.", value: { survival: 10, melee: 0, ranged: 0, adventure: 0 } },
+        { description: "This character leaps over other character whenever damage is dealt using its natural melee attack. Just like how the quick red fox jumped over the lazy brown dogs.", value: { survival: 10, melee: 10, ranged: 0, adventure: 0 }}
+    );    
+    return character;
+}();
+var CHARACTER_UNDO_STACK = [];
+var CHARACTER_REDO_STACK = [];
+var PORTRAIT_IMAGE = null;
+var PORTRAIT_IMAGE_TRAITS = {
+    x: 0,
+    y: 0,
+    width: 740,
+    height: 1204,
+};
+
+function fillInAgeSelector() {
+    var options = "";
+    for (var i = 0; i < DOA2.AGES.length; i++) {
+        options += "<option>" + DOA2.AGES[i] + "</option>";
+    }
+    $("#age").html(options);
+}
+
+function fillInSettingSelector() {
+    var options = "";
+    var age = $("#age :selected").text();
+    if (age) {
+        for (var i = 0; i < DOA2.SETTINGS[age].length; i++) {
+            options += "<option>" + DOA2.SETTINGS[age][i] + "</option>";
+        }
+    }
+    $("#setting").html(options);
+}
+
+function setUpAbilityFields() {
+    for (var i = 1; i <= 9; i++) {
+        var html = '<tr><td><textarea id="special-' + i + '-desc"></textarea></td><td><table>';
+        html += '<tr><td>Survival:</td><td><input class="number" id="special-' + i + '-survival" /></td></tr>';
+        html += '<tr><td>Melee:</td><td><input class="number" id="special-' + i + '-melee" /></td></tr>';
+        html += '<tr><td>Ranged:</td><td><input class="number" id="special-' + i + '-ranged" /></td></tr>';
+        html += '<tr><td>Adventure:</td><td><input class="number" id="special-' + i + '-adventure" /></td></tr>';
+        html += '</table></td></tr>';
+        $("#ability-table").append(html);
+    }
+}
+
+function setFieldsFromCharacter() { 
+try {
+    $("#name").val(CHARACTER.name);
+    $("#title").val(CHARACTER.title);
+    $("#age").val(CHARACTER.age);
+    fillInSettingSelector();
+    $("#setting").val(CHARACTER.setting);
+    $("#circle").val(CHARACTER.circle);
+    $("#nature").val(CHARACTER.nature);
+
+    for (var i = 0; i < DOA2.STATS.length; i++) {
+        var stat = DOA2.STATS[i];
+        $("#" + stat).val(CHARACTER[stat]);
+    }
+    
+    $("#ranged-power").val(CHARACTER.rangedWeapon.power);
+    $("#ranged-damage").val(CHARACTER.rangedWeapon.damage);
+    $("#ranged-opfire").val(CHARACTER.rangedWeapon.opfire);
+    $("#ranged-range-max").val(CHARACTER.rangedWeapon.rangeMax);
+    $("#ranged-range-min").val(CHARACTER.rangedWeapon.rangeMin);
+    $("#ranged-area").val(CHARACTER.rangedWeapon.area);
+
+    for (i = 0; i < DOA2.CARD_TYPES.length; i++) {
+        var cardType = DOA2.CARD_TYPES[i];
+        $("#" + cardType + "-cards").val(CHARACTER.cards[cardType]);
+    }
+    $("#no-give-cards").prop('checked', CHARACTER.cards.noGive);
+    $("#no-trade-cards").prop('checked', CHARACTER.cards.noTrade);
+    $("#no-card-limit").prop('checked', CHARACTER.cards.noLimit);
+
+    $("#ranged-bonuses").val(CHARACTER.bonuses.ranged.join(", "));
+    $("#melee-bonuses").val(CHARACTER.bonuses.melee.join(", "));
+    $("#other-bonuses").val(CHARACTER.bonuses.other.join(", "));
+
+    $("#medical-bonus").prop('checked', CHARACTER.bonuses.medical == 1);
+    $("#stealth-bonus").prop('checked', CHARACTER.bonuses.stealth == 1);
+    $("#armor-bonus").prop('checked', CHARACTER.bonuses.armor == 1);
+    
+    for (i = 0; i < 9; i++) {
+        $("#special-" + (i+1) + "-desc").val("");
+        $("#special-" + (i+1) + "-survival").val(0);
+        $("#special-" + (i+1) + "-melee").val(0);
+        $("#special-" + (i+1) + "-ranged").val(0);
+        $("#special-" + (i+1) + "-adventure").val(0);
+    }
+
+    for (i = 0; i < CHARACTER.specials.length; i++) {
+        var special = CHARACTER.specials[i];
+        $("#special-" + (i+1) + "-desc").val(special.description);
+        $("#special-" + (i+1) + "-survival").val(special.value.survival);
+        $("#special-" + (i+1) + "-melee").val(special.value.melee);
+        $("#special-" + (i+1) + "-ranged").val(special.value.ranged);
+        $("#special-" + (i+1) + "-adventure").val(special.value.adventure);
+    }
+} catch (error) { console.log(error); }
+}
+
+function setCharacterFromFields() {
+    CHARACTER_UNDO_STACK.push(CHARACTER);
+    CHARACTER = $.extend(true, {}, CHARACTER); // clone
+    CHARACTER_REDO_STACK = [];
+    
+    CHARACTER.name = $("#name").val();
+    CHARACTER.title = $("#title").val();
+    CHARACTER.age = $("#age").val();
+    CHARACTER.setting = $("#setting").val();
+    CHARACTER.circle = $("#circle").val();
+    CHARACTER.nature = $("#nature").val();
+
+    for (var i = 0; i < DOA2.STATS.length; i++) {
+        var stat = DOA2.STATS[i];
+        CHARACTER[stat] = parseInt($("#" + stat).val());
+    }
+    
+    CHARACTER.rangedWeapon.power = parseInt($("#ranged-power").val());
+    CHARACTER.rangedWeapon.damage = parseInt($("#ranged-damage").val());
+    CHARACTER.rangedWeapon.opfire = parseInt($("#ranged-opfire").val());
+    CHARACTER.rangedWeapon.rangeMax = parseInt($("#ranged-range-max").val());
+    CHARACTER.rangedWeapon.rangeMin = parseInt($("#ranged-range-min").val());
+    CHARACTER.rangedWeapon.area = $("#ranged-area").val();
+
+    for (i = 0; i < DOA2.CARD_TYPES.length; i++) {
+        var cardType = DOA2.CARD_TYPES[i];
+        CHARACTER.cards[cardType] = parseInt($("#" + cardType + "-cards").val());
+    }
+    CHARACTER.cards.noGive = $("#no-give-cards").is(":checked");
+    CHARACTER.cards.noTrade = $("#no-trade-cards").is(":checked");
+    CHARACTER.cards.noLimit = $("#no-card-limit").is(":checked");
+
+    CHARACTER.bonuses.ranged = splitOnCommas($("#ranged-bonuses").val());
+    CHARACTER.bonuses.melee = splitOnCommas($("#melee-bonuses").val());
+    CHARACTER.bonuses.other = splitOnCommas($("#other-bonuses").val());
+
+    CHARACTER.bonuses.medical = $("#medical-bonus").is(':checked') ? 1 : 0;
+    CHARACTER.bonuses.stealth = $("#stealth-bonus").is(':checked') ? 1 : 0;
+    CHARACTER.bonuses.armor = $("#armor-bonus").is(':checked') ? 1 : 0;
+
+    var specials = [];
+    for (i = 1; i <= 9; i++) {
+        if ($("#special-" + i + "-desc").val() != "") {
+            specials[i-1] = { 
+                description: $("#special-" + i + "-desc").val(), 
+                value: { 
+                    survival: parseInt($("#special-" + i + "-survival").val() || 0), 
+                    melee: parseInt($("#special-" + i + "-melee").val() || 0), 
+                    ranged: parseInt($("#special-" + i + "-ranged").val() || 0), 
+                    adventure: parseInt($("#special-" + i + "-adventure").val() || 0), 
+                }
+            }
+        }
+    }
+    CHARACTER.specials = specials;
+}
+
+function updateCharacterValue() {
+    var breakdown = DOA2.calculateCharacterValue(CHARACTER);
+    $("#survival-value").html(breakdown.survival);
+    $("#melee-value").html(breakdown.melee);
+    $("#ranged-value").html(breakdown.ranged);
+    $("#adventure-value").html(breakdown.adventure);
+    $("#total-value").html(breakdown.total);
+}
+
+function outputBGGCharacterCode() {
+    var code = "";
+    
+    code += "[b]" + CHARACTER.name + "[/b]\n";
+    if (CHARACTER.title) {
+        code += "[i]" + CHARACTER.title + "[/i]\n";
+    }
+    code += CHARACTER.age + " / " + CHARACTER.setting + " / " + CHARACTER.circle + " / " + CHARACTER.nature + "\n\n";
+
+    for(var i = 0; i < DOA2.STATS.length; i++) { 
+        var stat = DOA2.STATS[i]
+        code += CHARACTER[stat] + " " + capitalizeFirstLetter(stat) + "\n";
+    }
+    code += "\n";
+    
+    if (CHARACTER.rangedWeapon.area != DOA2.RANGED_AREA.NONE) {
+        code += "[b]Ranged Attack[/b]\n";
+        code += CHARACTER.rangedWeapon.power + " Power\n";
+        code += CHARACTER.rangedWeapon.damage + " Damage\n";
+        code += CHARACTER.rangedWeapon.rangeMax + " RangeMax\n";
+        code += CHARACTER.rangedWeapon.rangeMin + " RangeMin\n";
+        code += CHARACTER.rangedWeapon.area + "\n\n";
+    }
+    
+    if (CHARACTER.cards.common) { 
+        code += CHARACTER.cards.common + " common cards\n";
+    }
+    if (CHARACTER.cards.secret) {
+        code += CHARACTER.cards.secret + " secret cards\n";
+    }
+    if (CHARACTER.cards.elite) {
+        code += CHARACTER.cards.elite + " elite cards\n";
+    }
+    if (CHARACTER.cards.henchmen) {
+        code += CHARACTER.cards.henchmen + " henchmen\n";
+    }
+    
+    if (CHARACTER.bonuses.ranged.length) {
+        code += "[b]Ranged bonuses:[/b] " + CHARACTER.bonuses.ranged.join(', ') + "\n";
+    }
+    if (CHARACTER.bonuses.melee.length) {
+        code += "[b]Melee bonuses:[/b] " + CHARACTER.bonuses.melee.join(', ') + "\n";
+    }
+    if (CHARACTER.bonuses.medical) {
+        code += "Medical\n";
+    }
+    if (CHARACTER.bonuses.stealth) {
+        code += "Stealth\n";
+    }
+    if (CHARACTER.bonuses.armor) {
+        code += "Armor\n";
+    }
+    if (CHARACTER.bonuses.other.length) {
+        code += "[b]Other bonuses:[/b] " + CHARACTER.bonuses.other.join(', ') + "\n";
+    }
+    
+    code += "\n";
+    
+    for(i = 0; i < CHARACTER.specials.length; i++) {
+        var special = CHARACTER.specials[i];
+        var values = [];
+
+        if (special.value.survival) { 
+            values.push("survival: " + special.value.survival);
+        }
+        if (special.value.melee) { 
+            values.push("melee: " + special.value.melee);
+        }
+        if (special.value.ranged) { 
+            values.push("ranged: " + special.value.ranged);
+        }
+        if (special.value.adventure) { 
+            values.push("adventure: " + special.value.adventure);
+        }
+
+        code += special.description + " (" + values.join(", ") + ")\n\n";
+    }
+
+    var value = DOA2.calculateCharacterValue(CHARACTER);
+    code += "[b]Value Breakdown[/b]\n";
+    code += "Survival: " + value.survival + "\n";
+    code += "Melee: " + value.melee + "\n";
+    code += "Ranged: " + value.ranged + "\n";
+    code += "Adventure: " + value.adventure + "\n";
+    code += "Total: " + value.total + "\n\n";
+   
+    $("#text-output").val(code);
+}
+
+function outputCSV() {
+    var header = [];
+    var row = [];
+    
+    header.push('Version'); row.push("v4");
+    
+    header.push('Name'); row.push(CHARACTER.name);
+    header.push('Title'); row.push(CHARACTER.title);
+    header.push('Age'); row.push(CHARACTER.age);
+    header.push('Setting'); row.push(CHARACTER.setting);
+    header.push('Circle'); row.push(CHARACTER.circle);
+    header.push('Nature'); row.push(CHARACTER.nature);
+
+    for(var i = 0; i < DOA2.STATS.length; i++) { 
+        var stat = DOA2.STATS[i]
+        header.push(capitalizeFirstLetter(stat));
+        row.push(CHARACTER[stat]);
+    }
+    
+    header.push('RangedWeaponPower'); row.push(CHARACTER.rangedWeapon.power);
+    header.push('RangedWeaponDamage'); row.push(CHARACTER.rangedWeapon.damage);
+    header.push('RangedWeaponOpFire'); row.push(CHARACTER.rangedWeapon.opfire);
+    header.push('RangedWeaponRangeMax'); row.push(CHARACTER.rangedWeapon.rangeMax);
+    header.push('RangedWeaponRangeMin'); row.push(CHARACTER.rangedWeapon.rangeMin);
+    header.push('RangedWeaponArea'); row.push(CHARACTER.rangedWeapon.area);
+    
+    header.push('CardsCommon'); row.push(CHARACTER.cards.common);
+    header.push('CardsSecret'); row.push(CHARACTER.cards.secret);
+    header.push('CardsElite'); row.push(CHARACTER.cards.elite);
+    header.push('Henchmen'); row.push(CHARACTER.cards.henchmen);
+
+    header.push('BonusRanged'); row.push(CHARACTER.bonuses.ranged.join(','));
+    header.push('BonusMelee'); row.push(CHARACTER.bonuses.melee.join(','));
+    header.push('BonusMedical'); row.push(CHARACTER.bonuses.medical);
+    header.push('BonusStealth'); row.push(CHARACTER.bonuses.stealth);
+    header.push('BonusArmor'); row.push(CHARACTER.bonuses.armor);
+    header.push('BonusOther'); row.push(CHARACTER.bonuses.other.join(','));
+
+    header.push('NoGive'); row.push(CHARACTER.cards.noGive ? 1 : 0);
+    header.push('NoTrade'); row.push(CHARACTER.cards.noTrade ? 1 : 0);
+    header.push('NoLimit'); row.push(CHARACTER.cards.noLimit ? 1 : 0);
+    
+    for(i = 0; i < CHARACTER.specials.length; i++) {
+        var special = CHARACTER.specials[i];
+        var num = i+1;
+
+        header.push('Special' + num); row.push(special.description); 
+        header.push('Special' + num + 'Survival'); row.push(special.value.survival);
+        header.push('Special' + num + 'Melee'); row.push(special.value.melee);
+        header.push('Special' + num + 'Ranged'); row.push(special.value.ranged);
+        header.push('Special' + num + 'Adventure'); row.push(special.value.adventure);
+    }
+    
+    var text = '';
+    
+    // Too noisy to output the header each time. 
+    //text += header.join('|') + "\n";
+    text += row.join('|') + "\n";
+
+    $("#text-output").val(text);
+}
+
+function loadCSV() {
+    var csv = $("#text-input").val();    
+    var lines = csv.split("\n");
+    if (lines.length < 1 || lines[0] == "") {
+        // nop
+        return;
+    }
+    
+    if (lines[0].match(/^Name\|/)) {
+        lines.shift();
+    }
+    
+    var values = lines[0].split('|');    
+    var j = 0;
+    
+    var version = 3; 
+    if (values[j].match(/^v[0-9]+/)) { 
+        version = parseInt(values[j++].split('v')[1]);
+    }
+    
+    CHARACTER = new DOA2.Character();
+    
+    CHARACTER.name = values[j++];
+    CHARACTER.title = values[j++];
+    CHARACTER.age = values[j++];
+    CHARACTER.setting = values[j++];
+    CHARACTER.circle = values[j++];
+    CHARACTER.nature = values[j++];
+
+    for(var i = 0; i < DOA2.STATS.length; i++) { 
+        var stat = DOA2.STATS[i]
+        CHARACTER[stat] = parseInt(values[j++]);
+    }
+    
+    CHARACTER.rangedWeapon.power = parseInt(values[j++]);
+    CHARACTER.rangedWeapon.damage = parseInt(values[j++]);
+    if (version > 3) { 
+        // bug
+        CHARACTER.rangedWeapon.opfire = parseInt(values[j++]);
+    }
+    CHARACTER.rangedWeapon.rangeMax = parseInt(values[j++]);
+    CHARACTER.rangedWeapon.rangeMin = parseInt(values[j++]);
+    CHARACTER.rangedWeapon.area = values[j++];
+    
+    CHARACTER.cards.common = parseInt(values[j++]);
+    CHARACTER.cards.secret = parseInt(values[j++]);
+    CHARACTER.cards.elite = parseInt(values[j++]);
+    CHARACTER.cards.henchmen = parseInt(values[j++]);
+    
+    CHARACTER.bonuses.ranged = splitOnCommas(values[j++]);
+    CHARACTER.bonuses.melee = splitOnCommas(values[j++]);
+    CHARACTER.bonuses.medical = parseInt(values[j++]);
+    CHARACTER.bonuses.stealth = parseInt(values[j++]);
+    CHARACTER.bonuses.armor = parseInt(values[j++]);
+    CHARACTER.bonuses.other = splitOnCommas(values[j++]);
+
+    if (version > 3) {
+        // New feature
+        CHARACTER.cards.noGive = parseInt(values[j++]) == 1;
+        CHARACTER.cards.noTrade = parseInt(values[j++]) == 1;
+        CHARACTER.cards.noLimit = parseInt(values[j++]) == 1;
+    }
+    
+    var specials = [];
+    for(i = j; i < values.length; i += 5) {
+        specials.push({
+            description: values[i],
+            value: {
+              survival: parseInt(values[i+1]),
+              melee: parseInt(values[i+2]),
+              ranged: parseInt(values[i+3]),
+              adventure: parseInt(values[i+4])
+            }
+        });
+    }
+    CHARACTER.specials = specials;
+}
+
+function generateCard() {
+    var imagePrefix = "/images/DoAIIBYOCImages/DOAIIBYOC ";
+    var canvas = document.getElementById("card-canvas");
+    var context = canvas.getContext('2d');
+    
+    var cardImage = document.getElementById("card-image");
+    var cardLink = document.getElementById("card-image-link");
+    
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    cardImage.src = "/images/loading.gif";
+    cardLink.href = "";
+    
+    var hasRangedWeapon = (
+        CHARACTER.rangedWeapon.area == "area" 
+        || CHARACTER.rangedWeapon.area == "single");
+    
+    function srcForString(imageType, string) {
+        return imagePrefix + imageType + " " + capitalizeFirstLetter(sanify(string)) + ".png";
+    }
+    function srcForNumber(imageType, number) {
+        return imagePrefix + imageType + " " + parseInt(number) + ".png";
+    }
+    
+    var imageElements = [
+        { src: srcForString("Setting", CHARACTER.setting), x: 550, y: 65 },
+        { src: srcForString("Circle", CHARACTER.circle), x: 670, y: 65 },
+        { src: srcForString("Nature", CHARACTER.nature), x: 800, y: 65 },
+
+        { src: srcForNumber("Rating Speed", CHARACTER.speed), x: 798, y: 180 },
+        { src: srcForNumber("Rating Health", CHARACTER.health), x: 798, y: 270 },
+        { src: srcForNumber("Rating Wits", CHARACTER.wits), x: 788, y: 390 },
+        { src: srcForNumber("Rating Melee", CHARACTER.melee), x: 788, y: 450 },
+        { src: srcForNumber("Rating Power", CHARACTER.power), x: 788, y: 510 },
+        { src: srcForNumber("Rating Damage", CHARACTER.damage), x: 788, y: 570 },
+        { src: srcForNumber("Rating Aim", CHARACTER.aim), x: 788, y: 672 },
+        { src: srcForNumber("Rating Point", CHARACTER.point), x: 788, y: 732 },
+        { src: srcForNumber("Rating Throw", CHARACTER['throw']), x: 788, y: 792 },
+        { src: srcForNumber("Rating React", CHARACTER.react), x: 788, y: 894 },
+        { src: srcForNumber("Rating Stealth", CHARACTER.stealth), x: 788, y: 954 },
+        { src: srcForNumber("Rating Armor", CHARACTER.armor), x: 788, y: 1014 },
+        { src: srcForNumber("Rating Strength", CHARACTER.strength), x: 788, y: 1116 },
+        { src: srcForNumber("Rating Intellect", CHARACTER.intellect), x: 788, y: 1176 },
+        { src: srcForNumber("Rating Honor", CHARACTER.honor), x: 788, y: 1236 },
+        { src: srcForNumber("Rating Respect", CHARACTER.respect), x: 788, y: 1296 },
+    ];
+
+    var specialImageWidths = { 
+        // Bonuses
+        Armor: 71,
+        "Auto Pistol": 98, 
+        "Auto Rifle": 136, 
+        Blade: 137,
+        Bot: 116,
+        Bow: 71,
+        Brawler: 136,
+        Crossbow: 88,
+        "Energy Pistol": 99, 
+        "Energy Rifle": 137,
+        Gadget: 71,
+        Grenade: 70,
+        Heavy: 123, 
+        "Long Pistol": 133, 
+        "Long Rifle": 163,
+        Medical: 71,
+        Mount: 84,
+        Pet: 86,
+        "Powder Pistol": 121, 
+        "Powder Rifle": 163,
+        Revolver: 99,
+        Stealth: 78,
+        Swing: 137,
+        Thrown: 76,
+        Thrust: 136,
+        Vehicle: 87,
+        
+        // Cards
+        "Cannot Give Away": 163,
+        "No Carry Limit": 163, 
+        "No Trade": 163,
+    };
+
+    var specialX = 777;
+    var specialY = 1306;
+    var specialImages = false;
+    function addSpecialImageElement(imageType, name, number, width) {
+        specialImages = true;
+        var canonicalName = capitalizeWords(name);
+        if (canonicalName == "Gadgets" || canonicalName == "Bots" || canonicalName == "Pets") {
+            canonicalName = canonicalName.substring(0, canonicalName.length - 1);
+        }
+        
+        if (!specialImageWidths[canonicalName] && !number) {
+            return; // unknown bonus
+        }
+        
+        var widthToSubtract = 0; 
+        if (width) { 
+            widthToSubtract = width;
+        }
+        else {
+            widthToSubtract = specialImageWidths[canonicalName];
+        }
+        
+        specialX -= widthToSubtract;
+        if (specialX < 50) { 
+            specialX = 777 - widthToSubtract;
+            specialY = specialY - 71; 
+        }
+        
+        var imageSrc; 
+        if (width && number) { 
+            imageSrc = srcForNumber(imageType + " " + canonicalName, number);
+        }
+        else {
+            imageSrc = srcForString(imageType, canonicalName);
+        }
+        imageElements.push( {src: imageSrc, x: specialX, y: specialY} );
+    }
+    
+    if (CHARACTER.cards.noGive) {
+        addSpecialImageElement("Card Spec", "Cannot Give Away"); 
+    }
+    if (CHARACTER.cards.noTrade) { 
+        addSpecialImageElement("Card Spec", "No Trade");
+    }
+    if (CHARACTER.cards.noLimit) {
+        addSpecialImageElement("Card Spec", "No Carry Limit");
+    }
+    for (var i = 0; i < CHARACTER.bonuses.ranged.length; i++) {
+        var bonus = CHARACTER.bonuses.ranged[i];
+        addSpecialImageElement("Bonus", bonus);
+    }
+    for (i = 0; i < CHARACTER.bonuses.melee.length; i++) {
+        var bonus = CHARACTER.bonuses.melee[i];
+        addSpecialImageElement("Bonus", bonus);
+    }
+    for (i = 0; i < CHARACTER.bonuses.other.length; i++) {
+        var bonus = CHARACTER.bonuses.other[i];
+        addSpecialImageElement("Bonus", bonus);
+    }
+    if (CHARACTER.bonuses.armor) {
+        addSpecialImageElement("Bonus", "Armor");
+    }
+    if (CHARACTER.bonuses.medical) { 
+        addSpecialImageElement("Bonus", "Medical");
+    }
+    if (CHARACTER.bonuses.stealth) {
+        addSpecialImageElement("Bonus", "Stealth");
+    }
+    if (CHARACTER.cards.henchmen) {
+        addSpecialImageElement("Cards", "Henchmen", CHARACTER.cards.henchmen, 49);
+    }
+    if (CHARACTER.cards.elite) {
+        addSpecialImageElement("Cards", "Elite", CHARACTER.cards.elite, 49);
+    }
+    if (CHARACTER.cards.secret) { 
+        addSpecialImageElement("Cards", "Secret", CHARACTER.cards.secret, 49);
+    }
+    if (CHARACTER.cards.common) {
+        addSpecialImageElement("Cards", "Common", CHARACTER.cards.common, 49);
+    }
+    
+    var images = [];
+    
+    function scaleFactor(maxWidth, maxSize, fontFamily, string) {
+        var size = maxSize;
+        var maxLoops = 36;
+        var font = "";
+        for (var loop = 0; loop < maxLoops; loop++) {
+            font = size + 'px "' + fontFamily + '"';
+            context.font = font;
+            var metrics = context.measureText(string);
+            if (metrics.width <= maxWidth) { 
+                break; 
+            }
+            size -= 2;
+        }
+        
+        return size/maxSize;
+    }
+    
+    var titleScaleFactor = scaleFactor(500, 50, "Eras Bold", CHARACTER.name);
+    
+    var textElements = [
+        { fill: "#ffffff", font: (50 * titleScaleFactor) + 'px "Eras Demi"', text: CHARACTER.name, x: 40, y: 110 },
+        { fill: "#ffffff", font: (35 * titleScaleFactor) + 'px "Eras Demi"', text: CHARACTER.title, x: 60, y: 150 }
+    ];
+    
+    var specialTextFontSize = 32;
+    
+    if (!specialImages) {
+        specialY += 71 + specialTextFontSize - 5; // move back to the bottom
+    }
+    else {
+        specialY += specialTextFontSize - 5;
+    }
+    
+    var pastSpecialImages = !specialImages;
+    function wrapText(string, fontSize, fontFamily, maxWidth) {
+        var words = string.split(" ");
+        var fontSpec = fontSize + 'px "' + fontFamily + '"';
+        context.font = fontSpec;
+
+        var lines = [];
+        var line = "";
+        for(var i = 0; i < words.length; i++) {
+            var tempLine = line + words[i];
+            var metrics = context.measureText(tempLine);
+            if (metrics.width > maxWidth) {
+                lines.push(line); 
+                line = words[i] + " ";
+            }
+            else {
+                line = tempLine + " ";
+            }
+            
+            if (i == (words.length - 1)) {
+                // last loop
+                lines.push(line);
+            }
+        }
+        
+        for(i = lines.length - 1; i >= 0; i--) {
+            if (!pastSpecialImages) {
+                metrics = context.measureText(lines[i]);
+                if (metrics.width + 50 < specialX) {
+                    specialY += fontSize * 1.25;
+                }
+                pastSpecialImages = true;
+            }
+            specialY -= fontSize + 5; // line spacing
+            textElements.push( { fill: "#000000", font: fontSpec, text: lines[i], x: 50, y: specialY } );
+        }
+    }
+    
+    for(var i = CHARACTER.specials.length - 1; i >= 0; i--) {
+       wrapText(CHARACTER.specials[i].description, specialTextFontSize, "Eras Bold", 700);
+       specialY -= 10; // paragraph spacing
+    }
+    
+    // Add the bar
+    specialY -= specialTextFontSize + 20; // below bar spacing
+    imageElements.push(
+        { src: srcForString("Altered Bar", CHARACTER.age), x: 36, y: specialY });
+
+    var specialBoxY = specialY + 17;
+
+    if (hasRangedWeapon) {
+        specialY -= 69; // get up past the bar
+        imageElements.push({ src: srcForString("Rating Target", CHARACTER.rangedWeapon.area), x: 655, y: specialY });
+        specialY -= 60;
+        imageElements.push({ src: srcForNumber("Rating Range", CHARACTER.rangedWeapon.rangeMax), x: 655, y: specialY });
+        specialY -= 60;
+        imageElements.push({ src: srcForNumber("Rating OpFire", CHARACTER.rangedWeapon.opfire), x: 655, y: specialY });
+        specialY -= 60;
+        imageElements.push({ src: srcForNumber("Rating Damage", CHARACTER.rangedWeapon.damage), x: 655, y: specialY });
+        specialY -= 60;
+        imageElements.push({ src: srcForNumber("Rating Power", CHARACTER.rangedWeapon.power), x: 655, y: specialY });
+
+        specialY -= 2;
+        textElements.push({ fill: "#dddd00", font: '28px "Eras Bold"', text: "R", x: 660, y: specialY });
+        textElements.push({ fill: "#dddd00", font: '22px "Eras Bold"', text: "ANGED", x: 678, y: specialY }); 
+        
+        specialY -= 28; // in case anything needs to go above this   
+    }
+    
+    function drawText(textElements) {
+        context.textAlign = "left";
+        context.textBaseline = "bottom";
+        
+        for(var i = 0; i < textElements.length; i++) {
+            var element = textElements[i];
+            
+            context.font = element.font;
+            context.fillStyle = element.fill;
+            context.fillText(element.text, element.x, element.y);
+        }
+    }
+
+    function loadImages(elements) {
+        if (elements.length == 0) {
+            // NOW do text. 
+            drawText(textElements);
+            
+            // Finish everything off.
+            var dataURL = canvas.toDataURL();
+            cardImage.src = dataURL;
+            cardLink.href = dataURL;
+        }
+        else {
+            var element = elements.shift();
+            var image = new Image();
+            image.onload = function() {
+                context.drawImage(image, element.x, element.y); 
+                loadImages(elements);
+            }
+            image.onerror = function () { 
+                // Keep going
+                console.log("Image not found: " + image.src);
+                loadImages(elements)
+            };
+            images.push(image);
+            image.src = element.src;
+        }
+    }
+    
+    function loadBaseImages() { 
+    
+        function continueWithImage() {
+            cardImage.src = canvas.toDataURL();
+            loadImages(imageElements);
+        }
+        
+        function renderRest() {
+            if ($("#parchment").is(":checked")) {
+                // Use parchment background for special abilit box
+                var parchmentImage = new Image();
+                parchmentImage.onload = function() { 
+                    var sourceX = 0; 
+                    var sourceY = 0;
+                    var sourceWidth = 740;
+                    var sourceHeight = 1204 - specialBoxY + 173;
+                    var destX = 36;
+                    var destY = specialBoxY;
+                    var destWidth = sourceWidth;
+                    var destHeight = sourceHeight;
+                    context.drawImage(parchmentImage, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+                    continueWithImage();
+                }
+                parchmentImage.onerror = function() {
+                    console.log("error loading");
+                    continueWithImage();
+                }
+                parchmentImage.src = srcForString("Background", "Parchment");
+            } else {
+                // draw a translucent rectangle over special ability box
+                context.fillStyle = "rgba(255, 255, 255, 0.80)";
+                context.fillRect(36, specialBoxY, 740,  1204 - specialBoxY + 173); 
+                continueWithImage();
+            }
+        }
+    
+        var backImage = new Image();
+        backImage.onload = function() { 
+            context.drawImage(backImage, 0, 0);
+
+            if (PORTRAIT_IMAGE) {
+                switch($('#image-window input[name="portrait-fit"]:checked').val()) {
+                case "Fit":
+                    var aspectRatioX = 740 / PORTRAIT_IMAGE.width;
+                    var aspectRatioY = 1204 / PORTRAIT_IMAGE.height;
+                    var aspectRatio = 1.0;
+                    if ((aspectRatioY * PORTRAIT_IMAGE.width) > 740) {
+                        aspectRatio = aspectRatioX;
+                    }
+                    else {
+                        aspectRatio = aspectRatioY;
+                    }
+                    context.drawImage(PORTRAIT_IMAGE, 36, 173, Math.min(740, PORTRAIT_IMAGE.width * aspectRatio), Math.min(1204, PORTRAIT_IMAGE.height * aspectRatio));
+                    break;
+                    
+                case "Original":
+                    var sourceX = 0; 
+                    var sourceY = 0;
+                    var sourceWidth = Math.min(740, PORTRAIT_IMAGE.width);
+                    var sourceHeight = Math.min(1204, PORTRAIT_IMAGE.height);
+                    var destX = 36;
+                    var destY = 173;
+                    var destWidth = sourceWidth;
+                    var destHeight = sourceHeight;
+                    context.drawImage(PORTRAIT_IMAGE, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+                    break;
+                    
+                case "Cropped":
+                    var sourceX = PORTRAIT_IMAGE_TRAITS.x;
+                    var sourceY = PORTRAIT_IMAGE_TRAITS.y;
+                    var sourceWidth = PORTRAIT_IMAGE_TRAITS.width;
+                    var sourceHeight = PORTRAIT_IMAGE_TRAITS.height;
+                    var destX = 36;
+                    var destY = 173;
+                    var destWidth = 740;
+                    var destHeight = 1204;
+
+                    context.drawImage(PORTRAIT_IMAGE, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+                    break;
+                    
+                case "Fill":
+                    context.drawImage(PORTRAIT_IMAGE, 36, 173, 740, 1204);
+                    break;
+                }
+            }
+            
+            renderRest();
+        }
+        backImage.onerror = function() {
+            // Keep going
+            console.log("Could not find image for background");
+            loadImages(imageElements);
+        }
+        backImage.src = srcForString("Altered Character Card", CHARACTER.age);
+    }
+
+    loadBaseImages();
+}
+
+$(document).ready(function() {    
+    fillInAgeSelector();
+    fillInSettingSelector();
+    setUpAbilityFields();
+
+    setFieldsFromCharacter();
+    updateCharacterValue();
+    
+    $("#open-bgg-window").click(function(e) {
+        e.preventDefault();
+        outputBGGCharacterCode();
+        $("#output-window").toggle(true);
+    });
+    
+    $("#open-csv-window").click(function(e) {
+        e.preventDefault();
+        outputCSV();
+        $("#output-window").toggle(true);
+    });
+
+    $("#close-output-window").click(function(e) {
+        e.preventDefault();
+        $("#output-window").toggle(false);
+    });
+
+    $("#age").change(function() { 
+        fillInSettingSelector(); 
+        setCharacterFromFields();
+    });
+
+    $("#calculator select, #calculator textarea, #calculator input").change(function() { 
+        setCharacterFromFields();
+        updateCharacterValue(); 
+    });
+    
+    $("#reset").click(function() {
+        CHARACTER_UNDO_STACK.push(CHARACTER);
+        CHARACTER = new DOA2.Character();
+        setFieldsFromCharacter();
+        updateCharacterValue();
+    });
+
+    $("#undo").click(function() {
+        if (CHARACTER_UNDO_STACK.length > 0) {
+            CHARACTER_REDO_STACK.push(CHARACTER);
+            CHARACTER = CHARACTER_UNDO_STACK.pop();
+            setFieldsFromCharacter();
+            updateCharacterValue();
+        }
+    });
+    $("#redo").click(function() {
+        if (CHARACTER_REDO_STACK.length > 0) {
+            CHARACTER_UNDO_STACK.push(CHARACTER);
+            CHARACTER = CHARACTER_REDO_STACK.pop();
+            setFieldsFromCharacter();
+            updateCharacterValue();
+        }
+    });
+
+    $("#load").click(function(e) {
+        e.preventDefault();
+        $("#input-window").toggle(true);
+    });
+    $("#close-input-window").click(function(e) {
+        e.preventDefault();
+        $("#input-window").toggle(false);
+    });
+    $("#load-input").click(function(e) {
+        e.preventDefault();
+        $("#input-window").toggle(false);
+        CHARACTER_UNDO_STACK.push(CHARACTER);
+        loadCSV();
+        $("#text-input").val("");
+        setFieldsFromCharacter();
+        updateCharacterValue();
+    });
+    
+    $("#generate-image").click(function(e) {
+        e.preventDefault();
+        $("#image-window").toggle(true);
+        generateCard();
+    });
+    $("#close-image-window").click(function(e) {
+        e.preventDefault();
+        $("#image-window").toggle(false);
+    });
+    
+    $("#portrait-file").change(function() {
+        $('#image-window input[value="Fit"]').prop('checked', true);
+        var imageFile = this.files[0];
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            var content = event.target.result;
+            PORTRAIT_IMAGE = new Image();
+            PORTRAIT_IMAGE.src = content;
+            generateCard();
+            $('#image-window input[name="portrait-fit"]').prop("disabled", false);
+        };
+        reader.onerror = function() {
+            console.log("Could not read portrait file.");
+        };
+        reader.readAsDataURL(imageFile);
+    });
+    
+    $("#parchment").change(function() {
+        generateCard();
+    });
+    
+    $('#image-window input[name="portrait-fit"]').click(function() {
+        if (PORTRAIT_IMAGE) {
+           generateCard();
+        }
+    });
+    $('#image-window input[value="Cropped"]').unbind('change');
+    
+    var imageEditor = null;
+    var jcrop = null;
+    var imageEditorCount = 0;
+    
+    $('#image-window input[value="Cropped"]').click(function() {
+        function updatePortraitTraits(c) {
+            PORTRAIT_IMAGE_TRAITS.x = Math.round(c.x);
+            PORTRAIT_IMAGE_TRAITS.y = Math.round(c.y);
+            PORTRAIT_IMAGE_TRAITS.width = Math.round(c.w);
+            PORTRAIT_IMAGE_TRAITS.height = Math.round(c.h);
+        }
+        
+        if (PORTRAIT_IMAGE) {
+            $("#image-editor-window").toggle(true);
+
+            if (imageEditor) {
+                imageEditor.remove();
+                imageEditor = null;
+            }
+            if (jcrop) {
+                jcrop.destroy();
+                jcrop = null;
+            }
+            imageEditorCount++;
+            imageEditor = $('<img id="editor-' + imageEditorCount + '">');
+            imageEditor.attr("src", PORTRAIT_IMAGE.src);
+            $("#image-editor-window").append(imageEditor);
+            imageEditor.Jcrop({
+                onChange: updatePortraitTraits,
+                onSelect: updatePortraitTraits,
+                aspectRatio: 740 / 1204,
+                boxHeight: 400,
+                setSelect: [0, 0, 740, 1204],
+            }, function() { jcrop = this; });
+        }
+    });
+    
+    $("#image-crop-button").click(function() {
+        $("#image-editor-window").toggle(false);
+        generateCard();
+    });
+});
+</script>
+
+<noscript><p>You need Javascript enabled to use this tool.</p></noscript>
+
+<div id="breakdown-panel">
+  <p>
+    Survival: <span id="survival-value"></span><br />
+    Melee: <span id="melee-value"></span><br />
+    Ranged: <span id="ranged-value"></span><br />
+    Adventure: <span id="adventure-value"></span><br />
+    Total Value: <span id="total-value"></span>
+    <span class="note">(balanced = 500 ± 3)</span>
+  </p>
+  <p>
+    <button id="load">Load CSV</button>
+    <button id="undo">Undo</button>
+    <button id="redo">Redo</button>
+    <button id="reset">Clear</button>
+  </p>
+  <p>
+    <a href="#" id="open-bgg-window">Get BGG Code</a><br />
+    <a href="#" id="open-csv-window">Get CSV</a><br />
+    <a href="#" id="generate-image">Get Card</a>
+    <a href="http://boardgamegeek.com/thread/1010922/doa-ii-character-value-calculator-v0-5">Updates</a>
+  </p>
+  <p>
+    <a  href="https://docs.google.com/file/d/0By4uD_cay8nsUXd6VmpqenBEc2M/edit?usp=sharing">mltdwn's Corel card generator</a><br />
+    <a href="http://boardgamegeek.com/thread/1011889/final-fan-revised-character-templates-for-coreldr/page/1">Updates</a>
+  </p>
+</div>
+
+<div id="calculator">
+
+<div id="output-window">
+  <textarea id="text-output"></textarea>
+  <a href="#" id="close-output-window">Close</a>
+</div>
+<div id="input-window">
+  <textarea id="text-input"></textarea>
+  <a href="#" id="load-input">Load</a>
+  <a href="#" id="close-input-window">Close</a>
+</div>
+<div id="image-window">
+    <div id="image-preferences">
+      Portrait? <input id="portrait-file" type="file" /><br />
+      <input type="radio" name="portrait-fit" disabled value="Fill" /><label>Fill</label>
+      <input type="radio" name="portrait-fit" disabled value="Fit" checked /><label>Fit</label>
+      <input type="radio" name="portrait-fit" disabled value="Original" /><label>Original</label>
+      <input type="radio" name="portrait-fit" disabled value="Cropped" /><label>Cropped</label>
+      <br />
+      Parchment? <input id="parchment" type="checkbox" />
+    </div>
+    <img id="card-image" width="225" />
+    <canvas id="card-canvas" width="945" height="1418" style="display: none;"></canvas>
+    <div id="image-description">
+      <p><strong>Only supported in HTML5-capable browsers.</strong></p>
+      <p><strong>Portrait not supported in Safari.</strong></p>
+      <p>For portrait to fit exactly, use the crop option.</p>
+      <p>This image is actually much bigger, it's scaled down for this window. To save, either:</p>
+      <p>
+        Right-click on the image and "Save as...", OR<br />
+        Right-click on the link below and "Save target as..."
+      </p>
+      <p><a id="card-image-link">Save Card</a> <a href="#" id="close-image-window">Close</a></p>
+    </div>
+</div>
+<div id="image-editor-window">
+  <button id="image-crop-button">Crop</button>
+</div>
+
+
+<table style="float: right;">
+  <tr><th>Speed</th><td><input class="number stat" id="speed" type="text" /></td></tr>
+  <tr><th>Health</th><td><input class="number stat" id="health" type="text" /></td></tr>
+  
+  <tr><th class="stat-title" colspan="2">Melee</th></tr>
+  <tr><th>Wits</th><td><input class="number stat" id="wits" type="text" /></td></tr>
+  <tr><th>Melee</th><td><input class="number stat" id="melee" type="text" /></td></tr>
+  <tr><th>Power</th><td><input class="number stat" id="power" type="text" /></td></tr>
+  <tr><th>Damage</th><td><input class="number stat" id="damage" type="text" /></td></tr>
+  
+  <tr><th class="stat-title" colspan="2">Ranged</th></tr>
+  <tr><th>Aim</th><td><input class="number stat" id="aim" type="text" /></td></tr>
+  <tr><th>Point</th><td><input class="number stat" id="point" type="text" /></td></tr>
+  <tr><th>Throw</th><td><input class="number stat" id="throw" type="text" /></td></tr>
+  
+  <tr><th class="stat-title" colspan="2">Defense</th></tr>
+  <tr><th>React</th><td><input class="number stat" id="react" type="text" /></td></tr>
+  <tr><th>Stealth</th><td><input class="number stat" id="stealth" type="text" /></td></tr>
+  <tr><th>Armor</th><td><input class="number stat" id="armor" type="text" /></td></tr>
+  
+  <tr><th class="stat-title" colspan="2">Traits</th></tr>
+  <tr><th>Strength</th><td><input class="number stat" id="strength" type="text" /></td></tr>
+  <tr><th>Intellect</th><td><input class="number stat" id="intellect" type="text" /></td></tr>
+  <tr><th>Honor</th><td><input class="number stat" id="honor" type="text" /></td></tr>
+  <tr><th>Respect</th><td><input class="number stat" id="respect" type="text" /></td></tr>
+
+  <tr><th class="stat-title" colspan="2">Ranged Weapon</th></tr>
+  <tr><th>Power</th><td><input class="number" id="ranged-power" type="text" /></td></tr>
+  <tr><th>Damage</th><td><input class="number" id="ranged-damage" type="text" /></td></tr>
+  <tr><th>OpFire</th><td><input class="number" id="ranged-opfire" type="text" /></td></tr>
+  <tr><th>rangeMax</th><td><input class="number" id="ranged-range-max" type="text" /></td></tr>
+  <tr><th>rangeMin</th><td><input class="number" id="ranged-range-min" type="text" /></td></tr>
+  <tr><th>Area</th><td><select id="ranged-area"><option>-</option><option>single</option><option>area</option></select></td></tr>
+</table>
+
+<table>
+  <tr><th>Name</th><td><input class="text" id="name" type="text" /></td></tr>
+  <tr><th>Title</th><td><input class="text" id="title" type="text" /></td></tr>
+  <tr>
+    <th>Age</th>
+    <td><select id="age"></select>
+    </td>
+  </tr>
+  <tr>
+    <th>Setting</th>
+    <td><select id="setting"></select>
+    </td>
+  </tr>
+  <tr>
+    <th>Circle</th>
+    <td>
+      <select id="circle">
+          <option>Adventurer</option>
+          <option>Commoner</option>
+          <option>Defender</option>
+          <option>Exemplar</option>
+          <option>Icon</option>
+          <option>Lord</option>
+          <option>Outcast</option>
+          <option>Villain</option>
+          <option>Warrior</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <th>Nature</th>
+    <td>
+      <select id="nature">
+          <option>Being</option>
+          <option>Child</option>
+          <option>Fairy</option>
+          <option>Fiend</option>
+          <option>Holy</option>
+          <option>Machine</option>
+          <option>Man</option>
+          <option>Woman</option>
+      </select>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr><th class="stat-title" colspan="4">Starting Cards</th></tr>
+  <tr><th>Common</th><td><input class="number" id="common-cards" type="text" /></td>
+      <th>Secret</th><td><input class="number" id="secret-cards" type="text" /></td></tr>
+  <tr><th>Elite</th><td><input class="number" id="elite-cards" type="text" /></td>
+      <th>Henchmen</th><td><input class="number" id="henchmen-cards" type="text" /></td></tr>
+  <tr><th>No Give</th><td><input id="no-give-cards" type="checkbox" /></td></tr>
+  <tr><th>No Trade</th><td><input id="no-trade-cards" type="checkbox" /></td></tr>
+  <tr><th>No Limit</th><td><input id="no-card-limit" type="checkbox" /></td></tr>
+</table>
+
+<table>
+  <tr><th class="stat-title" colspan="2">Bonuses (comma-separated)</th></tr>
+  <tr><th>Ranged</th><td><input class="text" id="ranged-bonuses" type="text" /></td></tr>
+  <tr><th>Melee</th><td><input class="text" id="melee-bonuses" type="text" /></td></tr>
+  <tr><th>Medical</th><td><input id="medical-bonus" type="checkbox" /></td></tr>
+  <tr><th>Stealth</th><td><input id="stealth-bonus" type="checkbox" /></td></tr>
+  <tr><th>Armor</th><td><input id="armor-bonus" type="checkbox" /></td></tr>
+  <tr><th>Other</th><td><input class="text" id="other-bonuses" type="text" /></td></tr>
+</table>
+
+<table id="ability-table">  
+  <tr><td class="stat-title">Ability</td><td class="stat-title">Value</td></tr>
+</table>
+
+</div>
+
+<div id="font-loader">
+  <span class="bold">_</span>
+  <span class="demi">_</span>
+  <span class="light">_</span>
+  <span class="medium">_</span>
+</div>
+

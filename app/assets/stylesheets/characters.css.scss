@@ -1,3 +1,100 @@
 // Place all the styles related to the characters controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+  #font-loader { color: #ffffff; }
+  #font-loader .bold { font-family: "Eras Bold"; }
+  #font-loader .demi { font-family: "Eras Demi"; }
+  #font-loader .light { font-family: "Eras Light"; }
+  #font-loader .medium { font-family: "Eras Medium"; }
+  
+  table { 
+    float: left; 
+    background-color: black; 
+    color: white;
+  }
+  table .stat-title { 
+    color: yellow;
+  }
+  th, td { 
+    font-weight: normal;
+    vertical-align: top;
+  }
+  
+  input.number { 
+    width: 2em;
+  }
+  input.text {
+    width: 20em;
+  }
+  #calculator textarea { 
+    width: 20em;
+    height: 10em;
+  }
+  
+  #breakdown-panel { 
+    float: left;
+    background-color: white;
+    padding:0em 1em 0em 1em;
+    width: 10em;
+    height: 34em;
+  }
+  #breakdown-panel .note { 
+    font-size: 0.8em;
+    font-style: italic;
+  }
+  #output-window, #input-window {
+    position: absolute;
+    background-color: white;
+    color: black;
+    padding: 1em;
+    height: 15em;
+    width: 30em;
+    display: none;
+    border: 1px solid #cccccc;
+  }
+  #output-window textarea, #input-window textarea {
+    font-size: 1em;
+    width: 28em;
+    height: 13em;
+  }
+  #image-window, #image-editor-window {
+    position: absolute;
+    background-color: white;
+    color: black;
+    padding: 1em; 
+    height: 28em; 
+    width: 30em; 
+    display: none;
+    border: 1px solid #cccccc;
+  }
+  #image-description p:first-child {
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+  #image-editor-window {
+    overflow: scroll;
+  }
+  #image-editor { 
+    float: left;
+    margin: 0 1em 0 0;
+  }
+  #total-value {
+    font-weight: bold;
+    font-size: 2em;
+    display: block;
+  }
+  #introduction { 
+    display: none;
+    padding-left: 9em;
+  }
+  #calculator {
+    float: left;
+    background-color: black;
+    color: white;
+    width: 33em;
+    display: table;
+  }
+  
+  #card-image { float: left; margin-right: 1em; }
+
