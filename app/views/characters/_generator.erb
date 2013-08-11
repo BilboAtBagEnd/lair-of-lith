@@ -983,11 +983,13 @@ $(document).ready(function() {
               $('meta[name="csrf-token"]').attr('content'))
           },
           data: postData,
-          success: function(response) {
-              $("#save-window").html("Saved!").toggle(true).delay(1500).fadeOut();
+          success: function(data, textStatus, xhr) {
+              var message = "<p>Saved!<br />Name: " + _.escape(data.character.name) + "<br />Version: " + data.version.version  + "</p>";
+              $("#save-window").html(message).toggle(true).delay(3000).fadeOut();
           },
           error: function(xhr, textStatus, errorThrown) {
-              $("#save-window").html("Error: " + textStatus + " " + errorThrown).toggle(true).delay(3000).fadeOut();
+              var message = "<p>Error: " + textStatus + " " + errorThrown + "</p>";
+              $("#save-window").html(message).toggle(true).delay(3000).fadeOut();
           },
         });
     });

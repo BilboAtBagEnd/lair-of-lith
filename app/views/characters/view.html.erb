@@ -12,3 +12,14 @@
   </li>
 <% end %>
 </ul>
+
+<br /> <br /> <br />
+<br /> <br /> <br />
+
+<% if user_signed_in? && @owner.id == current_user.id %>
+  <h3>Destroy?</h3> 
+
+  <p>This action is irrevocable.</p>
+
+  <p><%= link_to 'Destroy', url_for(controller: 'characters', action: 'destroy', id: @character.id), method: 'delete', confirm: 'Do you really want to do this?'  %></p>
+<% end %>

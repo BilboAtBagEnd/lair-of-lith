@@ -1,5 +1,5 @@
 class CharactersController < ApplicationController
-  before_filter :authenticate_user!, :only => [:save]
+  before_filter :authenticate_user!, :only => [:save, :destroy]
 
   def new
   end
@@ -76,6 +76,13 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @result.to_json, status: @character_version ? 200 : 500 }
+    end
+  end
+
+  def destroy
+    @character = Character.find(params[:id])
+    if @character && current_user.id == @character.user_id
+      @character.destroy
     end
   end
 end

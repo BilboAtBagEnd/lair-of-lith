@@ -1,3 +1,6 @@
 <% @title = "Viewing #{@character.name} by #{@owner.name}" %>
-<h2>Viewing <%=h @character.name %> by <%=h @owner.name %></h2>
+<h2>Viewing <%= @character.name %> by <%= @owner.name %></h2>
+
+<p><%= link_to 'All versions', controllers: 'characters', action: 'view', id: @character.id  %></p>
+
 <%= render 'characters/generator' %>
