@@ -335,6 +335,9 @@ DOA2.Character = function() {
     };
     this.specials = [];
 };
+DOA2.Character.prototype.hasRangedWeapon = function() {
+    return this.rangedWeapon.area == "area" || this.rangedWeapon.area == "single";
+}
 
 DOA2.calculateSpecialValueFor = function(specials, category) {
     var value = 0;

@@ -170,650 +170,40 @@ function updateCharacterValue() {
 }
 
 function outputBGGCharacterCode() {
-    var code = "";
-    
-    code += "[b]" + CHARACTER.name + "[/b]\n";
-    if (CHARACTER.title) {
-        code += "[i]" + CHARACTER.title + "[/i]\n";
-    }
-    code += CHARACTER.age + " / " + CHARACTER.setting + " / " + CHARACTER.circle + " / " + CHARACTER.nature + "\n\n";
-
-    for(var i = 0; i < DOA2.STATS.length; i++) { 
-        var stat = DOA2.STATS[i]
-        code += CHARACTER[stat] + " " + capitalizeFirstLetter(stat) + "\n";
-    }
-    code += "\n";
-    
-    if (CHARACTER.rangedWeapon.area != DOA2.RANGED_AREA.NONE) {
-        code += "[b]Ranged Attack[/b]\n";
-        code += CHARACTER.rangedWeapon.power + " Power\n";
-        code += CHARACTER.rangedWeapon.damage + " Damage\n";
-        code += CHARACTER.rangedWeapon.rangeMax + " RangeMax\n";
-        code += CHARACTER.rangedWeapon.rangeMin + " RangeMin\n";
-        code += CHARACTER.rangedWeapon.area + "\n\n";
-    }
-    
-    if (CHARACTER.cards.common) { 
-        code += CHARACTER.cards.common + " common cards\n";
-    }
-    if (CHARACTER.cards.secret) {
-        code += CHARACTER.cards.secret + " secret cards\n";
-    }
-    if (CHARACTER.cards.elite) {
-        code += CHARACTER.cards.elite + " elite cards\n";
-    }
-    if (CHARACTER.cards.henchmen) {
-        code += CHARACTER.cards.henchmen + " henchmen\n";
-    }
-    
-    if (CHARACTER.bonuses.ranged.length) {
-        code += "[b]Ranged bonuses:[/b] " + CHARACTER.bonuses.ranged.join(', ') + "\n";
-    }
-    if (CHARACTER.bonuses.melee.length) {
-        code += "[b]Melee bonuses:[/b] " + CHARACTER.bonuses.melee.join(', ') + "\n";
-    }
-    if (CHARACTER.bonuses.medical) {
-        code += "Medical\n";
-    }
-    if (CHARACTER.bonuses.stealth) {
-        code += "Stealth\n";
-    }
-    if (CHARACTER.bonuses.armor) {
-        code += "Armor\n";
-    }
-    if (CHARACTER.bonuses.other.length) {
-        code += "[b]Other bonuses:[/b] " + CHARACTER.bonuses.other.join(', ') + "\n";
-    }
-    
-    code += "\n";
-    
-    for(i = 0; i < CHARACTER.specials.length; i++) {
-        var special = CHARACTER.specials[i];
-        var values = [];
-
-        if (special.value.survival) { 
-            values.push("survival: " + special.value.survival);
-        }
-        if (special.value.melee) { 
-            values.push("melee: " + special.value.melee);
-        }
-        if (special.value.ranged) { 
-            values.push("ranged: " + special.value.ranged);
-        }
-        if (special.value.adventure) { 
-            values.push("adventure: " + special.value.adventure);
-        }
-
-        code += special.description + " (" + values.join(", ") + ")\n\n";
-    }
-
-    var value = DOA2.calculateCharacterValue(CHARACTER);
-    code += "[b]Value Breakdown[/b]\n";
-    code += "Survival: " + value.survival + "\n";
-    code += "Melee: " + value.melee + "\n";
-    code += "Ranged: " + value.ranged + "\n";
-    code += "Adventure: " + value.adventure + "\n";
-    code += "Total: " + value.total + "\n\n";
-   
-    $("#text-output").val(code);
+    $("#text-output").val(DOA2_Text.characterToBGGCode(CHARACTER));
 }
 
 function getCSV() {
-    var header = [];
-    var row = [];
-    
-    header.push('Version'); row.push("v4");
-    
-    header.push('Name'); row.push(CHARACTER.name);
-    header.push('Title'); row.push(CHARACTER.title);
-    header.push('Age'); row.push(CHARACTER.age);
-    header.push('Setting'); row.push(CHARACTER.setting);
-    header.push('Circle'); row.push(CHARACTER.circle);
-    header.push('Nature'); row.push(CHARACTER.nature);
-
-    for(var i = 0; i < DOA2.STATS.length; i++) { 
-        var stat = DOA2.STATS[i]
-        header.push(capitalizeFirstLetter(stat));
-        row.push(CHARACTER[stat]);
-    }
-    
-    header.push('RangedWeaponPower'); row.push(CHARACTER.rangedWeapon.power);
-    header.push('RangedWeaponDamage'); row.push(CHARACTER.rangedWeapon.damage);
-    header.push('RangedWeaponOpFire'); row.push(CHARACTER.rangedWeapon.opfire);
-    header.push('RangedWeaponRangeMax'); row.push(CHARACTER.rangedWeapon.rangeMax);
-    header.push('RangedWeaponRangeMin'); row.push(CHARACTER.rangedWeapon.rangeMin);
-    header.push('RangedWeaponArea'); row.push(CHARACTER.rangedWeapon.area);
-    
-    header.push('CardsCommon'); row.push(CHARACTER.cards.common);
-    header.push('CardsSecret'); row.push(CHARACTER.cards.secret);
-    header.push('CardsElite'); row.push(CHARACTER.cards.elite);
-    header.push('Henchmen'); row.push(CHARACTER.cards.henchmen);
-
-    header.push('BonusRanged'); row.push(CHARACTER.bonuses.ranged.join(','));
-    header.push('BonusMelee'); row.push(CHARACTER.bonuses.melee.join(','));
-    header.push('BonusMedical'); row.push(CHARACTER.bonuses.medical);
-    header.push('BonusStealth'); row.push(CHARACTER.bonuses.stealth);
-    header.push('BonusArmor'); row.push(CHARACTER.bonuses.armor);
-    header.push('BonusOther'); row.push(CHARACTER.bonuses.other.join(','));
-
-    header.push('NoGive'); row.push(CHARACTER.cards.noGive ? 1 : 0);
-    header.push('NoTrade'); row.push(CHARACTER.cards.noTrade ? 1 : 0);
-    header.push('NoLimit'); row.push(CHARACTER.cards.noLimit ? 1 : 0);
-    
-    for(i = 0; i < CHARACTER.specials.length; i++) {
-        var special = CHARACTER.specials[i];
-        var num = i+1;
-
-        header.push('Special' + num); row.push(special.description); 
-        header.push('Special' + num + 'Survival'); row.push(special.value.survival);
-        header.push('Special' + num + 'Melee'); row.push(special.value.melee);
-        header.push('Special' + num + 'Ranged'); row.push(special.value.ranged);
-        header.push('Special' + num + 'Adventure'); row.push(special.value.adventure);
-    }
-    
-    var text = '';
-    
-    // Too noisy to output the header each time. 
-    //text += header.join('|') + "\n";
-    text += row.join('|') + "\n";
-
-    return text;
+    return DOA2_Text.characterToCSV(CHARACTER);
 }
 function outputCSV() {
     $("#text-output").val(getCSV());
 }
 
 function parseCSV(csv) {
-    var lines = csv.split("\n");
-    if (lines.length < 1 || lines[0] == "") {
-        // nop
-        return;
-    }
-    
-    if (lines[0].match(/^Name\|/)) {
-        lines.shift();
-    }
-    
-    var values = lines[0].split('|');    
-    var j = 0;
-    
-    var version = 3; 
-    if (values[j].match(/^v[0-9]+/)) { 
-        version = parseInt(values[j++].split('v')[1]);
-    }
-    
-    CHARACTER = new DOA2.Character();
-    
-    CHARACTER.name = values[j++];
-    CHARACTER.title = values[j++];
-    CHARACTER.age = values[j++];
-    CHARACTER.setting = values[j++];
-    CHARACTER.circle = values[j++];
-    CHARACTER.nature = values[j++];
-
-    for(var i = 0; i < DOA2.STATS.length; i++) { 
-        var stat = DOA2.STATS[i]
-        CHARACTER[stat] = parseInt(values[j++]);
-    }
-    
-    CHARACTER.rangedWeapon.power = parseInt(values[j++]);
-    CHARACTER.rangedWeapon.damage = parseInt(values[j++]);
-    if (version > 3) { 
-        // bug
-        CHARACTER.rangedWeapon.opfire = parseInt(values[j++]);
-    }
-    CHARACTER.rangedWeapon.rangeMax = parseInt(values[j++]);
-    CHARACTER.rangedWeapon.rangeMin = parseInt(values[j++]);
-    CHARACTER.rangedWeapon.area = values[j++];
-    
-    CHARACTER.cards.common = parseInt(values[j++]);
-    CHARACTER.cards.secret = parseInt(values[j++]);
-    CHARACTER.cards.elite = parseInt(values[j++]);
-    CHARACTER.cards.henchmen = parseInt(values[j++]);
-    
-    CHARACTER.bonuses.ranged = splitOnCommas(values[j++]);
-    CHARACTER.bonuses.melee = splitOnCommas(values[j++]);
-    CHARACTER.bonuses.medical = parseInt(values[j++]);
-    CHARACTER.bonuses.stealth = parseInt(values[j++]);
-    CHARACTER.bonuses.armor = parseInt(values[j++]);
-    CHARACTER.bonuses.other = splitOnCommas(values[j++]);
-
-    if (version > 3) {
-        // New feature
-        CHARACTER.cards.noGive = parseInt(values[j++]) == 1;
-        CHARACTER.cards.noTrade = parseInt(values[j++]) == 1;
-        CHARACTER.cards.noLimit = parseInt(values[j++]) == 1;
-    }
-    
-    var specials = [];
-    for(i = j; i < values.length; i += 5) {
-        specials.push({
-            description: values[i],
-            value: {
-              survival: parseInt(values[i+1]),
-              melee: parseInt(values[i+2]),
-              ranged: parseInt(values[i+3]),
-              adventure: parseInt(values[i+4])
-            }
-        });
-    }
-    CHARACTER.specials = specials;
+    return DOA2_Text.csvToCharacter(csv);
 }
 function loadCSV() {
     var csv = $("#text-input").val();    
-    parseCSV(csv);
+    CHARACTER = parseCSV(csv);
 }
 
 function generateCard() {
-    var imagePrefix = "/images/DoAIIBYOCImages/DOAIIBYOC ";
-    var canvas = document.getElementById("card-canvas");
-    var context = canvas.getContext('2d');
-    
-    var cardImage = document.getElementById("card-image");
-    var cardLink = document.getElementById("card-image-link");
-    var progressText = $("#progress-text");
-    
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    cardImage.src = "/images/loading.gif";
-    cardLink.href = "";
-    progressText.text('Rendering...');
-    
-    var hasRangedWeapon = (
-        CHARACTER.rangedWeapon.area == "area" 
-        || CHARACTER.rangedWeapon.area == "single");
-    
-    function srcForString(imageType, string) {
-        return imagePrefix + imageType + " " + capitalizeFirstLetter(sanify(string)) + ".png";
-    }
-    function srcForNumber(imageType, number) {
-        return imagePrefix + imageType + " " + parseInt(number) + ".png";
-    }
-    
-    var imageElements = [
-        { src: srcForString("Setting", CHARACTER.setting), x: 550, y: 65 },
-        { src: srcForString("Circle", CHARACTER.circle), x: 670, y: 65 },
-        { src: srcForString("Nature", CHARACTER.nature), x: 800, y: 65 },
-
-        { src: srcForNumber("Rating Speed", CHARACTER.speed), x: 798, y: 180 },
-        { src: srcForNumber("Rating Health", CHARACTER.health), x: 798, y: 270 },
-        { src: srcForNumber("Rating Wits", CHARACTER.wits), x: 788, y: 390 },
-        { src: srcForNumber("Rating Melee", CHARACTER.melee), x: 788, y: 450 },
-        { src: srcForNumber("Rating Power", CHARACTER.power), x: 788, y: 510 },
-        { src: srcForNumber("Rating Damage", CHARACTER.damage), x: 788, y: 570 },
-        { src: srcForNumber("Rating Aim", CHARACTER.aim), x: 788, y: 672 },
-        { src: srcForNumber("Rating Point", CHARACTER.point), x: 788, y: 732 },
-        { src: srcForNumber("Rating Throw", CHARACTER['throw']), x: 788, y: 792 },
-        { src: srcForNumber("Rating React", CHARACTER.react), x: 788, y: 894 },
-        { src: srcForNumber("Rating Stealth", CHARACTER.stealth), x: 788, y: 954 },
-        { src: srcForNumber("Rating Armor", CHARACTER.armor), x: 788, y: 1014 },
-        { src: srcForNumber("Rating Strength", CHARACTER.strength), x: 788, y: 1116 },
-        { src: srcForNumber("Rating Intellect", CHARACTER.intellect), x: 788, y: 1176 },
-        { src: srcForNumber("Rating Honor", CHARACTER.honor), x: 788, y: 1236 },
-        { src: srcForNumber("Rating Respect", CHARACTER.respect), x: 788, y: 1296 },
-    ];
-
-    var specialImageWidths = { 
-        // Bonuses
-        Armor: 71,
-        "Auto Pistol": 98, 
-        "Auto Rifle": 136, 
-        Blade: 137,
-        Bot: 116,
-        Bow: 71,
-        Brawler: 136,
-        Crossbow: 88,
-        "Energy Pistol": 99, 
-        "Energy Rifle": 137,
-        Gadget: 71,
-        Grenade: 70,
-        Heavy: 123, 
-        "Long Pistol": 133, 
-        "Long Rifle": 163,
-        Medical: 71,
-        Mount: 84,
-        Pet: 86,
-        "Powder Pistol": 121, 
-        "Powder Rifle": 163,
-        Revolver: 99,
-        Stealth: 78,
-        Swing: 137,
-        Thrown: 76,
-        Thrust: 136,
-        Vehicle: 87,
-        
-        // Cards
-        "Cannot Give Away": 163,
-        "No Carry Limit": 163, 
-        "No Trade": 163,
-    };
-
-    var specialX = 777;
-    var specialY = 1306;
-    var specialImages = false;
-    function addSpecialImageElement(imageType, name, number, width) {
-        specialImages = true;
-        var canonicalName = capitalizeWords(name);
-        if (canonicalName == "Gadgets" || canonicalName == "Bots" || canonicalName == "Pets") {
-            canonicalName = canonicalName.substring(0, canonicalName.length - 1);
-        }
-        
-        if (!specialImageWidths[canonicalName] && !number) {
-            return; // unknown bonus
-        }
-        
-        var widthToSubtract = 0; 
-        if (width) { 
-            widthToSubtract = width;
-        }
-        else {
-            widthToSubtract = specialImageWidths[canonicalName];
-        }
-        
-        specialX -= widthToSubtract;
-        if (specialX < 50) { 
-            specialX = 777 - widthToSubtract;
-            specialY = specialY - 71; 
-        }
-        
-        var imageSrc; 
-        if (width && number) { 
-            imageSrc = srcForNumber(imageType + " " + canonicalName, number);
-        }
-        else {
-            imageSrc = srcForString(imageType, canonicalName);
-        }
-        imageElements.push( {src: imageSrc, x: specialX, y: specialY} );
-    }
-    
-    if (CHARACTER.cards.noGive) {
-        addSpecialImageElement("Card Spec", "Cannot Give Away"); 
-    }
-    if (CHARACTER.cards.noTrade) { 
-        addSpecialImageElement("Card Spec", "No Trade");
-    }
-    if (CHARACTER.cards.noLimit) {
-        addSpecialImageElement("Card Spec", "No Carry Limit");
-    }
-    for (var i = 0; i < CHARACTER.bonuses.ranged.length; i++) {
-        var bonus = CHARACTER.bonuses.ranged[i];
-        addSpecialImageElement("Bonus", bonus);
-    }
-    for (i = 0; i < CHARACTER.bonuses.melee.length; i++) {
-        var bonus = CHARACTER.bonuses.melee[i];
-        addSpecialImageElement("Bonus", bonus);
-    }
-    for (i = 0; i < CHARACTER.bonuses.other.length; i++) {
-        var bonus = CHARACTER.bonuses.other[i];
-        addSpecialImageElement("Bonus", bonus);
-    }
-    if (CHARACTER.bonuses.armor) {
-        addSpecialImageElement("Bonus", "Armor");
-    }
-    if (CHARACTER.bonuses.medical) { 
-        addSpecialImageElement("Bonus", "Medical");
-    }
-    if (CHARACTER.bonuses.stealth) {
-        addSpecialImageElement("Bonus", "Stealth");
-    }
-    if (CHARACTER.cards.henchmen) {
-        addSpecialImageElement("Cards", "Henchmen", CHARACTER.cards.henchmen, 49);
-    }
-    if (CHARACTER.cards.elite) {
-        addSpecialImageElement("Cards", "Elite", CHARACTER.cards.elite, 49);
-    }
-    if (CHARACTER.cards.secret) { 
-        addSpecialImageElement("Cards", "Secret", CHARACTER.cards.secret, 49);
-    }
-    if (CHARACTER.cards.common) {
-        addSpecialImageElement("Cards", "Common", CHARACTER.cards.common, 49);
-    }
-    
-    var images = [];
-    
-    function scaleFactor(maxWidth, maxSize, fontFamily, string) {
-        var size = maxSize;
-        var maxLoops = 36;
-        var font = "";
-        for (var loop = 0; loop < maxLoops; loop++) {
-            font = size + 'px "' + fontFamily + '"';
-            context.font = font;
-            var metrics = context.measureText(string);
-            if (metrics.width <= maxWidth) { 
-                break; 
-            }
-            size -= 2;
-        }
-        
-        return size/maxSize;
-    }
-    
-    var titleScaleFactor = scaleFactor(500, 50, "Eras Bold", CHARACTER.name);
-    
-    var textElements = [
-        { fill: "#ffffff", font: (50 * titleScaleFactor) + 'px "Eras Demi"', text: CHARACTER.name, x: 40, y: 110 },
-        { fill: "#ffffff", font: (35 * titleScaleFactor) + 'px "Eras Demi"', text: CHARACTER.title, x: 60, y: 150 }
-    ];
-    
-    var specialTextFontSize = 32;
-    
-    if (!specialImages) {
-        specialY += 71 + specialTextFontSize - 5; // move back to the bottom
-    }
-    else {
-        specialY += specialTextFontSize - 5;
-    }
-    
-    var pastSpecialImages = !specialImages;
-    function wrapText(string, fontSize, fontFamily, maxWidth) {
-        var words = string.split(" ");
-        var fontSpec = fontSize + 'px "' + fontFamily + '"';
-        context.font = fontSpec;
-
-        var lines = [];
-        var line = "";
-        for(var i = 0; i < words.length; i++) {
-            var tempLine = line + words[i];
-            var metrics = context.measureText(tempLine);
-            if (metrics.width > maxWidth) {
-                lines.push(line); 
-                line = words[i] + " ";
-            }
-            else {
-                line = tempLine + " ";
-            }
-            
-            if (i == (words.length - 1)) {
-                // last loop
-                lines.push(line);
-            }
-        }
-        
-        for(i = lines.length - 1; i >= 0; i--) {
-            if (!pastSpecialImages) {
-                metrics = context.measureText(lines[i]);
-                if (metrics.width + 50 < specialX) {
-                    specialY += fontSize * 1.25;
-                }
-                pastSpecialImages = true;
-            }
-            specialY -= fontSize + 5; // line spacing
-            textElements.push( { fill: "#000000", font: fontSpec, text: lines[i], x: 50, y: specialY } );
-        }
-    }
-    
-    for(var i = CHARACTER.specials.length - 1; i >= 0; i--) {
-       wrapText(CHARACTER.specials[i].description, specialTextFontSize, "Eras Bold", 700);
-       specialY -= 10; // paragraph spacing
-    }
-    
-    // Add the bar
-    specialY -= specialTextFontSize + 20; // below bar spacing
-    imageElements.push(
-        { src: srcForString("Altered Bar", CHARACTER.age), x: 36, y: specialY });
-
-    var specialBoxY = specialY + 17;
-
-    if (hasRangedWeapon) {
-        specialY -= 69; // get up past the bar
-        imageElements.push({ src: srcForString("Rating Target", CHARACTER.rangedWeapon.area), x: 655, y: specialY });
-        specialY -= 60;
-        imageElements.push({ src: srcForNumber("Rating Range", CHARACTER.rangedWeapon.rangeMax), x: 655, y: specialY });
-        specialY -= 60;
-        imageElements.push({ src: srcForNumber("Rating OpFire", CHARACTER.rangedWeapon.opfire), x: 655, y: specialY });
-        specialY -= 60;
-        imageElements.push({ src: srcForNumber("Rating Damage", CHARACTER.rangedWeapon.damage), x: 655, y: specialY });
-        specialY -= 60;
-        imageElements.push({ src: srcForNumber("Rating Power", CHARACTER.rangedWeapon.power), x: 655, y: specialY });
-
-        specialY -= 2;
-        textElements.push({ fill: "#dddd00", font: '28px "Eras Bold"', text: "R", x: 660, y: specialY });
-        textElements.push({ fill: "#dddd00", font: '22px "Eras Bold"', text: "ANGED", x: 678, y: specialY }); 
-        
-        specialY -= 28; // in case anything needs to go above this   
-    }
-    
-    function drawText(textElements) {
-        context.textAlign = "left";
-        context.textBaseline = "bottom";
-        
-        for(var i = 0; i < textElements.length; i++) {
-            var element = textElements[i];
-            
-            context.font = element.font;
-            context.fillStyle = element.fill;
-            context.fillText(element.text, element.x, element.y);
-        }
-    }
-
-    function loadImages(elements) {
-        if (elements.length == 0) {
-            // NOW do text. 
-            drawText(textElements);
-            
-            // Finish everything off.
-            var dataURL = canvas.toDataURL();
-            cardImage.src = dataURL;
-            cardLink.href = dataURL;
-            progressText.text('Finished.');
-        }
-        else {
-            var element = elements.shift();
-            var image = new Image();
-            image.onload = function() {
-                context.drawImage(image, element.x, element.y); 
-                loadImages(elements);
-            }
-            image.onerror = function () { 
-                // Keep going
-                console.log("Image not found: " + image.src);
-                loadImages(elements)
-            };
-            images.push(image);
-            image.src = element.src;
-        }
-    }
-    
-    function loadBaseImages() { 
-    
-        function continueWithImage() {
-            cardImage.src = canvas.toDataURL();
-            loadImages(imageElements);
-        }
-        
-        function renderRest() {
-            if ($("#parchment").is(":checked")) {
-                // Use parchment background for special abilit box
-                var parchmentImage = new Image();
-                parchmentImage.onload = function() { 
-                    var sourceX = 0; 
-                    var sourceY = 0;
-                    var sourceWidth = 740;
-                    var sourceHeight = 1204 - specialBoxY + 173;
-                    var destX = 36;
-                    var destY = specialBoxY;
-                    var destWidth = sourceWidth;
-                    var destHeight = sourceHeight;
-                    context.drawImage(parchmentImage, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
-                    continueWithImage();
-                }
-                parchmentImage.onerror = function() {
-                    console.log("error loading");
-                    continueWithImage();
-                }
-                parchmentImage.src = srcForString("Background", "Parchment");
-            } else {
-                // draw a translucent rectangle over special ability box
-                context.fillStyle = "rgba(255, 255, 255, 0.80)";
-                context.fillRect(36, specialBoxY, 740,  1204 - specialBoxY + 173); 
-                continueWithImage();
-            }
-        }
-    
-        var backImage = new Image();
-        backImage.onload = function() { 
-            context.drawImage(backImage, 0, 0);
-
-            if (PORTRAIT_IMAGE) {
-                switch($('#image-window input[name="portrait-fit"]:checked').val()) {
-                case "Fit":
-                    var aspectRatioX = 740 / PORTRAIT_IMAGE.width;
-                    var aspectRatioY = 1204 / PORTRAIT_IMAGE.height;
-                    var aspectRatio = 1.0;
-                    if ((aspectRatioY * PORTRAIT_IMAGE.width) > 740) {
-                        aspectRatio = aspectRatioX;
-                    }
-                    else {
-                        aspectRatio = aspectRatioY;
-                    }
-                    context.drawImage(PORTRAIT_IMAGE, 36, 173, Math.min(740, PORTRAIT_IMAGE.width * aspectRatio), Math.min(1204, PORTRAIT_IMAGE.height * aspectRatio));
-                    break;
-                    
-                case "Original":
-                    var sourceX = 0; 
-                    var sourceY = 0;
-                    var sourceWidth = Math.min(740, PORTRAIT_IMAGE.width);
-                    var sourceHeight = Math.min(1204, PORTRAIT_IMAGE.height);
-                    var destX = 36;
-                    var destY = 173;
-                    var destWidth = sourceWidth;
-                    var destHeight = sourceHeight;
-                    context.drawImage(PORTRAIT_IMAGE, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
-                    break;
-                    
-                case "Cropped":
-                    var sourceX = PORTRAIT_IMAGE_TRAITS.x;
-                    var sourceY = PORTRAIT_IMAGE_TRAITS.y;
-                    var sourceWidth = PORTRAIT_IMAGE_TRAITS.width;
-                    var sourceHeight = PORTRAIT_IMAGE_TRAITS.height;
-                    var destX = 36;
-                    var destY = 173;
-                    var destWidth = 740;
-                    var destHeight = 1204;
-
-                    context.drawImage(PORTRAIT_IMAGE, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
-                    break;
-                    
-                case "Fill":
-                    context.drawImage(PORTRAIT_IMAGE, 36, 173, 740, 1204);
-                    break;
-                }
-            }
-            
-            renderRest();
-        }
-        backImage.onerror = function() {
-            // Keep going
-            console.log("Could not find image for background");
-            loadImages(imageElements);
-        }
-        backImage.src = srcForString("Altered Character Card", CHARACTER.age);
-    }
-
-    loadBaseImages();
+    DOA2_Image.generateCard({ 
+        character: CHARACTER,
+        canvas: document.getElementById("card-canvas"),
+        cardImage: document.getElementById("card-image"),
+        cardLink: document.getElementById("card-image-link"),
+        progressText: $("#progress-text"),
+        useParchment: $("#parchment").is(":checked"),
+        portraitImage: PORTRAIT_IMAGE,
+        portraitFit: $('#image-window input[name="portrait-fit"]:checked').val(),
+        portraitTraits: PORTRAIT_IMAGE_TRAITS,
+    });
 }
 
-$(document).ready(function() {    
-    parseCSV(CHARACTER_CSV);
+$(document).ready(function() {
+    CHARACTER = parseCSV(CHARACTER_CSV);
 
     fillInAgeSelector();
     fillInSettingSelector();
@@ -850,6 +240,13 @@ $(document).ready(function() {
     });
     
     $("#reset").click(function() {
+        CHARACTER_UNDO_STACK.push(CHARACTER);
+        CHARACTER = new parseCSV(CHARACTER_CSV);
+        setFieldsFromCharacter();
+        updateCharacterValue();
+    });
+
+    $("#clear").click(function() {
         CHARACTER_UNDO_STACK.push(CHARACTER);
         CHARACTER = new DOA2.Character();
         setFieldsFromCharacter();
@@ -1039,7 +436,8 @@ $(document).ready(function() {
     <span class="title">Edit</span>
     <button id="undo">Undo</button>
     <button id="redo">Redo</button>
-    <button id="reset">Clear</button>
+    <button id="reset">Reset</button>
+    <button id="clear">Clear</button>
   </p>
 </div>
 
@@ -1067,10 +465,11 @@ $(document).ready(function() {
     <img id="card-image" width="225" />
     <canvas id="card-canvas" width="945" height="1418" style="display: none;"></canvas>
     <div id="image-description">
-      <p><strong>Only supported in HTML5-capable browsers.</strong></p>
-      <p><strong>Portrait not supported in Safari.</strong></p>
+      <p>
+        <strong>Only supported in HTML5-capable browsers.</strong>
+        <strong>Portrait not supported in Safari.</strong>
+      </p>
       <p id="progress-text"></p>
-      <p>For portrait to fit exactly, use the crop option.</p>
       <p>This image is actually much bigger, it's scaled down for this window. To save, either:</p>
       <p>
         Right-click on the image and "Save as...", OR<br />
