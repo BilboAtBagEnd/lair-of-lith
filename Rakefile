@@ -22,7 +22,7 @@ task :promote do
   mkdir_p "#{staging_dir}/tmp"
 
   # create the big symlink 
-  prod_dir = "#{home_dir}/prod/#{app_name}"
+  prod_dir = "#{home_dir}/#{app_name}"
   safe_unlink prod_dir
   ln_s staging_dir, prod_dir
 

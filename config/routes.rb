@@ -12,6 +12,8 @@ AppLairoflithCom::Application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
   get "users/view/:id" => 'users#view'
   get 'characters/new' => 'characters#new'
+  get 'characters/view/:id' => 'characters#view'
+  get 'characters/edit/:id/:vid' => 'characters#edit'
   get 'characters/help' => 'characters#help'
   post 'characters/save' => 'characters#save'
 

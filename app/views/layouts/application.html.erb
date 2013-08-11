@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lair of Lith <%= if @title then "| #{@title}" else '' end %></title>
+  <title>Lair of Lith <%=h @title ? "| #{@title}" : '' %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
