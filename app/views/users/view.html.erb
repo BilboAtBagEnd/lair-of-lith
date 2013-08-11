@@ -3,13 +3,10 @@
 
 <%= @characters.size %> characters created so far.
 
-<% if @is_myself %>
-  <h3>Private Characters</h3>
-  <ul>
-  <% @characters.each do |character| %>
-    <li>
-      <%= link_to character.name, controller: '/characters', action: 'view', id: character.id %>
-    </li>
-  <% end %>
-  </ul>
+<ul>
+<% @characters.each do |character| %>
+  <li>
+    <%= link_to character.name, controller: '/characters', action: 'view', id: character.id %>
+  </li>
 <% end %>
+</ul>

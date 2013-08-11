@@ -30,7 +30,7 @@
 
 body {
   font-size: 12pt;
-  font-family: "Eras Medium", serif;
+  font-family: 'Eras Medium', serif;
   padding: 1em;
   background-color: #000000;
   color: #a3a3a3;
@@ -63,6 +63,7 @@ body {
 
 #sign-in {
   float: right;
+  font-family: "Eras Demi", serif;
   margin: 1em;
 }
 a, a:visited {
@@ -79,7 +80,6 @@ a, a:visited {
   -moz-border-radius: 10px;
   background-color: #ffffff;
   color: #000000;
-  font-family: "Eras Demi", serif;
   padding: 0 0 1em 0;
   margin-top: 0.5em;
   display: table;
@@ -92,6 +92,7 @@ div.topnav {
   margin: 0 0 1em 0;
   color: #000000;
   padding: 0.5em;
+  font-family: "Eras Demi", serif;
 }
 ul.topnav { 
   padding: 0;
@@ -118,6 +119,13 @@ ul.topnav a, ul.topnav a:visited {
   border-right: 1px solid #cccccc;
   margin: 0.5em;
 }
+#sidebar .title {
+  font-family: "Eras Demi", serif;
+}
+#sidebar li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
 
 #site-content {
   width: 75%;
@@ -128,12 +136,18 @@ ul.topnav a, ul.topnav a:visited {
 #site-content p { 
   margin: 0 0 1em 0;
 }
-#site-content h2 {
+#site-content h2, h3 {
   margin: 0 0 0.5em 0;
+  font-family: "Eras Demi", serif;
 }
 #site-content hr {
   width: 80%;
   margin: 1em 0 1em 0;
+}
+
+#site-content li {
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .flash, .alert { 

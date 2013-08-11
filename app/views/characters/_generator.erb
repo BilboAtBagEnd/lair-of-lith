@@ -1,6 +1,6 @@
 <script>
   <% if @version && @version.csv %>
-var CHARACTER_CSV = '<%=h @version.csv.gsub("'", "\\\\'").strip %>';
+var CHARACTER_CSV = _.unescape('<%= @version.csv.gsub("'", "\\\\'").strip %>');
   <% else %>
 var CHARACTER_CSV = 'v4|Somewhat A Very, Very, Very Long Name Indeed|The Example|Ancient|Faer|Lord|Woman|7|4|6|6|2|2|5|3|7|8|8|2|5|3|5|6|3|1|2|5|0|single|4|3|2|1|Auto Pistol,Auto Rifle|Blade,Brawler|1|1|1|Bot,Gadget,Mount|1|1|1|Move cost 1 in Swamp.|10|0|0|0|This character leaps over other character whenever damage is dealt using its natural melee attack. Just like how the quick red fox jumped over the lazy brown dogs.|10|10|0|0'
   <% end %>
@@ -996,7 +996,7 @@ $(document).ready(function() {
 
 <noscript><p>You need Javascript enabled to use this tool.</p></noscript>
 
-<% unless user_signed_in? %>
+<% unless user_signed_in? || @owner %>
   <p class="alert">
   You will not be able to save this card until you 
   <%= link_to 'log in', new_user_session_path %>!
@@ -1074,7 +1074,7 @@ $(document).ready(function() {
         Right-click on the image and "Save as...", OR<br />
         Right-click on the link below and "Save target as..."
       </p>
-      <p><a id="card-image-link">Save Card</a> <a href="#" id="close-image-window">Close</a></p>
+      <p><a target="_blank" id="card-image-link">Save Card</a> <a href="#" id="close-image-window">Close</a></p>
     </div>
 </div>
 <div id="image-editor-window">

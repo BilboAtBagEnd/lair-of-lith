@@ -12,12 +12,7 @@ class CharactersController < ApplicationController
     @owner = User.find(@character.user_id)
 
     if @character && @owner
-      # PRIVACY CHECK
-      if current_user.id == @character.user_id 
         @versions = CharacterVersion.where('character_id = ?', @character.id).order('version desc')
-      else
-        raise ActionController::RoutingError.new('Character Not Found')
-      end
     else
       raise ActionController::RoutingError.new('Character Not Found')
     end
@@ -28,15 +23,12 @@ class CharactersController < ApplicationController
     @character = Character.find(params[:id])
     @owner = User.find(@character.user_id)
 
-    @is_myself = @user ? @user.id == @owner.id : false
-
-    # PRIVACY CHECK
-    if !@user || !@character || !@owner || (@user && (@user.id != @character.user_id)) 
+    if !@character || !@owner 
       raise ActionController::RoutingError.new('Character Not Found')
     end
 
     @version = CharacterVersion.find(params[:vid])
-    if !@version || @version.character_id != @character.id
+    if @version.character_id != @character.id
       raise ActionController::RoutingError.new('Version Not Found')
     end
   end
