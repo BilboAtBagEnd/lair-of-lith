@@ -10,7 +10,10 @@ $(document).ready(function() {
           imageWidth: 400,
     });
 
-    $("#card-generator").data('DOA2_Image_Generator').generateCard();
+    $("#generate-card").click(function() {
+        $("#card-generator").toggle(true);
+        $("#card-generator").data('DOA2_Image_Generator').generateCard();
+    });
 });
 
 </script>
@@ -35,7 +38,8 @@ $(document).ready(function() {
 
 <h3>Current Card Image</h3>
 
-<div id="card-generator" style="width: 40em"></div>
+<button id="generate-card">Generate</button> <br />
+<div id="card-generator" style="width: 40em; display: none;"></div>
 <div style="clear: both; height: 1em;"> </div>
 
 <h3>Current Card Text</h3>

@@ -97,6 +97,14 @@
             }
             outerHtml +=  "</p></div>";
 
+            outerHtml += 
+                '<div id="font-loader" class="doa2-image-generator-font-loader">' +
+                '  <span class="doa2-image-generator-bold">_</span>' +
+                '  <span class="doa2-image-generator-demi">_</span>' +
+                '  <span class="doa2-image-generator-light">_</span>' +
+                '  <span class="doa2-image-generator-medium">_</span>' +
+                '</div>';
+
             $element.html(outerHtml);
         };
 

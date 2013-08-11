@@ -18,3 +18,11 @@
   border: 1px solid #cccccc;
   overflow: auto;
 }
+
+.doa2-image-generator-font-loader {
+  color: #ffffff;
+}
+.doa2-image-generator-bold { font-family: 'Eras Bold'; }
+.doa2-image-generator-demi { font-family: 'Eras Demi'; }
+.doa2-image-generator-light { font-family: 'Eras Light'; }
+.doa2-image-generator-medium { font-family: 'Eras Medium'; }

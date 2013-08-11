@@ -11,23 +11,6 @@
  *= require_self
  *= require_tree .
  */
-@font-face {
-  font-family: "Eras Bold"; 
-  src: url("/fonts/ERASBD.TTF");
-}
-@font-face {
-  font-family: "Eras Demi";
-  src: url("/fonts/ERASDEMI.TTF");
-}
-@font-face {
-  font-family: "Eras Light";
-  src: url("/fonts/ERASLGHT.TTF");
-}
-@font-face {
-  font-family: "Eras Medium";
-  src: url("/fonts/ERASMD.TTF");
-}
-
 body {
   font-family: 'Eras Medium', serif;
   padding: 1em;
