@@ -29,6 +29,12 @@ DOA2_Image.generateCard = function (params) {
     cardImage.src = "/images/loading.gif";
     cardLink.href = "";
     progressText.text('Rendering...');
+
+    // Draw some text so that the fonts are ready for 
+    // measuring. We assume the fonts have been loaded 
+    // elsewhere.
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
     
     var hasRangedWeapon = character.hasRangedWeapon();
     
@@ -197,7 +203,7 @@ DOA2_Image.generateCard = function (params) {
         return size/maxSize;
     }
     
-    var titleScaleFactor = scaleFactor(500, 50, "Eras Bold", character.name);
+    var titleScaleFactor = scaleFactor(500, 50, "Eras Demi", character.name);
     
     var textElements = [
         { fill: "#ffffff", font: (50 * titleScaleFactor) + 'px "Eras Demi"', text: character.name, x: 40, y: 110 },

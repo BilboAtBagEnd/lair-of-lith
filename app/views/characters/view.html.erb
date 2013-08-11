@@ -3,7 +3,7 @@
 <script>
 
 $(document).ready(function() {
-    var csv = _.unescape('<%=raw @newest_version.csv.gsub("'", "\\\\'").strip %>');
+    var csv = "<%=raw @newest_version.csv.gsub('"', "\\\"").strip %>";
     $("#card-generator").DOA2_Image_Generator({
           closeLink: false,
           character: DOA2_Text.csvToCharacter(csv),
