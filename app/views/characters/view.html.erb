@@ -2,7 +2,7 @@
 <h2><%= @character.name %></h2>
 <p>by <%= @owner.name %></p>
 
-<h3>Current Version</h3> 
+<h3><%= link_to 'Current Version', controller: 'characters', action: 'edit', id: @character.id, vid: @newest_version.id  %></h3> 
 
 <div class="card-html">
   <p>
