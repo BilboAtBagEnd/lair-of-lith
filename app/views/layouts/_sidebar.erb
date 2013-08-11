@@ -4,7 +4,7 @@
     <ul>
       <li><%= link_to 'New Card', controller: '/characters', action: 'new' %></li>
       <% if user_signed_in? %>
-        <li><%= link_to 'My Cards', controller: '/users', action: 'view' %></li>
+        <li><%= link_to 'My Cards', controller: '/users', action: 'view', id: current_user.id %></li>
       <% end %>
       <li><%= link_to 'Help', controller: '/characters', action: 'help' %></li>
       <li><a href="http://boardgamegeek.com/thread/1010922/doa-ii-character-value-calculator-v0-5">BGG Thread</a></li>

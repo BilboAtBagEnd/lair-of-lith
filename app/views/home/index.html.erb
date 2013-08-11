@@ -12,9 +12,22 @@ as implementing the official algorithms so that you
 can interactively balance your characters. 
 </p>
 
+<p>
+<strong>Note:</strong> We support rendering portraits 
+but do not support uploading them. Thus you can always 
+choose a portrait to go with a card when you generate 
+it, even if you don't own the card---you won't be changing 
+the underlying card data itself.
+</p>
+
+<p>
+Any feedback, bug reports, and feature requests can be 
+made to <a href="http://boardgamegeek.com/thread/1010922/doa-ii-character-value-calculator-v0-5">this BGG Thread</a>.
+</p>
+
 <h3>Recently Created Characters</h3> 
 
-<ol>
+<ol reversed="reversed">
 <% @characters.each do |c| %>
   <li>
     <%= link_to c['name'], controller: 'characters', action: 'view', id: c['id'] %>
