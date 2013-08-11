@@ -148,11 +148,13 @@ ul.topnav a, ul.topnav a:visited {
   margin: 0.5em 0 0.5em 0;
   font-family: "Eras Demi", serif;
 }
+#site-content h3 {
+  margin-top: 1.5em;
+}
 #site-content hr {
   width: 80%;
   margin: 1em 0 1em 0;
 }
-
 #site-content li {
   margin-top: 1em;
   margin-bottom: 1em;

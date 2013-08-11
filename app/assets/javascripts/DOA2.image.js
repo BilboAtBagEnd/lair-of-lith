@@ -197,7 +197,7 @@ DOA2_Image.generateCard = function (params) {
         return size/maxSize;
     }
     
-    var titleScaleFactor = scaleFactor(500, 50, "Eras Bold", character.name);
+    var titleScaleFactor = scaleFactor(480, 50, "Eras Bold", character.name);
     
     var textElements = [
         { fill: "#ffffff", font: (50 * titleScaleFactor) + 'px "Eras Demi"', text: character.name, x: 40, y: 110 },
