@@ -2,6 +2,85 @@
 <h2><%= @character.name %></h2>
 <p>by <%= @owner.name %></p>
 
+<h3>Current Version</h3> 
+
+<div class="card-html">
+  <p>
+    <strong><%= @csv['name'] %></strong><br />
+    <em><%= @csv['title'] %></em><br />
+    <%= @csv['age'] %> / <%= @csv['setting'] %> / <%= @csv['circle'] %> / <%= @csv['nature'] %>
+  </p>
+
+  <p>
+  <% CharactersHelper::DOA2_STATS.each do |stat| %>
+    <%= @csv[stat] %> <%= stat %><br />
+  <% end %>
+  </p>
+
+  <% if ['single', 'area'].member? @csv['rangedWeapon']['area'] %>
+  <p>
+    <strong>Ranged Weapon</strong><br />
+    <%= @csv['rangedWeapon']['power'] %> Power<br />
+    <%= @csv['rangedWeapon']['damage'] %> Damage<br />
+    <%= @csv['rangedWeapon']['rangeMax'] %> RangeMax<br />
+    <%= @csv['rangedWeapon']['rangeMin'] %> RangeMin<br />
+    <%= @csv['rangedWeapon']['area'] %>
+  </p>
+  <% end %>
+
+  <% 
+     card_info = []
+     @csv['cards']['common'] ? card_info.push("#{@csv['cards']['common']} common") : '' 
+     @csv['cards']['secret'] ? card_info.push("#{@csv['cards']['secret']} secret") : '' 
+     @csv['cards']['elite'] ? card_info.push("#{@csv['cards']['elite']} elite") : '' 
+     @csv['cards']['henchmen'] ? card_info.push("#{@csv['cards']['henchmen']} henchmen") : '' 
+     @csv['cards']['noGive'] ? card_info.push('No give cards') : '' 
+     @csv['cards']['noTrade'] ? card_info.push('No trade cards') : '' 
+     @csv['cards']['noLimit'] ? card_info.push('No card limit') : '' 
+  %>
+  <% if card_info %>
+    <p>
+    <strong>Cards</strong><br />
+    <%= card_info.join(', ') %>
+    </p>
+  <% end %>
+
+  <%
+    bonuses = []
+    bonuses += @csv['bonuses']['ranged']
+    bonuses += @csv['bonuses']['melee']
+    bonuses += @csv['bonuses']['other']
+    @csv['bonuses']['stealth'] ? bonuses.push('Stealth') : ''
+    @csv['bonuses']['medical'] ? bonuses.push('Medical') : ''
+    @csv['bonuses']['armor'] ? bonuses.push('Armor') : ''
+  %>
+  <% if bonuses %>
+    <p>
+    <strong>Bonuses</strong><br />
+    <%= bonuses.join(', ') %>
+    </p>
+  <% end %>
+
+  <p><strong>Special Abilities</strong></p>
+
+  <% @csv['specials'].each do |special| %>
+    <% 
+      values = []
+      special['value']['survival'] != 0  ? values.push("#{special['value']['survival']} survival") : ''
+      special['value']['ranged'] != 0    ? values.push("#{special['value']['ranged']} ranged") : ''
+      special['value']['melee'] != 0     ? values.push("#{special['value']['melee']} melee") : ''
+      special['value']['adventure'] != 0 ? values.push("#{special['value']['adventure']} adventure") : ''
+    %>
+    <% if special['description'] %>
+      <p>
+      <%= special['description'] %> (<%= values.join(', ') %>)
+      </p>
+    <% end %>
+  <% end %>
+
+</div>
+
+
 <h3>Versions</h3>
 <ul>
 <% @versions.each do |version| %>

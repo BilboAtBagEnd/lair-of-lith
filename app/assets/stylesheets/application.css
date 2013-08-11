@@ -36,6 +36,14 @@ body {
   color: #a3a3a3;
 }
 
+strong { 
+  font-family: 'Eras Demi', serif;
+}
+
+p { 
+  line-height: 1.5em;
+}
+
 #site-title {
   font-family: "Eras Demi", serif;
   font-size: 4em;

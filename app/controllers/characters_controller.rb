@@ -13,6 +13,10 @@ class CharactersController < ApplicationController
 
     if @character && @owner
         @versions = CharacterVersion.where('character_id = ?', @character.id).order('version desc')
+        if (@versions.size > 0) 
+          @newest_version = @versions[0]
+          @csv = CharactersHelper.csv_to_hash @newest_version.csv
+        end
     else
       raise ActionController::RoutingError.new('Character Not Found')
     end
