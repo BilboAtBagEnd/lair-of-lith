@@ -179,9 +179,14 @@ ul.topnav a, ul.topnav a:visited {
 
 table.form th { 
   text-align: right;
+  vertical-align: top;
 }
 table.form th, table.form td { 
   padding: 0.5em;
+}
+table.form textarea {
+  width: 25em;
+  height: 15em;
 }
 input.text { 
   width: 25em;

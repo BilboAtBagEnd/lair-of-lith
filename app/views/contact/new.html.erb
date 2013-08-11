@@ -1,0 +1,29 @@
+<% @title = "Contact Us" %>
+<%= form_for @message, :url => contact_path do |form| %>
+  <table class="form">
+    <tr>
+      <th><%= form.label :name %></th>
+      <td><%= form.text_field :name, class: 'text' %></td>
+    </tr>
+
+    <tr>
+      <th><%= form.label :email %></th>
+      <td><%= form.text_field :email, class: 'text' %></td>
+    </tr>
+
+    <tr>
+      <th><%= form.label :subject %></th>
+      <td><%= form.text_field :subject, class: 'text' %></td>
+    </tr>
+
+    <tr>
+      <th><%= form.label :body %></th>
+      <td><%= form.text_area :body %></td>
+    </tr>
+
+    <tr>
+      <th></th>
+      <td><%= form.submit "Send" %></td>
+    </tr>
+  </table>
+<% end %>

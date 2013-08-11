@@ -18,6 +18,9 @@ AppLairoflithCom::Application.routes.draw do
   post 'characters/save' => 'characters#save'
   delete 'characters/destroy' => 'characters#destroy'
 
+  get 'contact' => 'contact#new'
+  post 'contact' => 'contact#create'
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
