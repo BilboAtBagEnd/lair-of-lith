@@ -1,6 +1,6 @@
 <script>
   <% if @version && @version.csv %>
-var CHARACTER_CSV = _.unescape('<%= @version.csv.gsub("'", "\\\\'").strip %>');
+var CHARACTER_CSV = _.unescape('<%=raw @version.csv.gsub("'", "\\\\'").strip %>');
   <% else %>
 var CHARACTER_CSV = 'v4|Somewhat A Very, Very, Very Long Name Indeed|The Example|Ancient|Faer|Lord|Woman|7|4|6|6|2|2|5|3|7|8|8|2|5|3|5|6|3|1|2|5|0|single|4|3|2|1|Auto Pistol,Auto Rifle|Blade,Brawler|1|1|1|Bot,Gadget,Mount|1|1|1|Move cost 1 in Swamp.|10|0|0|0|This character leaps over other character whenever damage is dealt using its natural melee attack. Just like how the quick red fox jumped over the lazy brown dogs.|10|10|0|0'
   <% end %>

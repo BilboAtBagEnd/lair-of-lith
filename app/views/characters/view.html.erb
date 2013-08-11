@@ -3,10 +3,11 @@
 <script>
 
 $(document).ready(function() {
-    var csv = _.unescape('<%= @newest_version.csv.gsub("'", "\\\\'").strip %>');
+    var csv = _.unescape('<%=raw @newest_version.csv.gsub("'", "\\\\'").strip %>');
     $("#card-generator").DOA2_Image_Generator({
           closeLink: false,
           character: DOA2_Text.csvToCharacter(csv),
+          imageWidth: 400,
     });
 
     $("#card-generator").data('DOA2_Image_Generator').generateCard();

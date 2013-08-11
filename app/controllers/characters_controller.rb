@@ -66,7 +66,9 @@ class CharactersController < ApplicationController
       @character_version = CharacterVersion.new
       @character_version.character_id = @character.id
       @character_version.version = @prev_version + 1
-      @character_version.csv = params[:csv]
+      @character_version.csv = CharactersHelper.html_decode(params[:csv])
+      logger.info(params[:csv])
+      logger.info(CharactersHelper.html_decode(params[:csv]))
       unless @character_version.save
         flash[:error] = 'Could not save character version'
         @character_version = nil

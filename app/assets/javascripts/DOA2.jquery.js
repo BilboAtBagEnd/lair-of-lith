@@ -5,6 +5,7 @@
 
         var defaults = {
             closeLink: false,
+            imageWidth: 225,
         };
 
         plugin.settings = {};
@@ -77,7 +78,7 @@
                   "  <br />" +
                   "  Parchment? <input id='" + identifiers.parchmentInput + "' type='checkbox' />" +
                   "</div>" +
-                  "<img class='doa2-image-generator-card-image' id='" + identifiers.cardImage + "' width='225' />" +
+                  "<img class='doa2-image-generator-card-image' id='" + identifiers.cardImage + "' width='" + plugin.settings.imageWidth + "' />" +
                   "<canvas id='" + identifiers.cardCanvas + "' width='945' height='1418' style='display: none;'></canvas>" +
                   "<div id='" + identifiers.imageDescription + "'>" +
                   "  <p>" +

@@ -1,9 +1,15 @@
+#require 'htmlentities'
+
 module CharactersHelper
   DOA2_STATS = [
     'speed', 'health', 'wits', 'melee', 'power', 'damage',
     'aim', 'point', 'throw', 'react', 'stealth', 'armor', 
     'strength', 'intellect', 'honor', 'respect' 
   ]
+
+  def self.html_decode(s) 
+    return HTMLEntities.new.decode s
+  end
 
   def self.csv_to_hash(csv) 
     values = csv.split('|')
