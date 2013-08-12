@@ -19,7 +19,7 @@ $(document).ready(function() {
 </script>
 
 <h2><%= @character.name %></h2>
-<p>by <%= @owner.name %></p>
+<p>by <%= link_to @owner.name, controller: '/users', action: 'view', id: @owner.id %></p>
 
 <h3>Current Version is <%= @newest_version.version %></h3>
 
