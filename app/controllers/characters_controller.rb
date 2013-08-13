@@ -7,6 +7,9 @@ class CharactersController < ApplicationController
   def help
   end
 
+  def walkthrough
+  end
+
   def view
     @character = Character.find(params[:id])
     @owner = User.find(@character.user_id)

@@ -15,6 +15,7 @@ AppLairoflithCom::Application.routes.draw do
   get 'characters/view/:id' => 'characters#view'
   get 'characters/edit/:id/:vid' => 'characters#edit'
   get 'characters/help' => 'characters#help'
+  get 'characters/walkthrough' => 'characters#walkthrough'
   post 'characters/save' => 'characters#save'
   delete 'characters/destroy' => 'characters#destroy'
 

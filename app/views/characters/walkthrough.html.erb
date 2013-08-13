@@ -1,0 +1,55 @@
+<h2>Character Generator Walkthrough</h2> 
+
+<h3 id="create_new">Creating a New Character</h3> 
+
+<p>
+To create a new character, click on the "New Character" link at the side. This will take you to a form where you can interactively balance your character, generate the card, and save it to the database. 
+</p>
+<p>
+If you see a character name already taken by someone else, don't worry! You can have a character of the same name; they are unique to their individual owners, not to the whole user base. 
+</p>
+<p class="note">
+Note: all characters saved to the database are public.
+</p>
+<p>For more details about <a href="#using_generator">using the Character Generator</a>, see below.</p>
+ 
+<h3 id="using_generator">Using the Character Generator</h3>
+There are several functions available to you in the sidebar of the generator form: 
+</p>
+<dl>
+  <dt>Import: Load CSV</dt> 
+  <dd><p>If you have exported your character to CSV format previously and would like to reload it from the CSV text, click this button. A text box will appear where you can paste the text. Click "Load" to load the character, or "Close" to cancel your action.</p></dd>
+  <dt>Export: BGG</dt>
+  <dd><p>This generates BoardGameGeek code that you can paste into a BGG post or reply. Click this button, and a text box will appear with the BGG code. Copy and paste to your heart's content.</p></dd>
+  <dt>Export: CSV</dt>
+  <dd><p>This generates CSV that you can save to a location other than Lair of Lith and reload later on. You can also use CSV in combination with <a href="http://boardgamegeek.com/thread/1011889/final-fan-revised-character-templates-for-coreldr/page/1">mltdown's CorelDraw scripts</a> to generate more flexible character cards.</p></dd>
+  <dt>Render: Get Card</dt>
+  <dd><p>This will open a window where you can generate the card image from the parameters on the page, as well as add a portrait with various options for fitting the portrait on the page. See <a href="#generate_image">Generating a Card Image</a> for more details on how to customize your character card.</p> 
+  <p class="note">Note: Portraits are not saved to the database. However, each time you generate a card, you can choose a new portrait (or the old one).</p></dd>
+  <dt>Save: Save Card</dt>
+  <dd><p>This option will only show up on a new character or on a character in the database that you currently own. This saves the character to the database so that you can reload them into an editor later.</p> 
+  <p class="note">You may have characters with the same name as those owned by other users, but you can only have one character with that name in your account.</p></dd>
+  <dt>Edit: Undo, Redo</dt>
+  <dd><p>This allows you to undo and redo changes to your character's ratings and special abilities as you experiment with your character card. Leaving the generator page for any reason will reset your undo/redo stack.</p></dd>
+  <dt>Edit: Reset, Clear</dt>
+  <dd><p>Reset will reset the character state to its version when you first loaded the page. Clear will completely clear all ratings and special abilities, leaving a blank character. You can undo/redo these changes as long as you don't leave the page.</p></dd>
+</dl>
+
+<h3 id="generate_image">Generating a Card Image</h3> 
+
+<p>There are two places where you can generate a character image: on the card generator page, and on the card viewing page. To generate a character, simply click on the "Get Card" or "Generate" buttons as appropriate.</p>
+<p>Once you have your card image generated, you'll notice that there is no portrait. You will need to add one, using the portrait loader form at the top of the generated card image.</p> 
+<p>To add a portrait, click on the "Choose File" button to select an image from your computer. Supported formats include JPG/JPEG and PNG. This will by default "Fit" your image into the portrait frame, keeping the aspect ratio of your image (i.e., not stretching it).</p>
+<p>If you want your image to fill the portrait frame entirely, choose from the following options:</p>
+<ul>
+  <li><p><strong>Fill</strong> stretches the picture to fill the portrait frame entirely.</p></li>
+  <li><p><strong>Fit</strong> keeps the aspect ratio of your picture while filling the frame from left to right.</p></li>
+  <li><p><strong>Original</strong> draws your image without altering it. This is the least useful of the options.</p></li>
+  <li><p><strong>Cropped</strong> will open a new window where you can select a part of your image. The aspect ratio of the crop window corresponds to the portrait frame on the card. This is the most useful of the options.</p>
+</ul>
+<p>
+After adding a portrait to your card, you might consider adding a parchment background to the special ability box. I prefer the translucent white, but others may not.
+</p>
+<p>
+Note that neither portrait nor parchment options will be saved to the database. This is partly to avoid legal issues with copyrighted portraits (since this website will act as an archive for character cards) and partly so that anyone can customize any card as they like it before printing it out. 
+</p>
