@@ -48,5 +48,6 @@ gem 'devise'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# Other gems
+# Decode HTML entities when received on the wire
 gem 'htmlentities'
+
