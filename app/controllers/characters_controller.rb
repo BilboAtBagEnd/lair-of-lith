@@ -82,6 +82,7 @@ class CharactersController < ApplicationController
     }
 
     respond_to do |format|
+      format.html { redirect_to controller: 'characters', action: 'edit', id: @character.id, vid: @character_version.id }
       format.json { render json: @result.to_json, status: @character_version ? 200 : 500 }
     end
   end

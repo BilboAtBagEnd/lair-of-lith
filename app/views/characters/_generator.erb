@@ -369,6 +369,13 @@ $(document).ready(function() {
     });
 
     $("#save-card").click(function() {
+        $("#save-card-form-name").val($("#name").val());
+        $("#save-card-form-csv").val(getCSV());
+        $("#save-card-form-auth").val($('meta[name="csrf-token"]').attr('content'));
+        $("#save-card-form").submit();
+
+        return;
+
         var saveURL = "<%= url_for controller: 'characters', action: 'save' %>";
         var postData = "name=" + encodeURIComponent($("#name").val()) + "&" 
                        + "csv=" + encodeURIComponent(getCSV());
@@ -428,6 +435,11 @@ $(document).ready(function() {
   <% if !@owner || (@owner.id == current_user.id) %>
     <p>
       <span class="title">Save</span>
+      <form id="save-card-form" style="display: none;" method="post" action="<%= url_for controller: 'characters', action: 'save' %>">
+        <input id="save-card-form-name" type="hidden" name="name" />
+        <input id="save-card-form-csv" type="hidden" name="csv" />
+        <input id="save-card-form-auth" type="hidden" name="authenticity_token" />
+      </form>
       <button id="save-card">Save Card</button>
     </p>
   <% end %>
