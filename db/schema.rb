@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130810225405) do
+ActiveRecord::Schema.define(version: 20130814043042) do
 
   create_table "character_versions", force: true do |t|
     t.integer  "character_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20130810225405) do
     t.datetime "updated_at"
   end
 
+  add_index "character_versions", ["character_id", "version"], name: "index_character_versions_on_character_id_and_version", unique: true, using: :btree
   add_index "character_versions", ["character_id"], name: "index_character_versions_on_character_id", using: :btree
 
   create_table "characters", force: true do |t|

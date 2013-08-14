@@ -13,7 +13,7 @@ AppLairoflithCom::Application.routes.draw do
   get "users/view/:id" => 'users#view'
   get 'characters/new' => 'characters#new'
   get 'characters/view/:id' => 'characters#view'
-  get 'characters/edit/:id/:vid' => 'characters#edit'
+  get 'characters/edit/:id/:version' => 'characters#edit'
   get 'characters/help' => 'characters#help'
   get 'characters/walkthrough' => 'characters#walkthrough'
   post 'characters/save' => 'characters#save'

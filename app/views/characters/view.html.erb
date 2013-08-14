@@ -23,14 +23,14 @@ $(document).ready(function() {
 
 <h3>Current Version is <%= @newest_version.version %></h3>
 
-<p><%= link_to 'Open detailed view', controller: 'characters', action: 'edit', id: @character.id, vid: @newest_version.id  %></p> 
+<p><%= link_to 'Open detailed view', controller: 'characters', action: 'edit', id: @character.id, version: @newest_version.version  %></p> 
 
 <h3>Versions</h3>
 <ul>
 <% @versions.each do |version| %>
   <li>
     <%= link_to "Version #{version.version}", 
-    controller: 'characters', action: 'edit', id: @character.id, vid: version.id %>
+    controller: 'characters', action: 'edit', id: @character.id, version: version.version %>
     <%= version.created_at %>
   </li>
 <% end %>
