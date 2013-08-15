@@ -11,35 +11,47 @@ class CharactersController < ApplicationController
   end
 
   def view
-    @character = Character.find(params[:id])
-    @owner = User.find(@character.user_id)
+    @owner = User.friendly.find(params[:uid])
 
-    if @character && @owner
-        @versions = CharacterVersion.where('character_id = ?', @character.id).order('version desc')
-        if (@versions.size > 0) 
-          @newest_version = @versions[0]
-          @csv = CharactersHelper.csv_to_hash @newest_version.csv
-        end
-    else
+    if !@owner
       raise ActionController::RoutingError.new('Character Not Found')
+    end
+
+    @character = @owner.characters.friendly.find(params[:cid])
+
+    if !@character
+      raise ActionController::RoutingError.new('Character Not Found')
+    end
+
+    @versions = CharacterVersion.where('character_id = ?', @character.id).order('version desc')
+    if (@versions.size > 0) 
+      @newest_version = @versions[0]
+      @csv = CharactersHelper.csv_to_hash @newest_version.csv
     end
   end
 
-  def edit
+  def generate
     @user = current_user
-    @character = Character.find(params[:id])
-    @owner = User.find(@character.user_id)
 
-    if !@character || !@owner 
+    @owner = User.friendly.find(params[:uid])
+
+    if !@owner 
       raise ActionController::RoutingError.new('Character Not Found')
     end
 
-    @rows = CharacterVersion.where('character_id = ? and version = ?', params[:id], params[:version])
+    @character = @owner.characters.friendly.find(params[:cid])
+
+    if !@character 
+      raise ActionController::RoutingError.new('Character Not Found')
+    end
+
+    @rows = CharacterVersion.where('character_id = ? and version = ?', @character.id, params[:version])
     if @rows.size > 0
       @version = @rows[0]
     end
+
     if !@version 
-      raise ActionController::RoutingError.new('Version Not Found')
+      raise ActionController::RoutingError.new("Version Not Found")
     end
   end
 
@@ -85,7 +97,7 @@ class CharactersController < ApplicationController
     }
 
     respond_to do |format|
-      format.html { redirect_to controller: 'characters', action: 'edit', id: @character.id, version: @character_version.version }
+      format.html { redirect_to character_generate_path(@user, @character.slug, @character_version.version) }
       format.json { render json: @result.to_json, status: @character_version ? 200 : 500 }
     end
   end

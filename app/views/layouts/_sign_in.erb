@@ -1,6 +1,6 @@
 <div id="sign-in">
   <% if user_signed_in? %>
-    <span class="greeting">Hello, <%= link_to current_user.name, controller: '/users', action: 'view', id: current_user.id %>!</span>
+    <span class="greeting">Hello, <%= link_to current_user.name, user_path(current_user) %>!</span>
     |
     <span class="edit"><%= link_to 'Edit profile', edit_user_registration_path %></span>
     |

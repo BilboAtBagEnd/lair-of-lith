@@ -6,7 +6,7 @@
 <ul>
 <% @characters.each do |character| %>
   <li>
-    <%= link_to character.name, controller: '/characters', action: 'view', id: character.id %>
+    <%= link_to character.name, character_path(@user, character) %>
   </li>
 <% end %>
 </ul>

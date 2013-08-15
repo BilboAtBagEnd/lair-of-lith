@@ -19,19 +19,18 @@ $(document).ready(function() {
 </script>
 
 <h2><%= @character.name %></h2>
-<p>by <%= link_to @owner.name, controller: '/users', action: 'view', id: @owner.id %></p>
+<p>by <%= link_to @owner.name, user_path(@owner) %></p>
 
 <h3>Current Version is <%= @newest_version.version %></h3>
 
-<p><%= link_to 'Open detailed view', controller: 'characters', action: 'edit', id: @character.id, version: @newest_version.version  %></p> 
+<p><%= link_to 'Open detailed view', character_generate_path(@owner, @character, @newest_version.version) %></p> 
 
 <h3>Versions</h3>
 <ul>
 <% @versions.each do |version| %>
   <li>
-    <%= link_to "Version #{version.version}", 
-    controller: 'characters', action: 'edit', id: @character.id, version: version.version %>
-    <%= version.created_at %>
+  <%= link_to "Version #{version.version}", character_generate_path(@owner, @character, version.version) %>
+  <%= version.created_at %>
   </li>
 <% end %>
 </ul>

@@ -2,12 +2,12 @@
   <div class="section">
     <span class="title">Character Generation</span>
     <ul>
-      <li><%= link_to 'New Card', controller: '/characters', action: 'new' %></li>
+      <li><%= link_to 'New Card', character_new_path %></li>
       <% if user_signed_in? %>
-        <li><%= link_to 'My Cards', controller: '/users', action: 'view', id: current_user.id %></li>
+        <li><%= link_to 'My Cards', user_path(current_user) %></li>
       <% end %>
-      <li><%= link_to 'Help', controller: '/characters', action: 'help' %></li>
-      <li><%= link_to 'Walkthrough', controller: '/characters', action: 'walkthrough' %></li>
+      <li><%= link_to 'Help', character_help_path %></li>
+      <li><%= link_to 'Walkthrough', character_walkthrough_path %></li>
       <li><a href="http://boardgamegeek.com/article/13107069">BGG Thread</a></li>
       <li><a href="http://boardgamegeek.com/thread/1011889/final-fan-revised-character-templates-for-coreldr/page/1">mltdown's CorelDraw scripts</li>
     </ul>

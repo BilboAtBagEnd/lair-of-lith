@@ -51,3 +51,5 @@ gem 'devise'
 # Decode HTML entities when received on the wire
 gem 'htmlentities'
 
+# Friendly slugs
+gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: 'master'

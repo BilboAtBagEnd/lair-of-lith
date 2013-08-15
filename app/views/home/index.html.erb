@@ -32,8 +32,8 @@ made to <a href="http://boardgamegeek.com/article/13107069">this BGG Thread</a> 
 <ol reversed="reversed">
 <% @characters.each do |c| %>
   <li>
-    <%= link_to c['name'], controller: 'characters', action: 'view', id: c['id'] %>
-    by <%= link_to c['user_name'], controller: 'users', action: 'view', id: c['uid'] %>
+    <%= link_to c['name'], character_path(c['user_slug'], c['slug'])%>
+    by <%= link_to c['user_name'], user_path(c['user_slug']) %>
     on <%= c['created_at'] %>
   </li>
 <% end %>

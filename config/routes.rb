@@ -10,14 +10,16 @@ AppLairoflithCom::Application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-  get "users/view/:id" => 'users#view'
-  get 'characters/new' => 'characters#new'
-  get 'characters/view/:id' => 'characters#view'
-  get 'characters/edit/:id/:version' => 'characters#edit'
-  get 'characters/help' => 'characters#help'
-  get 'characters/walkthrough' => 'characters#walkthrough'
+  get 'users/:id', to: 'users#view', as: 'user'
+
+  get 'characters/new', to: 'characters#new', as: 'character_new'
+  get 'users/:uid/characters/:cid', to: 'characters#view', as: 'character'
+  get 'users/:uid/characters/:cid/:version/generate' => 'characters#generate', as: 'character_generate'
   post 'characters/save' => 'characters#save'
   delete 'characters/destroy' => 'characters#destroy'
+
+  get 'characters/help', to: 'characters#help', as: 'character_help'
+  get 'characters/walkthrough', to: 'characters#walkthrough', as: 'character_walkthrough'
 
   get 'contact' => 'contact#new'
   post 'contact' => 'contact#create'
