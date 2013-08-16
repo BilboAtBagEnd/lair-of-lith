@@ -59,3 +59,6 @@ gem 'sanitize'
 
 # BB Code for comments and descriptions
 gem 'rbbcode'
+
+# Sitemaps
+gem 'sitemap_generator'
