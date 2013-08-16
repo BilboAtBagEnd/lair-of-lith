@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 <h3>Current Version is <%= @newest_version.version %></h3>
 
-<p><%= link_to 'Open detailed view', character_generate_path(@owner, @character, @newest_version.version) %></p> 
+<p><%= link_to 'Open in generator', character_generate_path(@owner, @character, @newest_version.version) %></p> 
 
 <ul id="version-list" style="display: none;">
 <% @versions.each do |version| %>
