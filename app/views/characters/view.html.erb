@@ -20,11 +20,11 @@ $(document).ready(function() {
         var vlist = $("#version-list");
         if (vlist.is(':visible')) {
             vlist.slideUp();
-            $(this).html('expand+');
+            $(this).html('see all versions');
         }
         else {
             vlist.slideDown();
-            $(this).html('collapse-');
+            $(this).html('collapse all versions');
         }
     });
 });
@@ -38,7 +38,6 @@ $(document).ready(function() {
 
 <p><%= link_to 'Open detailed view', character_generate_path(@owner, @character, @newest_version.version) %></p> 
 
-<h3>Versions</h3> 
 <ul id="version-list" style="display: none;">
 <% @versions.each do |version| %>
   <li>
@@ -47,7 +46,7 @@ $(document).ready(function() {
   </li>
 <% end %>
 </ul>
-<p><a id="show-versions" href="#">expand+</a></p>
+<p><a id="show-versions" href="#">see all versions</a></p>
 
 <h3>Current Card Image</h3>
 
