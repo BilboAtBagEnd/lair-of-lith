@@ -15,7 +15,8 @@ AppLairoflithCom::Application.routes.draw do
   get 'characters/new', to: 'characters#new', as: 'character_new'
   get 'users/:uid/characters/:cid', to: 'characters#view', as: 'character'
   get 'users/:uid/characters/:cid/:version/generate' => 'characters#generate', as: 'character_generate'
-  post 'characters/save' => 'characters#save'
+  post 'characters/save', to: 'characters#save', as: 'character_save'
+  patch 'users/:uid/characters/:cid/save_data', to: 'characters#save_data', as: 'character_save_data'
   delete 'characters/destroy' => 'characters#destroy'
 
   get 'characters/help', to: 'characters#help', as: 'character_help'

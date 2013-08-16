@@ -27,6 +27,17 @@ $(document).ready(function() {
             $(this).html('collapse all versions');
         }
     });
+
+    $("#edit-bgg-thread-id").click(function(e) {
+        e.preventDefault();
+        $("#form-bgg-thread-id").toggle(true);
+        $("#bgg-thread-id").toggle(false);
+    });
+    $("#cancel-bgg-thread-id-update").click(function(e) {
+        e.preventDefault();
+        $("#form-bgg-thread-id").toggle(false);
+        $("#bgg-thread-id").toggle(true);
+    });
 });
 
 </script>
@@ -34,9 +45,21 @@ $(document).ready(function() {
 <h2><%= @character.name %></h2>
 <p>by <%= link_to @owner.name, user_path(@owner) %></p>
 
+<h3>Links</h3> 
+<p>
+<%= form_for(@character, url: character_save_data_path(current_user, @character), 
+                         html: { id: 'form-bgg-thread-id', style: 'display: none;' }) do |f| %>
+  BoardGameGeek thread id: <%= f.text_field :bgg_thread_id %>
+  <%= f.submit 'Update' %>
+  <button id="cancel-bgg-thread-id-update">Cancel</button>
+<% end %>
+<span id="bgg-thread-id"><%= @character.bgg_thread_link.html_safe %>
+<% if @is_myself %><a id="edit-bgg-thread-id" href="#">edit</a><% end %></span>
+</p>
+
 <h3>Current Version is <%= @newest_version.version %></h3>
 
-<p><%= link_to 'Open in generator', character_generate_path(@owner, @character, @newest_version.version) %></p> 
+<p><%= link_to 'Open latest version in generator', character_generate_path(@owner, @character, @newest_version.version) %></p> 
 
 <ul id="version-list" style="display: none;">
 <% @versions.each do |version| %>

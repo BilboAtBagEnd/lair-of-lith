@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130814145746) do
+ActiveRecord::Schema.define(version: 20130816051359) do
 
   create_table "character_versions", force: true do |t|
     t.integer  "character_id"
@@ -28,8 +28,9 @@ ActiveRecord::Schema.define(version: 20130814145746) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",       limit: 1000
-    t.string   "slug",                    null: false
+    t.string   "name",          limit: 1000
+    t.string   "slug",                       null: false
+    t.integer  "bgg_thread_id"
   end
 
   add_index "characters", ["name"], name: "index_characters_on_name", length: {"name"=>255}, using: :btree

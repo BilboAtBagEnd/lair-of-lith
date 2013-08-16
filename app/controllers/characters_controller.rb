@@ -1,7 +1,8 @@
 class CharactersController < ApplicationController
-  before_filter :authenticate_user!, :only => [:save, :destroy]
+  before_filter :authenticate_user!, :only => [:save, :save_data, :destroy]
 
   def new
+    @is_new = true
   end
 
   def help
@@ -28,6 +29,8 @@ class CharactersController < ApplicationController
       @newest_version = @versions[0]
       @csv = CharactersHelper.csv_to_hash @newest_version.csv
     end
+
+    @is_myself = (current_user ? current_user.id == @owner.id : false)
   end
 
   def generate
@@ -53,6 +56,8 @@ class CharactersController < ApplicationController
     if !@version 
       raise ActionController::RoutingError.new("Version Not Found")
     end
+
+    @is_myself = (current_user ? current_user.id == @owner.id : false)
   end
 
   def save
@@ -102,10 +107,44 @@ class CharactersController < ApplicationController
     end
   end
 
+  def save_data
+    @owner = User.friendly.find(params[:uid])
+    if !@owner
+      raise ActionController::RoutingError.new("User Not Found")
+    end
+
+    if @owner.id != current_user.id
+      raise ActionController::RoutingError.new("Permission Denied")
+    end
+
+    @character = @owner.characters.friendly.find(params[:cid])
+    if !@character
+      raise ActionController::RoutingError.new("Character Not Found")
+    end
+
+    new_data = params[:character]
+    bgg_thread_id = new_data[:bgg_thread_id]
+    
+    if bgg_thread_id 
+      bgg_thread_id_int = bgg_thread_id.to_i
+      if bgg_thread_id.empty? || bgg_thread_id_int == 0
+        @character.bgg_thread_id = nil
+      else
+        @character.bgg_thread_id = bgg_thread_id_int
+      end
+    end
+
+    @character.save!
+
+    redirect_to character_path(@owner, @character)
+  end
+
   def destroy
     @character = Character.find(params[:id])
     if @character && current_user.id == @character.user_id
       @character.destroy
+    else
+      raise ActionController::RoutingError.new("Permission Denied")
     end
   end
 end

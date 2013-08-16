@@ -53,3 +53,9 @@ gem 'htmlentities'
 
 # Friendly slugs
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: 'master'
+
+# Sanitize all HTML input/output.
+gem 'sanitize'
+
+# BB Code for comments and descriptions
+gem 'rbbcode'
