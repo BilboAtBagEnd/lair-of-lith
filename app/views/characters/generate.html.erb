@@ -1,5 +1,5 @@
 <% @title = "Viewing #{@character.name} v#{@version.version} by #{@owner.name}" %>
-<h2><%= @character.name %></h2>
+<h2><%= link_to @character.name, character_path(@owner, @character) %></h2>
 by <%= link_to @owner.name, user_path(@owner) %> <br />
 Version <%= @version.version %> <%= link_to '[All versions]', character_path(@owner, @character) %>
 
