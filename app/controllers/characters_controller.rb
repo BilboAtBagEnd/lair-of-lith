@@ -11,6 +11,12 @@ class CharactersController < ApplicationController
   def walkthrough
   end
 
+  def index
+    @page = params[:page].to_i
+    @page = 1 if @page < 1
+    @characters = Character.joins(:user).order('characters.name, users.name').page(@page)
+  end
+
   def view
     @owner = User.friendly.find(params[:uid])
 

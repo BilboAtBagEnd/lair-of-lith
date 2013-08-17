@@ -1,0 +1,13 @@
+<% @title = "All Characters: Page #{@page}" %>
+<h1>All Characters</h1>
+
+<%= paginate @characters %>
+<ul>
+  <% @characters.each do |character| %>
+    <li><p>
+    <%= link_to character.name, character_path(character.user, character) %> 
+    by <%= link_to character.user.name, user_path(character.user) %>
+    </p></li>
+  <% end %>
+</ul>
+<%= paginate @characters %>

@@ -62,3 +62,6 @@ gem 'rbbcode', github: 'jarrett/rbbcode', branch: 'master'
 
 # Sitemaps
 gem 'sitemap_generator'
+
+# Pagination 
+gem 'kaminari'

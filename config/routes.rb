@@ -8,6 +8,8 @@ AppLairoflithCom::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
 
+  get 'characters', to: 'characters#index', as: 'characters'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
   get 'users/:id', to: 'users#view', as: 'user'

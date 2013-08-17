@@ -3,12 +3,20 @@ class Character < ActiveRecord::Base
   belongs_to :user
   has_many :character_versions
 
+  paginates_per 25
+
   friendly_id :name, use: [:slugged, :history, :scoped], scope: :user
 
   validates_presence_of :name, :user_id
+  validates_uniqueness_of :name, scope: :user_id
+
+  def name=(val)
+    self[:name] = val
+    @name_case_insensitive_changed = val.downcase != name.downcase
+  end
 
   def should_generate_new_friendly_id?
-    name_changed?
+    @name_case_insensitive_changed || false
   end
 
   def bgg_thread_link 

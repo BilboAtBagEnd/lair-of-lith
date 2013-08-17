@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-  # TODO - remove
   protect_from_forgery :except => [:bbcode]
 
   def index

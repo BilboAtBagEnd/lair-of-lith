@@ -11,10 +11,16 @@ class User < ActiveRecord::Base
 
   friendly_id :name, use: [:slugged, :history]
 
-  validates_presence_of :name
-  validates_uniqueness_of :name, :email, :case_sensitive => false
+  validates_presence_of :name, :email
+  validates_uniqueness_of :name, :case_sensitive => false
+  validates_uniqueness_of :email, :case_sensitive => false
+
+  def name=(val)
+    self[:name] = val
+    @name_case_insensitive_changed = val.downcase != name.downcase
+  end
 
   def should_generate_new_friendly_id?
-    name_changed?
+    @name_case_insensitive_changed || false
   end
 end

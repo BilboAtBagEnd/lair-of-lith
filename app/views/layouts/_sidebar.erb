@@ -1,8 +1,9 @@
 <div id="sidebar">
   <div class="section">
-    <span class="title">Character Generation</span>
+    <span class="title">Characters</span>
     <ul>
       <li><%= link_to 'New Card', character_new_path %></li>
+      <li><%= link_to 'All Cards', characters_path %></li>
       <% if user_signed_in? %>
         <li><%= link_to 'My Cards', user_path(current_user) %></li>
       <% end %>
