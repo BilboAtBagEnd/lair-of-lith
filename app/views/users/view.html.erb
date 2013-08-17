@@ -1,7 +1,10 @@
 <% @title = @user.name %>
+<%= image_tag ApplicationHelper.gravatar(@user), style: "float: left; margin: 0.5em 0.5em 0.5em 0;" %>
 <h2><%= @user.name %></h2>
 
 <%= @characters.size %> characters created so far.
+
+<div style="clear: both;"></div>
 
 <ul>
 <% @characters.each do |character| %>
