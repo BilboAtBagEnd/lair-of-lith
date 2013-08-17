@@ -32,9 +32,9 @@ made to <a href="http://boardgamegeek.com/article/13107069">this BGG Thread</a> 
 <ol reversed="reversed">
 <% @characters.each do |c| %>
   <li>
-    <%= link_to c['name'], character_path(c['user_slug'], c['slug'])%>
-    by <%= link_to c['user_name'], user_path(c['user_slug']) %>
-    on <%= c['created_at'] %>
+    <%= link_to c.name, character_path(c.user, c)%>
+    by <%= link_to c.user.name, user_path(c.user) %>
+    on <%= c.created_at %>
   </li>
 <% end %>
 </ol>
