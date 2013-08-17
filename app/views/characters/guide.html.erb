@@ -1,18 +1,27 @@
-<h2>Character Creation Guide</h2>
+<% @title = 'Character Design Guide' %>
+<h2><%= @title %></h2>
 
 <p>Data taken and/or paraphrased for brevity from the official Duel of Ages II rulebook.</p>
+
+<p>This is currently a work in prgress.</p>
 
 <ul>
   <li><a href="#age-setting">Age and Setting</a></li>
   <li><a href="#circle">Circle</a></li>
   <li><a href="#ratings">Character Ratings</a></li>
   <li><a href="#bonuses">Bonus Symbols</a></li>
+  <li><a href="#cards">Cards</a></li>
+  <li><a href="#standard-special-abilities">Standard Special Abilities</a></li>
+  <li><a href="#official-character-abilities">Official Character Abilities</a></li>
 </ul>
 
 <style type="text/css">
   th, td { padding: 0.25em; vertical-align: top; }
-  th { text-align: right; }
+  th { text-align: right; margin-top: 1em; }
   th.header { text-align: center; }
+  tr { border-width: 1px 0 1px 0; border-style: solid; border-color: #000000; }
+  table.abilities th, table.abilities td { margin: 0; border: 1px solid black; }
+  table.abilities th { text-align: center; }
 </style>
 
 <h3 id="age-setting">Age and Setting</h3> 
@@ -215,3 +224,350 @@
   </ul>
 </ul>
 
+<h3 id="cards">Cards</h3> 
+
+<p>When characters start with cards, their point count goes up by a fixed amount per card added. Henchmen are the most expensive cards to begin with, followed by elite cards, secret cards, and common cards. </p>
+
+<p>You may start with the following:</p>
+<ul>
+  <li>0 to 4 Henchmen</li>
+  <li>0 to 4 Elite cards</li>
+  <li>0 to 4 Secret cards</li>
+  <li>0 to 4 Common cards</li>
+</ul>
+
+<p>There are special standard card bonuses (or anti-bonuses):</p>
+<ul>
+  <li>No give cards (-15): Character cannot give cards to other characters.</li>
+  <li>No trade cards (-30): Character cannot give/get cards and cannot use the vault.</li>
+  <li>No limit (+15): Character can exceed the 4-card carry limit.</li>
+</ul>
+
+<h3 id="standard-special-abilities">Standard Special Abilities</h3> 
+
+<p>Some special abilities are so common that they have a standard scoring.</p>
+
+<ul>
+  <li><p>Cannot use a certain card type (Armor, Energy Pistol, etc): -4 to -8 points depending on the nature of the character and other specials.</p></li>
+  <li><p>Can fly: survival 10, adventure 25</p></li>
+  <li><p>Move cost 1 rough, woods, or water: survival 6, adventure 6</p></li>
+  <li><p>Move cost 1 swamp, building: survival 10, adventure 10</p></li>
+</ul>
+</ul>
+
+<h3 id="official-character-abilities">Official Character Abilities</h3> 
+
+<p>To help guide you in scoring your own specials, you can look at the 
+following examples. Always refer to the card's full text to understand 
+what the special is referring to.</p>
+
+<p>You can use the 
+<a href="http://cgi.lairoflith.com/codex-search/">Codex Search</a> 
+to look at the full text of special abilities. I recommend using it 
+to search for a phrase in the special ability text, then cross-reference 
+the character and ability to this page.</p>
+
+<table class="abilities">
+<tr><th>Character</th><th>Special Abilities</th><th> Survival</th><th>Ranged</th><th>Melee</th><th> Adventure</th><th>Notes</th></tr>
+<tr><td>A Pile of Weewaks:</td><td>Attack everyone in Melee</td><td></td><td></td><td>25</td><td></td><td>Considering a Melee rating of 4.</td></tr>
+<tr><td>A Pile of Weewaks:</td><td>Cannot use Armor</td><td> -8</td><td></td><td></td><td> </td></tr>
+<tr><td>A Pile of Weewaks:</td><td>Double damage from Area</td><td> -12</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Ace Cannon:</td><td>+3 range with Thrown, Grenade</td><td></td><td> 12</td><td></td><td></td><td>Considering a Throw of 9.</td></tr>
+<tr><td>Adigan the Rat:</td><td>-1 Damage rating with Melee cards</td><td></td><td></td><td>-22</td><td></td><td></td></tr>
+<tr><td>Agent 911:</td><td>Enemy Hit failures</td><td> 135</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Agent 911:</td><td>Amaze Hit and Adventure on 7</td><td></td><td>20</td><td>20</td><td>20 </td></tr>
+<tr><td>Amanda Pierce:</td><td>Not trade but can use Vault</td><td>-5</td><td>-10</td><td> -5</td><td>-5 </td></tr>
+<tr><td>Annah Mischkev:</td><td>Reveal enemy card on Squeak</td><td></td><td></td><td></td><td>20 </td></tr>
+<tr><td>Annah Mischkev:</td><td>Go to allied Dome</td><td> 20</td><td></td><td></td><td> </td></tr>
+<tr><td>Annie Oakley:</td><td>Take -2 Hit, gain +1 Damage</td><td></td><td>20</td><td></td><td> </td></tr>
+<tr><td>Annie Oakley:</td><td>+1 OpFire Aim and Point</td><td></td><td> 35</td><td></td><td> </td></tr>
+<tr><td>Aramis:</td><td>Cannot OpFire at Women, Children, Lords</td><td>-5</td><td>-20</td><td></td><td></td><td></td></tr>
+<tr><td>Aramis:</td><td>Wits 0 in Melee</td><td></td><td></td><td> -10</td><td></td><td></td></tr>
+<tr><td>Aramis:</td><td>Must imprison</td><td>-10</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Ardin Glynn:</td><td>Cannot attack near team marker</td><td></td><td> -5</td><td>-10</td><td></td><td></td></tr>
+<tr><td>Arkin Ironshanks:</td><td>Cavern bonus</td><td></td><td></td><td> 10</td><td> </td></tr>
+<tr><td>Atalanta:</td><td>No trading in her space</td><td> -6</td><td>-6</td><td>-6</td><td>-15</td><td></td></tr>
+<tr><td>Atalanta:</td><td>Ignores allied mental abilities:</td><td></td><td></td><td></td><td> -8 </td></tr>
+<tr><td>Avindel:</td><td>Move 1 Ancient Woods, Rough, Water</td><td> 9</td><td></td><td></td><td> 9</td><td></td></tr>
+<tr><td>Avindel:</td><td>Move 1 Ancient Swamp</td><td>5</td><td></td><td></td><td> 5</td><td></td></tr>
+<tr><td>Avindel:</td><td>-5 Hit/Adventure on Col, Future, Modern</td><td></td><td>-30</td><td> -35</td><td> -45</td><td></td></tr>
+<tr><td>Baba Yaga:</td><td>Ensorceling in melee</td><td></td><td></td><td>35</td><td> </td></tr>
+<tr><td>Baron von Krule:</td><td>Team marker removal</td><td></td><td></td><td></td><td>110</td><td></td></tr>
+<tr><td>Benedict Arnold:</td><td>Traitor</td><td> -45</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Beowulf:</td><td>Boastful</td><td></td><td></td><td></td><td> -12</td><td></td></tr>
+<tr><td>Big Herr:</td><td>Henchmen protect on Modern</td><td> 40</td><td></td><td></td><td> </td></tr>
+<tr><td>Big Herr:</td><td>Pass+ adventures on Modern</td><td></td><td></td><td></td><td>70 </td></tr>
+<tr><td>Big Herr:</td><td>Draw card for card-paying challenges, Modern</td><td></td><td></td><td></td><td> 50 </td></tr>
+<tr><td>Bill Hickok:</td><td>Use two Point weapons</td><td></td><td>15</td><td></td><td> </td></tr>
+<tr><td>Blackbeard:</td><td>Elite treasure</td><td></td><td></td><td></td><td> 20 </td></tr>
+<tr><td>Blackbeard:</td><td>Cross Deep Water move cost 2</td><td>15</td><td></td><td></td><td> </td></tr>
+<tr><td>Bladed Terror:</td><td> Cross cliff</td><td></td><td></td><td>6</td><td></td><td></td></tr>
+<tr><td>Boolean:</td><td>Draw Adventure again</td><td></td><td></td><td></td><td> 50 </td></tr>
+<tr><td>Boolean:</td><td>Draw card again</td><td> 10</td><td></td><td></td><td>15 </td></tr>
+<tr><td>Boolean:</td><td>Go to Dome of choice on banish</td><td> 50</td><td></td><td></td><td> </td></tr>
+<tr><td>Boris Andronov:</td><td>Cannot imprison unless must</td><td>-8</td><td></td><td></td><td> </td></tr>
+<tr><td>Boudica:</td><td>Cannot attack until attacked, then +2 Hit</td><td></td><td></td><td>-12</td><td></td><td></td></tr>
+<tr><td>Brad:</td><td>Slacking Adventures</td><td></td><td></td><td></td><td>140</td><td></td></tr>
+<tr><td>Brad:</td><td>Slacking Hit/Damage</td><td></td><td> 30</td><td>30</td><td> </td></tr>
+<tr><td>Brad:</td><td>Speed 8 around enemy</td><td> 55</td><td></td><td></td><td>20 </td></tr>
+<tr><td>Brad:</td><td>Cannot move into enemy space</td><td></td><td></td><td>-15</td><td></td><td></td></tr>
+<tr><td>Bruno:</td><td>+2 Hit versus weaklings</td><td></td><td></td><td> 40</td><td> </td></tr>
+<tr><td>Bruno:</td><td>+2 Adventure vs weakling adventures</td><td></td><td></td><td></td><td>20 </td></tr>
+<tr><td>Camden Drake:</td><td>Take unleashed bots</td><td></td><td>5</td><td> 5</td><td> 10 </td></tr>
+<tr><td>Cassie Sashay:</td><td>Mount bonuses</td><td>10</td><td></td><td>10</td><td>15 </td></tr>
+<tr><td>Cassie Sashay:</td><td>Lasso</td><td></td><td></td><td> 20</td><td> </td></tr>
+<tr><td>Catspaw:</td><td>Move 0 through Building</td><td>60</td><td></td><td></td><td> </td></tr>
+<tr><td>Catspaw:</td><td>Witless enemies cannot attack</td><td> 65</td><td></td><td>40</td><td> </td></tr>
+<tr><td>Catspaw:</td><td>Use Wits on adventures</td><td></td><td></td><td></td><td> 75 </td></tr>
+<tr><td>Cayriss:</td><td>Second melee vs second enemy</td><td></td><td></td><td>20</td><td> </td></tr>
+<tr><td>Chief Joseph:</td><td>Colonial bonuses</td><td>30</td><td></td><td></td><td>12 </td></tr>
+<tr><td>Clara Barton:</td><td>Healing and bolstering</td><td> 100</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Coach Quinn:</td><td>Adventuring aura</td><td></td><td></td><td></td><td> 30 </td></tr>
+<tr><td>Commodore Blaylock:</td><td>Two Experience markers</td><td> 10</td><td></td><td></td><td>10 </td></tr>
+<tr><td>Corporal Janus:</td><td>Bonus versus Beings, Bots, Machines</td><td></td><td> 8</td><td> 8</td><td></td><td></td></tr>
+<tr><td>Damon Raven:</td><td>+5 Hit with four weapon types</td><td></td><td> 70</td><td></td><td> </td></tr>
+<tr><td>Damon Raven:</td><td>+5 Adventure Aim and Point</td><td></td><td></td><td></td><td> 30 </td></tr>
+<tr><td>Darija Dugrebski:</td><td>Draw Henchmen/Secret for Elite</td><td> 6</td><td> 6</td><td> 6</td><td></td><td></td></tr>
+<tr><td>Daylight and Dusk:</td><td>Two characters</td><td> 10</td><td>5</td><td> 5</td><td> 50 </td></tr>
+<tr><td>Daylight and Dusk:</td><td>Daylight imprisoned</td><td> -15</td><td> -5</td><td>-5</td><td>-30</td><td></td></tr>
+<tr><td>Devon Regal:</td><td>Take shot after moving</td><td></td><td> 10</td><td></td><td> </td></tr>
+<tr><td>Devon Regal:</td><td>Dismissed</td><td> 10</td><td></td><td></td><td> </td></tr>
+<tr><td>Devon Regal:</td><td>Invade enemy base</td><td></td><td></td><td></td><td>25 </td></tr>
+<tr><td>Diaz el Gato:</td><td>Cannot be shot at range 1-2</td><td>20</td><td></td><td></td><td> </td></tr>
+<tr><td>Diaz el Gato:</td><td>Blade bonus</td><td></td><td></td><td> 20</td><td> </td></tr>
+<tr><td>Dingo Jake:</td><td>Not need to stop in enemy space in Swamp</td><td> 5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Dingo Jake:</td><td>Ignore Swamp for ranged attacks</td><td></td><td> 10</td><td></td><td> </td></tr>
+<tr><td>Dirk Slade:</td><td>Toughness</td><td>45</td><td>30</td><td>30</td><td> </td></tr>
+<tr><td>Dr Hume:</td><td>Invisibility</td><td> 70</td><td></td><td>25</td><td> </td></tr>
+<tr><td>Dr Marla Ulf:</td><td>Duplicates</td><td> 80</td><td>20</td><td>10</td><td>80 </td></tr>
+<tr><td>Dr Memnar: The monster</td><td> 55</td><td></td><td>160</td><td></td><td></td></tr>
+<tr><td>Dr Pennopolis:</td><td>Give cards away</td><td> 20</td><td>40</td><td>30</td><td> </td></tr>
+<tr><td>Dr Pennopolis:</td><td>Train allies</td><td> 10</td><td>10</td><td>10</td><td> </td></tr>
+<tr><td>Dr Pennopolis:</td><td>Move ally to space</td><td>20</td><td></td><td></td><td> </td></tr>
+<tr><td>El Cid:</td><td>Heroic death</td><td>12</td><td></td><td></td><td> </td></tr>
+<tr><td>Eliot Ness:</td><td>Choses Dome</td><td>30</td><td></td><td></td><td>30 </td></tr>
+<tr><td>Enrak the Fury:</td><td>Attacks twice in melee</td><td></td><td></td><td>75</td><td> </td></tr>
+<tr><td>Erik Merit:</td><td>Pacifist</td><td></td><td> -60</td><td> -85</td><td></td><td></td></tr>
+<tr><td>Erin Shrike:</td><td>Targeting</td><td></td><td>30</td><td></td><td> </td></tr>
+<tr><td>Ettamerra:</td><td>Lair</td><td>20</td><td>20</td><td>20</td><td>12 </td></tr>
+<tr><td>Ettamerra:</td><td>Slingtail</td><td></td><td>15</td><td></td><td> </td></tr>
+<tr><td>Fanged Tracnids:</td><td>Water breeding</td><td>0</td><td> 0</td><td> 0</td><td> 0</td><td> (Counteracted by starting at only 4 Health)</td></tr>
+<tr><td></td><td>Attacks everyone in Melee with natural melee attack</td><td></td><td></td><td>25</td><td> </td></tr>
+<tr><td>Finnabar Taint:</td><td>Pessimism</td><td></td><td>-25</td><td> -30</td><td> -40</td><td></td></tr>
+<tr><td>First Marine Quog:</td><td>Eats things</td><td>8</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Flicker:</td><td>Melee snatch and go</td><td></td><td></td><td> 25</td><td> </td></tr>
+<tr><td>Flicker:</td><td>Cross cliffsides</td><td> 8</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Frostdancer:</td><td>Only one melee enemy can attack her</td><td> 15</td><td></td><td></td><td> </td></tr>
+<tr><td>Frostdancer:</td><td>Cannot end in allied space or in team base</td><td> -5</td><td>-10</td><td> -5</td><td>-20</td><td></td></tr>
+<tr><td>Gana:</td><td>Shapeshift mimic</td><td> 30</td><td>20</td><td>35</td><td>30 </td></tr>
+<tr><td>Gen James Gavin:</td><td>Armor aura</td><td> 10</td><td></td><td></td><td> </td></tr>
+<tr><td>Genghis Khan:</td><td>Fearsome aura</td><td>15</td><td>5</td><td> 20</td><td> </td></tr>
+<tr><td>Geronimo:</td><td>OpFire ambush</td><td> 10</td><td></td><td></td><td> </td></tr>
+<tr><td>Geromino:</td><td>Trade only with Colonial</td><td> -3</td><td>-7</td><td>-3</td><td>-5 </td></tr>
+<tr><td>Giuseppe Garibaldi:</td><td>Gain Experience markers</td><td> 15</td><td></td><td></td><td>15 </td></tr>
+<tr><td>Gregory:</td><td>Adventure Amaze aura</td><td></td><td></td><td></td><td>40 </td></tr>
+<tr><td>Gregory:</td><td>Heal</td><td> 60</td><td></td><td></td><td> </td></tr>
+<tr><td>Gregory:</td><td>Enemy switches sides on Hit Luck</td><td>50</td><td></td><td></td><td> </td></tr>
+<tr><td>Gregory:</td><td>No melee in Gregory's space</td><td>15</td><td></td><td></td><td> </td></tr>
+<tr><td>Greymede:</td><td>Companionship</td><td>25</td><td>20</td><td>30</td><td>60 </td></tr>
+<tr><td>Grok:</td><td>Stupid</td><td></td><td>-20</td><td> -10</td><td></td><td></td></tr>
+<tr><td>Grok:</td><td>Use all weapons</td><td></td><td>10</td><td>5</td><td></td><td></td></tr>
+<tr><td>Hakan:</td><td>Take from allies</td><td></td><td> 5</td><td> 5</td><td> 10 </td></tr>
+<tr><td>Hakan:</td><td>Give weapons away</td><td></td><td> 15</td><td>5</td><td></td><td></td></tr>
+<tr><td>Hamid Al-Duri:</td><td>Scavenge treasure</td><td>10</td><td>15</td><td>10</td><td> </td></tr>
+<tr><td>Headless Horseman:</td><td>Spook</td><td></td><td></td><td> 10</td><td>35 </td></tr>
+<tr><td>Helene Lang:</td><td>Cliffs are Slope</td><td> 15</td><td></td><td></td><td>10 </td></tr>
+<tr><td>Henry Kirk:</td><td>Immune to chosen mental abilities</td><td>15</td><td></td><td></td><td> </td></tr>
+<tr><td>Henry Kirk:</td><td>Immune to side-switching</td><td>10</td><td></td><td></td><td> </td></tr>
+<tr><td>Henry Kirk:</td><td>Move through Deep Water at 2 move cost</td><td> 15</td><td></td><td></td><td> </td></tr>
+<tr><td>Homer Morgan:</td><td>Bat-whacking</td><td>5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Ian Welsh:</td><td>Exotic damage prtoection</td><td>5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Illinth:</td><td>Pain feeder</td><td>50</td><td></td><td>45</td><td> </td></tr>
+<tr><td>Ironhead McRay:</td><td>-1 Damage rating from natural attacks</td><td>25</td><td></td><td></td><td> </td></tr>
+<tr><td>Ivymane:</td><td>Swamp Stealth Bonus</td><td>3</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Ivymane:</td><td>Charm Men and Fairies</td><td> 40</td><td></td><td></td><td> </td></tr>
+<tr><td>Ivymane:</td><td>Pets cannot attack Ivymane</td><td> 5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Jack Hammer:</td><td>One space move/shoot</td><td></td><td>30</td><td></td><td> </td></tr>
+<tr><td>Jade:</td><td>Cannot use cards except Lith cards</td><td>-15</td><td> -5</td><td></td><td> </td></tr>
+<tr><td>Jade:</td><td>Move cost restrictions</td><td> -30</td><td></td><td></td><td> -30</td><td></td></tr>
+<tr><td>Jade:</td><td>Imprisonment adjustment</td><td></td><td></td><td> 30</td><td></td><td>Jade has high Melee with very high Power, capable of easier double-Amaze.</td></tr>
+<tr><td>Jedediah Smith:</td><td>Use the whole buffalo</td><td>5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Jenny McGiddy:</td><td>Enemy melee Fopp hits self</td><td> 35</td><td></td><td></td><td> </td></tr>
+<tr><td>Jenny McGiddy:</td><td>Wits added in melee</td><td> 30</td><td></td><td></td><td> </td></tr>
+<tr><td>Jenny McGiddy:</td><td>Use Wits for a challenge</td><td></td><td></td><td></td><td> 10 </td></tr>
+<tr><td>Jerry Gillis:</td><td>Use all cards.</td><td> 5</td><td> 15</td><td>5</td><td> 5</td><td></td></tr>
+<tr><td>Jerry Gillis:</td><td>Draw 1 card when banished</td><td></td><td></td><td></td><td> 5</td><td></td></tr>
+<tr><td>Jerry Gillis:</td><td>Pinata adjustment</td><td>-10</td><td></td><td></td><td> -15</td><td> Jerry Gillis is the human pinata. So many cards to hand over to the enemy on death.</td></tr>
+<tr><td>Joe Tascoe:</td><td>Dismissed</td><td> 55</td><td></td><td></td><td>30 </td></tr>
+<tr><td>Jolie La Ravissant:</td><td>-5 Hit, no OpFire</td><td>45</td><td></td><td></td><td> </td></tr>
+<tr><td>Jolie La Ravissant:</td><td>Steal 1 card in Free Action</td><td> 5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Jolie La Ravissant:</td><td>Enemy switches sides when attacks</td><td>35</td><td></td><td></td><td> </td></tr>
+<tr><td>Joshua Jordan:</td><td>Becomes super</td><td>50</td><td>30</td><td>65</td><td>10 </td></tr>
+<tr><td>Kassina:</td><td>Becomes dragon</td><td>25</td><td>40</td><td>50</td><td>5</td><td></td></tr>
+<tr><td>Kidd:</td><td>Hideout</td><td> 45</td><td></td><td></td><td> </td></tr>
+<tr><td>Kiri Silvertip:</td><td>+1 Damage vs Fiends</td><td></td><td>5</td><td></td><td></td><td></td></tr>
+<tr><td>Kit Carson:</td><td>Mobility adjustment</td><td>3</td><td></td><td></td><td> 3</td><td> 7 Speed with significant move bonuses.</td></tr>
+<tr><td>Kristina Karlsdotter:</td><td>Trade cards aura</td><td>5</td><td> 10</td><td>5</td><td> 10 </td></tr>
+<tr><td>Leapgrip:</td><td>Chameleon</td><td> 30</td><td></td><td></td><td> </td></tr>
+<tr><td>Leapgrip:</td><td>Hunter's honor</td><td></td><td> -15</td><td> -15</td><td></td><td></td></tr>
+<tr><td>Leo Penney:</td><td>Double or nothing</td><td></td><td></td><td></td><td> 10 </td></tr>
+<tr><td>Lia Vestri:</td><td>Two characters</td><td> 10</td><td>5</td><td> 5</td><td> 50 </td></tr>
+<tr><td>Lia Vestri:</td><td>Death improvement</td><td> 20</td><td>10</td><td>10</td><td>10 </td></tr>
+<tr><td>Lianka the Gazer:</td><td>Wits for card-paying challenges</td><td></td><td></td><td></td><td>5</td><td></td></tr>
+<tr><td>Lianka the Gazer:</td><td>Turn enemy</td><td></td><td></td><td>25</td><td>15 </td></tr>
+<tr><td>Little Shaun:</td><td>Amaze damage increase</td><td></td><td></td><td>10</td><td> </td></tr>
+<tr><td>Lt Percy Smith:</td><td>1 damage from ranged attacks</td><td>40</td><td></td><td></td><td> </td></tr>
+<tr><td>Lt Percy Smith:</td><td>Mount bonuses</td><td></td><td></td><td>5</td><td> 5</td><td></td></tr>
+<tr><td>Lt Percy Smith:</td><td>Unaffected by all mental abilities</td><td>5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Lyrra Swan:</td><td>Travel to other team marker</td><td></td><td></td><td></td><td>55 </td></tr>
+<tr><td>Marcus Aurus:</td><td>Cannot enter allied space or team base</td><td>-5</td><td>-10</td><td> -5</td><td>-20</td><td></td></tr>
+<tr><td>Marcus Aurus:</td><td>Ignores allied mental abilities</td><td></td><td></td><td></td><td>-8 </td></tr>
+<tr><td>Marey Kenyon:</td><td>Adventure bonus secret cards</td><td></td><td></td><td></td><td>10 </td></tr>
+<tr><td>Jerry Gillis:</td><td>Pinata adjustment</td><td>-5</td><td></td><td></td><td>-5</td><td>Many cards in a weak character, human pinata for the enemy.</td></tr>
+<tr><td>Martians:</td><td>Move through enemies without stopping</td><td> 12</td><td></td><td></td><td> </td></tr>
+<tr><td>Merissa of Ravenna:</td><td>Devotion aura</td><td>10</td><td>10</td><td>15</td><td> </td></tr>
+<tr><td>Merissa of Ravenna:</td><td>Protected by henchmen in melee</td><td>30</td><td></td><td></td><td> </td></tr>
+<tr><td>Mildred Stonegutter:</td><td>Attacks fleeing enemies</td><td></td><td></td><td> 50</td><td> </td></tr>
+<tr><td>Mildred Stonegutter:</td><td>Harsh browbeatings</td><td> 20</td><td></td><td></td><td> </td></tr>
+<tr><td>Milena Arrebato:</td><td>Ignore any mental abilities wished</td><td>15</td><td></td><td></td><td> </td></tr>
+<tr><td>Milena Arrebato:</td><td>Cannot receive cards</td><td></td><td></td><td></td><td> -15</td><td></td></tr>
+<tr><td>Minx and Jinx:</td><td>Steal from clumsy enemies</td><td> 10</td><td></td><td>5</td><td></td><td></td></tr>
+<tr><td>Miranda Fade:</td><td>Life-saving</td><td> 45</td><td></td><td></td><td> </td></tr>
+<tr><td>Mogred Ghan:</td><td>Tough Master adjustment</td><td> 5</td><td> 5</td><td> 5</td><td></td><td> Mogred is harder to kill than normal henchman masters</td></tr>
+<tr><td>Mr Catskill:</td><td>Vengeance</td><td></td><td>20</td><td>30</td><td> </td></tr>
+<tr><td>Mulgoth Dominant:</td><td>Cannot choose to imprison enemy</td><td>-8</td><td></td><td></td><td> </td></tr>
+<tr><td>Napoleon:</td><td>Speed aura</td><td>15</td><td></td><td></td><td> </td></tr>
+<tr><td>Ned Kelly:</td><td>Class hatred</td><td></td><td>10</td><td>15</td><td> </td></tr>
+<tr><td>Ned Kelly:</td><td>Cannot trade with classes</td><td>-2</td><td>-2</td><td>-2</td><td>-2 </td></tr>
+<tr><td>Nerve Puppet:</td><td>Ignores imprisonment</td><td> 5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Nerve Puppet:</td><td>Creates Nerve Puppets</td><td></td><td></td><td> 95</td><td> </td></tr>
+<tr><td>Neyana Unyielding:</td><td>Bonus vs Villains and Fiends</td><td></td><td>5</td><td> 15</td><td> </td></tr>
+<tr><td>Neyana Unyielding:</td><td>Holy Weapon</td><td></td><td></td><td>20</td><td> </td></tr>
+<tr><td>Neyana Unyielding:</td><td>-2 Stealth adventures</td><td></td><td></td><td></td><td> -5 </td></tr>
+<tr><td>Nimsea:</td><td>FOPP aura</td><td></td><td></td><td></td><td> -10</td><td></td></tr>
+<tr><td>Nimsea:</td><td> Speed reduction aura</td><td>0</td><td> 0</td><td> 0</td><td> 0</td><td></td></tr>
+<tr><td>Norz Madfang:</td><td>Use Hunters and Mounts</td><td>10</td><td></td><td></td><td> </td></tr>
+<tr><td>Odessa of Omri:</td><td>Draw free card</td><td> 20</td><td></td><td></td><td> </td></tr>
+<tr><td>Odessa of Omri:</td><td>Only be with beautiful people</td><td></td><td></td><td></td><td> -5 </td></tr>
+<tr><td>Onyra of Omri:</td><td>Imprison enemy</td><td></td><td></td><td>20</td><td> </td></tr>
+<tr><td>Onyra of Omri:</td><td>Expects equal trade</td><td></td><td>-5</td><td>-5</td><td>-10</td><td></td></tr>
+<tr><td>Ophelia of Omri:</td><td>For the poor</td><td>10</td><td>20</td><td>10</td><td>15 </td></tr>
+<tr><td>Ophelia of Omri:</td><td>Carry only two cards</td><td></td><td></td><td></td><td> -20</td><td></td></tr>
+<tr><td>Orphithu:</td><td>-3 Hit if not in Cavern</td><td></td><td>-15</td><td></td><td></td><td></td></tr>
+<tr><td>Paradox:</td><td>Flipped reality</td><td>80</td><td>50</td><td>40</td><td>50 </td></tr>
+<tr><td>Paragonia:</td><td>Unaffected by all mental abilities</td><td>5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Paragonia:</td><td>Naïve, Wits theft</td><td>-5</td><td></td><td>-50</td><td></td><td></td></tr>
+<tr><td>Paragonia:</td><td>Must imprison</td><td> -5</td><td>-5</td><td></td><td> </td></tr>
+<tr><td>Pat Garrett:</td><td>Bonus vs low Honor</td><td></td><td> 5</td><td> 5</td><td></td><td></td></tr>
+<tr><td>Perry Owens:</td><td>Go to enemy Dome</td><td></td><td>4</td><td> 12</td><td> </td></tr>
+<tr><td>Perseus:</td><td>Gain Elite card</td><td>15</td><td></td><td></td><td> </td></tr>
+<tr><td>Perseus:</td><td>Enemy gains henchman</td><td>-30</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Phillip Redlegs:</td><td>Retry Luck 4</td><td></td><td></td><td> 5</td><td> 5</td><td></td></tr>
+<tr><td>Piccolo:</td><td>Chooses attacking enemy in melee</td><td>35</td><td></td><td></td><td> </td></tr>
+<tr><td>Piccolo:</td><td>Must imprison</td><td>-5</td><td>-5</td><td></td><td> </td></tr>
+<tr><td>Piccolo:</td><td>Imprison adjustment</td><td></td><td></td><td> 15</td><td></td><td>Piccolo has a larger than normal chance to imprison by double-Amaze.</td></tr>
+<tr><td>Prince Wallard Blatt:</td><td>Comes back</td><td>130</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Princess Sunglow:</td><td>Enemies subtract Honor</td><td> 50</td><td></td><td></td><td> </td></tr>
+<tr><td>Princess Sunglow:</td><td>Switch enemy with Respect</td><td> 50</td><td></td><td>50</td><td>20 </td></tr>
+<tr><td>Princess Sunglow:</td><td>Amaze adventures on Luck 5</td><td></td><td></td><td></td><td> 20 </td></tr>
+<tr><td>Pvt Sanchez:</td><td>Take -2 Hit, gain +1 Damage</td><td></td><td>20</td><td></td><td> </td></tr>
+<tr><td>Pyraxian:</td><td>Enter and stay in Fire</td><td> 20</td><td></td><td></td><td>10 </td></tr>
+<tr><td>Pyraxian:</td><td>Ignore fire for ranged attacks</td><td></td><td>10</td><td></td><td> </td></tr>
+<tr><td>Quaal:</td><td>Fog</td><td> 20</td><td></td><td></td><td> </td></tr>
+<tr><td>Raygun Roger:</td><td>Hyperboots</td><td></td><td></td><td></td><td>10 </td></tr>
+<tr><td>Raygun Roger:</td><td>Jetpack</td><td></td><td></td><td></td><td>10 </td></tr>
+<tr><td>Raygun Roger:</td><td>Laser Ring</td><td></td><td>10</td><td></td><td> </td></tr>
+<tr><td>Raygun Roger:</td><td>Rescue Pod</td><td> 5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Reaver:</td><td>Regen low health</td><td>15</td><td></td><td></td><td> </td></tr>
+<tr><td>Reaver:</td><td>Malfunction on Adventures</td><td></td><td>-20</td><td></td><td> -30</td><td></td></tr>
+<tr><td>Reaver:</td><td>Unaffacted by mental abilities</td><td>5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Red River Roy:</td><td>Outwit enemy in melee</td><td></td><td></td><td> 30</td><td> </td></tr>
+<tr><td>Red River Roy:</td><td>+2 Stealth outdoors</td><td>10</td><td></td><td></td><td> </td></tr>
+<tr><td>Rizzik the Red:</td><td>Teleport</td><td> 20</td><td></td><td></td><td> </td></tr>
+<tr><td>Roaringrock:</td><td>Take Pets and Mounts</td><td> 20</td><td></td><td></td><td>5</td><td></td></tr>
+<tr><td>Robert Morris:</td><td>Gain Common cards for Vault</td><td></td><td></td><td></td><td> 15 </td></tr>
+<tr><td>Robert Morris:</td><td>Takes any cards from Vault</td><td></td><td></td><td></td><td> 20 </td></tr>
+<tr><td>Robin Hood:</td><td>Ignore Woods for ranged attack</td><td></td><td> 10</td><td></td><td> </td></tr>
+<tr><td>Robin Hood:</td><td>Extra +2 Stealth in Woods</td><td> 6</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Robin Hood:</td><td>Bow bonuses</td><td></td><td>15</td><td></td><td>5</td><td></td></tr>
+<tr><td>Ronin Sajiro:</td><td>+1 Ancient adventures</td><td></td><td></td><td></td><td> 10 </td></tr>
+<tr><td>Ronin Sajiro:</td><td>Adventure FOPP penalty</td><td></td><td></td><td></td><td> -20</td><td></td></tr>
+<tr><td>Ryder:</td><td>Attack disrupt aura</td><td>30</td><td></td><td></td><td> </td></tr>
+<tr><td>Ryan Knight:</td><td>+1 Hit Beings and Fiends</td><td></td><td>5</td><td> 5</td><td></td><td></td></tr>
+<tr><td>Ryan Knight:</td><td>Ignores any mental abilities wished</td><td>15</td><td></td><td></td><td> </td></tr>
+<tr><td>Sandman:</td><td>Move 0 through Building</td><td> 20</td><td></td><td>25</td><td>20 </td></tr>
+<tr><td>Sandman:</td><td>Sleep attack</td><td></td><td></td><td> 130</td><td></td><td></td></tr>
+<tr><td>Santiago El Robusto:</td><td>Use multiple guns</td><td></td><td>20</td><td></td><td> </td></tr>
+<tr><td>Seveneyes:</td><td>Look at Guardians/Encounters</td><td></td><td></td><td></td><td> 55 </td></tr>
+<tr><td>Sgt Gritt:</td><td>Unaffacted by beneficial mental abilities</td><td></td><td></td><td></td><td>-5 </td></tr>
+<tr><td>Sheridan:</td><td>Mount bonuses</td><td> 10</td><td></td><td></td><td>5</td><td></td></tr>
+<tr><td>Shifter:</td><td>Transmutation</td><td> 25</td><td>12</td><td>30</td><td>12 </td></tr>
+<tr><td>Sir Bodkin:</td><td>Prudent retreat</td><td> 55</td><td></td><td></td><td> </td></tr>
+<tr><td>Sir Bodkin:</td><td>Cannot end move in enemy space</td><td></td><td></td><td> -15</td><td></td><td></td></tr>
+<tr><td>Sir Gawain:</td><td>Mount bonuses</td><td></td><td></td><td> 12</td><td> </td></tr>
+<tr><td>Smoke:</td><td>Move through enemies</td><td>12</td><td></td><td></td><td> </td></tr>
+<tr><td>Smoke:</td><td>Move cost 2 through Building</td><td> 5</td><td></td><td></td><td> 5</td><td></td></tr>
+<tr><td>Spartacus:</td><td>Use two Melee cards at same time</td><td></td><td></td><td>5</td><td></td><td></td></tr>
+<tr><td>Specialist Njeri:</td><td>Heal</td><td>30</td><td></td><td></td><td> </td></tr>
+<tr><td>Stephen Decatur:</td><td>Move through Deep Water</td><td> 15</td><td></td><td></td><td> </td></tr>
+<tr><td>Sterling Jack:</td><td>Melee card swap</td><td></td><td></td><td>8</td><td></td><td></td></tr>
+<tr><td>Sterling Jack:</td><td>Long con guess enemy team markers</td><td></td><td></td><td></td><td> 15 </td></tr>
+<tr><td>Suva of Orian:</td><td>Electric kill</td><td></td><td></td><td>35</td><td> </td></tr>
+<tr><td>Sven the Netmender:</td><td>Untested ratings</td><td> -3</td><td>-3</td><td>-3</td><td>-3</td><td>Assumes ratings average 7</td></tr>
+<tr><td>Syriach:</td><td>-2 Adventures except Melee, Point</td><td></td><td></td><td></td><td> -15</td><td></td></tr>
+<tr><td>Tanika:</td><td>Untested ratings</td><td></td><td> -8</td><td>-8</td><td></td><td>Assumes ratings average 7</td></tr>
+<tr><td>Tex:</td><td>Mount Fire and Move</td><td>25</td><td></td><td></td><td> </td></tr>
+<tr><td>The Iron Pole:</td><td>Move through Cavern walls</td><td> 25</td><td></td><td></td><td>30 </td></tr>
+<tr><td>The Iron Pole:</td><td>+2 Strength adventures</td><td></td><td></td><td></td><td> 10 </td></tr>
+<tr><td>The Scarlet Vixen:</td><td>Base attack</td><td> 5</td><td></td><td></td><td> 20 </td></tr>
+<tr><td>The Weinstein Brothers:</td><td>Bonus with cards, if card survives</td><td>10</td><td>10</td><td>10</td><td>10 </td></tr>
+<tr><td>Thorn:</td><td>Dome dismissal within 4 spaces</td><td>30</td><td></td><td></td><td> </td></tr>
+<tr><td>Thorn:</td><td>Two cards to pass adventure</td><td></td><td></td><td></td><td>15 </td></tr>
+<tr><td>Thotus:</td><td>Mind control, switch enemies</td><td></td><td> 130</td><td></td><td></td><td></td></tr>
+<tr><td>Thotus:</td><td>+3 Intellect and Wits adventures</td><td></td><td></td><td></td><td>20 </td></tr>
+<tr><td>Three-U:</td><td>Banish/drop cards aura</td><td>30</td><td></td><td></td><td>60 </td></tr>
+<tr><td>Three-U:</td><td>Enemy hits self</td><td>60</td><td></td><td></td><td> </td></tr>
+<tr><td>TIAX Assassin:</td><td>One-track targeting</td><td> -20</td><td> -50</td><td> -50</td><td></td><td></td></tr>
+<tr><td>TIAX Assassin:</td><td>Regeneration</td><td>40</td><td></td><td></td><td> </td></tr>
+<tr><td>TIAX Assassin:</td><td>Speed loss from damage</td><td>-20</td><td></td><td> -30</td><td> -5 </td></tr>
+<tr><td>TIAX Assassin:</td><td>Does not need to stop in enemy space</td><td> 12</td><td></td><td></td><td> </td></tr>
+<tr><td>Titanium Renegade:</td><td>Move cost 2 Building</td><td>5</td><td></td><td></td><td> 5</td><td></td></tr>
+<tr><td>Titanium Renegade:</td><td>Move cost 4 Swamp</td><td>-3</td><td></td><td></td><td>-3 </td></tr>
+<tr><td>Tomiji Hamaki:</td><td>Use all cards</td><td> 5</td><td> 5</td><td> 5</td><td> 5</td><td></td></tr>
+<tr><td>Tomiji Hamaki:</td><td>Pay 1 less card for card-paying challenges</td><td></td><td></td><td></td><td> 30 </td></tr>
+<tr><td>Ulshasa:</td><td>Enter, remain in Fire</td><td> 20</td><td></td><td></td><td>10 </td></tr>
+<tr><td>Ulshasa:</td><td>Ignore Fire for ranged attacks</td><td></td><td> 10</td><td></td><td> </td></tr>
+<tr><td>Ulshasa:</td><td>Melee damage in return.</td><td></td><td></td><td> 15</td><td> </td></tr>
+<tr><td>Undenbog:</td><td>Swamp and Water bonuses</td><td> 20</td><td>10</td><td></td><td>20 </td></tr>
+<tr><td>Vaxiss:</td><td>Poison damage</td><td></td><td></td><td>25</td><td> </td></tr>
+<tr><td>Vaxiss:</td><td>Move cost 3 Water, 5 Swamp</td><td>-15</td><td></td><td></td><td> -15</td><td></td></tr>
+<tr><td>Venya 8:</td><td>Immune to all mental abilities</td><td>5</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Victoria:</td><td>Reduce odds for Amaze/Fopp</td><td></td><td></td><td></td><td>10 </td></tr>
+<tr><td>Walrus:</td><td>Revive dead ally</td><td> 10</td><td></td><td></td><td> </td></tr>
+<tr><td>Whisper:</td><td>Windwraith</td><td> 20</td><td>20</td><td>40</td><td>40 </td></tr>
+<tr><td>Wilder:</td><td>Move 3 move after shoot</td><td>10</td><td>10</td><td></td><td> </td></tr>
+<tr><td>William Wallace:</td><td>+1 Hit aura</td><td></td><td>10</td><td>15</td><td> </td></tr>
+<tr><td>Wintercreak:</td><td>Move 0 in Woods</td><td></td><td></td><td> 20</td><td>20 </td></tr>
+<tr><td>Wintercreak</td><td>+6 Stealth in Woods</td><td>10</td><td></td><td></td><td> </td></tr>
+<tr><td>Xexttyl:</td><td>Move cost 1/2 through Cavern</td><td>8</td><td></td><td></td><td> 8</td><td></td></tr>
+<tr><td>Xecttyl:</td><td>-1 Speed aura</td><td></td><td></td><td></td><td> </td></tr>
+<tr><td>Xecttyl:</td><td>Melee aura</td><td></td><td></td><td>55</td><td> </td></tr>
+<tr><td>Xin the She-Kelpie:</td><td>Move through Deep Water Move 1</td><td>20</td><td></td><td></td><td> </td></tr>
+<tr><td>Xin the She-Kelpie:</td><td>Allies ride Xin</td><td></td><td></td><td></td><td>25 </td></tr>
+<tr><td>Ygunna Gecha:</td><td>Prevent one ranged attack</td><td> 10</td><td></td><td></td><td> </td></tr>
+<tr><td>Ygunna Gecha:</td><td>Surprise melee attack</td><td></td><td></td><td>15</td><td> </td></tr>
+<tr><td>Ygunna Gecha:</td><td>Poison fingernails</td><td></td><td></td><td>10</td><td> </td></tr>
+<tr><td>Ylsa:</td><td>Lightning strike</td><td></td><td> 20</td><td></td><td> </td></tr>
+<tr><td>Ylsa:</td><td>Crystal shield</td><td>20</td><td></td><td></td><td> </td></tr>
+<tr><td>Ylsa:</td><td>Firestorm</td><td></td><td>20</td><td></td><td> </td></tr>
+<tr><td>Ylsa:</td><td>Portal</td><td></td><td></td><td></td><td>20 </td></tr>
+<tr><td>Yori Blackpad:</td><td>Cavern bonuses</td><td>10</td><td></td><td>20</td><td> </td></tr>
+<tr><td>York:</td><td>+2 Hit in Fire phase</td><td></td><td>35</td><td></td><td> </td></tr>
+<tr><td>Zane Starblazer:</td><td>Chosen bonus</td><td>25</td><td>10</td><td>10</td><td>20 </td></tr>
+<tr><td>Zera Kail:</td><td>Bonus against creatures</td><td></td><td>3</td><td></td><td></td><td></td></tr>
+<tr><td>Zera Kail:</td><td>+4 Range with Aim</td><td></td><td> 5</td><td></td><td></td><td></td></tr>
+<tr><td>Zoe Burroughs:</td><td>Mole</td><td> 30</td><td></td><td></td><td>30 </td></tr>
+<tr><td>Zoe Burroughs:</td><td>Unsuspecting strike</td><td></td><td></td><td> 15</td><td>15 </td></tr>
+<tr><td>Zygoid:</td><td>Less single but more area damage</td><td>-5</td><td></td><td></td><td> </td></tr>
+<tr><td>Zygoid:</td><td>+2 Stealth Swamp, Woods</td><td> 10</td><td></td><td></td><td></td></tr>
+</table>
