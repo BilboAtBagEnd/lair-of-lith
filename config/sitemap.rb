@@ -25,9 +25,15 @@ SitemapGenerator::Sitemap.create do
   #     add article_path(article), :lastmod => article.updated_at
   #   end
   User.find_each do |user|
-    add user_path(user), :lastmod => user.updated_at
+    add user_path(user), :lastmod => user.updated_at, :changefreq => 'daily'
     user.characters.each do |character|
-      add character_path(user, character)
+      add character_path(user, character), :lastmod => character.updated_at, :changefreq => 'daily'
     end
   end
+
+  add_characters_path, :changefreq => 'daily'
+  add_character_help_path, :changefreq => 'weekly'
+  add_character_walkthrough_path, :changefreq => 'weekly'
+  add_character_guide_path, :changefreq => 'weekly'
+
 end

@@ -7,9 +7,12 @@
       <% if user_signed_in? %>
         <li><%= link_to 'My Cards', user_path(current_user) %></li>
       <% end %>
-      <li><%= link_to 'Help', character_help_path %></li>
-      <li><%= link_to 'Walkthrough', character_walkthrough_path %></li>
-      <li><a href="http://boardgamegeek.com/article/13107069">BGG Thread</a></li>
+      <li><%= link_to 'Help', character_help_path %>
+      <ul>
+        <li><%= link_to 'Creation Guide', character_guide_path %></li>
+        <li><%= link_to 'Walkthrough', character_walkthrough_path %></li>
+      </ul>
+      </li>
       <li><a href="http://boardgamegeek.com/thread/1011889/final-fan-revised-character-templates-for-coreldr/page/1">mltdown's CorelDraw scripts</li>
     </ul>
   </div>

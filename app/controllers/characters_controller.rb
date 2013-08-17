@@ -11,6 +11,9 @@ class CharactersController < ApplicationController
   def walkthrough
   end
 
+  def guide
+  end
+
   def index
     @page = params[:page].to_i
     @page = 1 if @page < 1
