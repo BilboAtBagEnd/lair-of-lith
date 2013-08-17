@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130817045123) do
+ActiveRecord::Schema.define(version: 20130817172138) do
 
   create_table "character_versions", force: true do |t|
     t.integer  "character_id"
@@ -23,18 +23,21 @@ ActiveRecord::Schema.define(version: 20130817045123) do
 
   add_index "character_versions", ["character_id", "version"], name: "index_character_versions_on_character_id_and_version", unique: true, using: :btree
   add_index "character_versions", ["character_id"], name: "index_character_versions_on_character_id", using: :btree
+  add_index "character_versions", ["id", "character_id"], name: "index_character_versions_on_id_and_character_id", unique: true, using: :btree
 
   create_table "characters", force: true do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",          limit: 1000
-    t.string   "slug",                       null: false
+    t.string   "name"
+    t.string   "slug",          null: false
     t.integer  "bgg_thread_id"
     t.text     "description"
   end
 
-  add_index "characters", ["name"], name: "index_characters_on_name", length: {"name"=>255}, using: :btree
+  add_index "characters", ["id", "user_id"], name: "index_characters_on_id_and_user_id", unique: true, using: :btree
+  add_index "characters", ["name", "user_id"], name: "index_characters_on_name_and_user_id", unique: true, using: :btree
+  add_index "characters", ["name"], name: "index_characters_on_name", using: :btree
   add_index "characters", ["slug"], name: "index_characters_on_slug", using: :btree
   add_index "characters", ["user_id"], name: "index_characters_on_user_id", using: :btree
 
