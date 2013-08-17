@@ -1,0 +1,3 @@
+#!/bin/zsh
+RAILS_ENV=production
+. ~/.zprofile && rake sitemap:refresh
