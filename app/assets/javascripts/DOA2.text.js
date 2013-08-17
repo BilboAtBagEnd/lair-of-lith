@@ -46,7 +46,7 @@ DOA2_Text.characterToCSV = function (character) {
         var special = character.specials[i];
         var num = i+1;
 
-        header.push('Special' + num); row.push(special.description); 
+        header.push('Special' + num); row.push(special.description.replace(/\r\n/g, '\\n')); 
         header.push('Special' + num + 'Survival'); row.push(special.value.survival);
         header.push('Special' + num + 'Melee'); row.push(special.value.melee);
         header.push('Special' + num + 'Ranged'); row.push(special.value.ranged);
