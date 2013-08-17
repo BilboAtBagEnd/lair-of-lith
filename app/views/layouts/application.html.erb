@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lair of Lith <%= @title ? "| #{@title}" : 'Duel of Ages II Card Generator' %></title>
+  <title>Lair of Lith | <%= @title ? @title : 'Duel of Ages II Card Generator' %></title>
   <link rel="stylesheet" href="/stylesheets/fonts.css" />
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
