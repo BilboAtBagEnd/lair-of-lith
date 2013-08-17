@@ -5,6 +5,15 @@ GIT
   specs:
     friendly_id (5.0.0.beta1)
 
+GIT
+  remote: git://github.com/jarrett/rbbcode.git
+  revision: 875a45828ccf1bb458be185ddee8fa435881617f
+  branch: master
+  specs:
+    rbbcode (1.0.4)
+      sanitize
+      treetop
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -91,9 +100,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.1.0)
-    rbbcode (1.0.4)
-      sanitize
-      treetop
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
@@ -151,7 +157,7 @@ DEPENDENCIES
   jquery-rails
   mysql2
   rails (= 4.0.0)
-  rbbcode
+  rbbcode!
   sanitize
   sass-rails (~> 4.0.0)
   sdoc

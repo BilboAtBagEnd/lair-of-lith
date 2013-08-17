@@ -30,4 +30,5 @@ task :promote do
   chdir prod_dir
   system "RAILS_ENV=production rake db:migrate"
   system "bundle exec rake assets:precompile"
+  system "RAILS_ENV=production rake sitemap:refresh"
 end

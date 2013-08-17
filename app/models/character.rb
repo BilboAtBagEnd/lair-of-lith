@@ -19,4 +19,8 @@ class Character < ActiveRecord::Base
       'No BoardGameGeek discussion thread.'
     end
   end
+
+  def description_as_html
+    ApplicationHelper.parseBBCode(description)
+  end
 end

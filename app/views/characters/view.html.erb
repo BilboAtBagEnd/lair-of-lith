@@ -28,6 +28,7 @@ $(document).ready(function() {
         }
     });
 
+<% if @current_user_is_owner %>
     $("#edit-bgg-thread-id").click(function(e) {
         e.preventDefault();
         $("#form-bgg-thread-id").toggle(true);
@@ -38,6 +39,20 @@ $(document).ready(function() {
         $("#form-bgg-thread-id").toggle(false);
         $("#bgg-thread-id").toggle(true);
     });
+
+    $("#description-text-area").markItUp(MarkItUp.settings);
+
+    $("#edit-description").click(function(e) {
+        e.preventDefault();
+        $("#form-description").toggle(true);
+        $("#description, #edit-description").toggle(false);
+    });
+    $("#cancel-description-update").click(function(e) {
+        e.preventDefault();
+        $("#form-description").toggle(false);
+        $("#description, #edit-description").toggle(true);
+    });
+<% end %>
 });
 
 </script>
@@ -45,16 +60,36 @@ $(document).ready(function() {
 <h2><%= @character.name %></h2>
 <p>by <%= link_to @owner.name, user_path(@owner) %></p>
 
-<h3>Links</h3> 
-<p>
-<%= form_for(@character, url: character_save_data_path(current_user, @character), 
-                         html: { id: 'form-bgg-thread-id', style: 'display: none;' }) do |f| %>
-  BoardGameGeek thread id: <%= f.text_field :bgg_thread_id %>
-  <%= f.submit 'Update' %>
-  <button id="cancel-bgg-thread-id-update">Cancel</button>
+<h3>Description</h3>
+<% if @current_user_is_owner %>
+  <%= form_for(@character, url: character_save_data_path(current_user, @character),
+                           html: { id: 'form-description', style: 'display: none;' }) do |f| %>
+    <%= f.text_area :description, cols: 40, rows: 20, id: 'description-text-area' %>
+    <br />
+    <%= f.submit %> <button id="cancel-description-update">Cancel</button>
+  <% end %>
 <% end %>
+<div class="card-html" id="description">
+  <% if @character.description %> 
+    <%= @character.description_as_html.html_safe %>
+  <% else %>
+    <em>No description.</em>
+  <% end %>
+</div>
+<% if @current_user_is_owner %><p><a id="edit-description" href="#">edit</a></p><% end %>
+
+<h3>Links</h3> 
+<% if @current_user_is_owner %>
+  <%= form_for(@character, url: character_save_data_path(current_user, @character), 
+                           html: { id: 'form-bgg-thread-id', style: 'display: none;' }) do |f| %>
+    BoardGameGeek thread id: <%= f.text_field :bgg_thread_id %>
+    <%= f.submit 'Update' %>
+    <button id="cancel-bgg-thread-id-update">Cancel</button>
+  <% end %>
+<% end %>
+<p>
 <span id="bgg-thread-id"><%= @character.bgg_thread_link.html_safe %>
-<% if @is_myself %><a id="edit-bgg-thread-id" href="#">edit</a><% end %></span>
+<% if @current_user_is_owner %><a id="edit-bgg-thread-id" href="#">edit</a><% end %></span>
 </p>
 
 <h3>Current Version is <%= @newest_version.version %></h3>
@@ -157,7 +192,7 @@ $(document).ready(function() {
 <br /> <br /> <br />
 <br /> <br /> <br />
 
-<% if user_signed_in? && @owner.id == current_user.id %>
+<% if @current_user_is_owner %>
   <h3>Destroy?</h3> 
 
   <p>This action is irrevocable.</p>

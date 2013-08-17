@@ -30,7 +30,7 @@ class CharactersController < ApplicationController
       @csv = CharactersHelper.csv_to_hash @newest_version.csv
     end
 
-    @is_myself = (current_user ? current_user.id == @owner.id : false)
+    @current_user_is_owner = (current_user ? current_user.id == @owner.id : false)
   end
 
   def generate
@@ -57,7 +57,7 @@ class CharactersController < ApplicationController
       raise ActionController::RoutingError.new("Version Not Found")
     end
 
-    @is_myself = (current_user ? current_user.id == @owner.id : false)
+    @current_user_is_owner = (current_user ? current_user.id == @owner.id : false)
   end
 
   def save
@@ -124,6 +124,7 @@ class CharactersController < ApplicationController
 
     new_data = params[:character]
     bgg_thread_id = new_data[:bgg_thread_id]
+    description = new_data[:description]
     
     if bgg_thread_id 
       bgg_thread_id_int = bgg_thread_id.to_i
@@ -134,7 +135,15 @@ class CharactersController < ApplicationController
       end
     end
 
-    @character.save!
+    if description
+      if description.strip.empty?
+        @character.description = nil
+      else
+        @character.description = Sanitize.clean description
+      end
+    end
+
+    @character.save
 
     redirect_to character_path(@owner, @character)
   end

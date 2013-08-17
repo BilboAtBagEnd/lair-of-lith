@@ -25,6 +25,8 @@ AppLairoflithCom::Application.routes.draw do
   get 'contact' => 'contact#new'
   post 'contact' => 'contact#create'
 
+  post 'bbcode' => 'home#bbcode'
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

@@ -434,7 +434,7 @@ $(document).ready(function() {
     <button id="generate-image">Get Card</button>
   </p>
 <% if user_signed_in? %>
-  <% if @is_new || @is_myself %>
+  <% if @is_new || @current_user_is_owner %>
     <p>
       <span class="title">Save</span>
       <form id="save-card-form" style="display: none;" method="post" action="<%= url_for controller: 'characters', action: 'save' %>">

@@ -58,7 +58,7 @@ gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: 'master'
 gem 'sanitize'
 
 # BB Code for comments and descriptions
-gem 'rbbcode'
+gem 'rbbcode', github: 'jarrett/rbbcode', branch: 'master'
 
 # Sitemaps
 gem 'sitemap_generator'

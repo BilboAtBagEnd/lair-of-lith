@@ -174,3 +174,7 @@ input.text {
   width: 25em;
 }
 
+blockquote {
+  font-style: italic;
+  padding: 1em;
+}
