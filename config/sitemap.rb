@@ -31,9 +31,9 @@ SitemapGenerator::Sitemap.create do
     end
   end
 
-  add_characters_path, :changefreq => 'daily'
-  add_character_help_path, :changefreq => 'weekly'
-  add_character_walkthrough_path, :changefreq => 'weekly'
-  add_character_guide_path, :changefreq => 'weekly'
+  add characters_path, :changefreq => 'daily'
+  add character_help_path, :changefreq => 'weekly'
+  add character_walkthrough_path, :changefreq => 'weekly'
+  add character_guide_path, :changefreq => 'weekly'
 
 end

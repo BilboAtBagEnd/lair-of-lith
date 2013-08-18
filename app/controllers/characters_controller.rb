@@ -37,6 +37,7 @@ class CharactersController < ApplicationController
     if (@versions.size > 0) 
       @newest_version = @versions[0]
       @csv = CharactersHelper.csv_to_hash @newest_version.csv
+      @value = CharactersHelper.hash_to_value @csv
     end
 
     @current_user_is_owner = (current_user ? current_user.id == @owner.id : false)
