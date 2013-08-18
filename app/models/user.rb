@@ -16,11 +16,15 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :case_sensitive => false
 
   def name=(val)
-    self[:name] = val
     @name_case_insensitive_changed = val.downcase != name.downcase
+    self[:name] = val
   end
 
   def should_generate_new_friendly_id?
-    @name_case_insensitive_changed || false
+    if !id 
+      return true
+    else
+      return @name_case_insensitive_changed || false
+    end
   end
 end

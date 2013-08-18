@@ -5,24 +5,22 @@ class Character < ActiveRecord::Base
 
   paginates_per 25
 
-  friendly_id [:name, :title], use: [:slugged, :history, :scoped], scope: :user
+  friendly_id :name, use: [:slugged, :history, :scoped], scope: :user
 
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [:user_id]
-  validates_uniqueness_of :title, scope: [:name, :user_id]
 
   def name=(val)
-    self[:name] = val
     @name_case_insensitive_changed = val.downcase != name.downcase
-  end
-
-  def title=(val)
-    self[:title] = val
-    @name_case_sensitive_changed = val.downcase != title.downcase
+    self[:name] = val
   end
 
   def should_generate_new_friendly_id?
-    @name_case_insensitive_changed || false
+    if !id 
+      return true
+    else
+      return @name_case_insensitive_changed || false
+    end
   end
 
   def bgg_thread_link 
