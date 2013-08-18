@@ -65,3 +65,6 @@ gem 'sitemap_generator'
 
 # Pagination 
 gem 'kaminari'
+
+# Exception notification
+gem 'exception_notification'

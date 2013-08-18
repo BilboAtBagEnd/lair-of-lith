@@ -64,6 +64,9 @@ AppLairoflithCom::Application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'app.lairoflith.com' }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -79,3 +82,11 @@ AppLairoflithCom::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 end
+
+# Exception notification through email
+AppLairoflithCom::Application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+  :email_prefix => "[Lair of Lith] ",
+  :sender_address => %{"Lair of Lith" <lith@lairoflith.com>},
+  :exception_recipients => %w{arachne.jar@gmail.com}
+}
