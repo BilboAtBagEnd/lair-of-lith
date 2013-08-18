@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130817172138) do
+ActiveRecord::Schema.define(version: 20130818101814) do
 
   create_table "character_versions", force: true do |t|
     t.integer  "character_id"
