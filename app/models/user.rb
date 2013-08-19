@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :case_sensitive => false
 
   def name=(val)
-    if name
+    if name && val
       @name_case_insensitive_changed = val.downcase != name.downcase
     else
       @name_case_insensitive_changed = true
