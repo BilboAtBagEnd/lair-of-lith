@@ -11,7 +11,11 @@ class Character < ActiveRecord::Base
   validates_uniqueness_of :name, scope: [:user_id]
 
   def name=(val)
-    @name_case_insensitive_changed = val.downcase != name.downcase
+    if name
+      @name_case_insensitive_changed = val.downcase != name.downcase
+    else
+      @name_case_insensitive_changed = true
+    end
     self[:name] = val
   end
 
