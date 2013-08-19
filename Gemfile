@@ -45,9 +45,6 @@ gem 'devise'
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
 # Decode HTML entities when received on the wire
 gem 'htmlentities'
 
@@ -68,3 +65,15 @@ gem 'kaminari'
 
 # Exception notification
 gem 'exception_notification'
+
+# Use debugger
+gem 'debugger', group: [:development, :test]
+
+# Testing 
+group :development, :test do 
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
+group :test do 
+  gem 'email_spec'
+end

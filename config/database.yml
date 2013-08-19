@@ -1,7 +1,7 @@
 <% 
 require 'yaml'
 config = YAML.load_file("/home/#{ENV['USER']}/config/app.lairoflith.yml")
-env_config = config[Rails.env]
+env_config = config[Rails.env] || {}
 %>
 development:
   adapter: mysql2
