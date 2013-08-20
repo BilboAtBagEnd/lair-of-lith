@@ -40,6 +40,17 @@ $(document).ready(function() {
         $("#bgg-thread-id").toggle(true);
     });
 
+    $("#edit-tags").click(function(e) {
+        e.preventDefault();
+        $("#form-tags").toggle(true);
+        $("#tags").toggle(false);
+    });
+    $("#cancel-tags-update").click(function(e) {
+        e.preventDefault();
+        $("#form-tags").toggle(false);
+        $("#tags").toggle(true);
+    });
+
     $("#description-text-area").markItUp(MarkItUp.settings);
 
     $("#edit-description").click(function(e) {
@@ -57,8 +68,28 @@ $(document).ready(function() {
 
 </script>
 
-<h2><%= @character.name %></h2>
+<h1><%= @character.name %></h1>
 <p>by <%= link_to @owner.name, user_path(@owner) %></p>
+
+<h3>Tags</h3> 
+<% if @current_user_is_owner %>
+  <%= form_for(@character, url: character_save_data_path(current_user, @character), 
+                           html: { id: 'form-tags', style: 'display: none;' }) do |f| %>
+    Tags separated by commas: <%= f.text_field :tag_list %>
+    <%= f.submit 'Update' %>
+    <button id="cancel-tags-update">Cancel</button>
+  <% end %>
+<% end %>
+<div id="tags">
+  <% if !@character.tags || @character.tags.empty? %>
+    <em>No tags.</em>
+  <% else %>
+    <% @character.tags.each do |tag| %>
+      <span class="tag"><%= link_to tag.name, tag_path(tag.name) %></span>
+    <% end %>
+  <% end %>
+  <% if @current_user_is_owner %><a id="edit-tags" href="#">edit</a><% end %>
+</div>
 
 <h3>Description</h3>
 <% if @current_user_is_owner %>

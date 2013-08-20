@@ -7,6 +7,8 @@ class Character < ActiveRecord::Base
 
   friendly_id :name, use: [:slugged, :history, :scoped], scope: :user
 
+  acts_as_taggable
+
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [:user_id]
 
@@ -27,6 +29,7 @@ class Character < ActiveRecord::Base
     end
   end
 
+  # TODO: move to helper
   def bgg_thread_link 
     if bgg_thread_id 
       url = %Q(http://www.boardgamegeek.com/thread/#{bgg_thread_id.to_i})
@@ -36,6 +39,7 @@ class Character < ActiveRecord::Base
     end
   end
 
+  # TODO: move to helper
   def description_as_html
     ApplicationHelper.parseBBCode(description)
   end

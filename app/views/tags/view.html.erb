@@ -1,0 +1,11 @@
+<% @title = "#{@tag} : Characters" %>
+<h1>Characters tagged "<%= @tag %>"</h1>
+
+<ul>
+  <% @characters.each do |character| %>
+    <li>
+    <%= link_to character.name, character_path(character.user, character) %> 
+    by <%= link_to character.user.name, user_path(character.user) %>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,8 @@
+<% @title = "All Tags" %>
+<h2>All Tags</h2> 
+
+<ul>
+<% @character_tags.each do |tag| %>
+  <li><%= link_to "#{tag.name} (#{tag.count})", tag_path(tag.name) %></li>
+<% end %>
+</ul>

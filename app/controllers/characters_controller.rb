@@ -137,6 +137,7 @@ class CharactersController < ApplicationController
     new_data = params[:character]
     bgg_thread_id = new_data[:bgg_thread_id]
     description = new_data[:description]
+    tag_list = new_data[:tag_list]
     
     if bgg_thread_id 
       bgg_thread_id_int = bgg_thread_id.to_i
@@ -151,10 +152,20 @@ class CharactersController < ApplicationController
       if description.strip.empty?
         @character.description = nil
       else
-        @character.description = Sanitize.clean description
+        # TODO: put into generic helper
+        @character.description = HTMLEntities.new.decode(Sanitize.clean(description))
       end
     end
 
+    if tag_list
+      if tag_list.strip.empty?
+        @character.tag_list = ''
+      else
+        @character.tag_list = HTMLEntities.new.decode(Sanitize.clean(tag_list))
+      end
+    end
+
+    # TODO: flash error instead of silently failing.
     @character.save
 
     redirect_to character_path(@owner, @character)

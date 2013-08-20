@@ -14,6 +14,9 @@ AppLairoflithCom::Application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
   get 'users/:id', to: 'users#view', as: 'user'
 
+  get 'tags', to: 'tags#index', as: 'all_tags'
+  get 'tags/:tag', to: 'tags#view', as: 'tag'
+
   get 'characters/new', to: 'characters#new', as: 'character_new'
   get 'users/:uid/characters/:cid', to: 'characters#view', as: 'character'
   get 'users/:uid/characters/:cid/:version/generate' => 'characters#generate', as: 'character_generate'

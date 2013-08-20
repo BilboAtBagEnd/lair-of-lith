@@ -181,3 +181,15 @@ blockquote {
   font-style: italic;
   padding: 1em;
 }
+
+span.tag { 
+  background-color: #cccccc;
+  padding: 0.25em;
+  border: 1px solid black;
+}
+span.tag a, span.tag a:visited { 
+  text-decoration: none; 
+}
+span.tag:before { 
+  content: "#";
+}

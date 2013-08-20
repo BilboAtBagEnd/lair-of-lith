@@ -335,6 +335,14 @@ describe CharactersController do
         expect(character.description).to eq("[b]Strong[/b]\n\nalert(1)")
       end
 
+      it "updates the tag list" do 
+        post :save_data, :uid => @user.slug, :cid => @character.slug, :character => { :tag_list => "master & commander, batman beyond" }
+        character = Character.find @character.id
+        tags = character.tags.order('name')
+        expect(tags[0].name).to eq('batman beyond')
+        expect(tags[1].name).to eq('master & commander')
+      end
+
       it "redirects to the character page" do
         post :save_data, :uid => @user.slug, :cid => @character.slug, :character => {:bgg_thread_id => 1}
         expect(response).to redirect_to('/users/test-user-1/characters/a-very-long-name-indeed')
