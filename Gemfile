@@ -63,6 +63,15 @@ gem 'sitemap_generator'
 # Pagination 
 gem 'kaminari'
 
+# Commenting
+gem 'acts_as_commentable'
+
+# Tagging
+gem 'acts-as-taggable-on'
+
+# Voting
+gem 'thumbs_up'
+
 # Exception notification
 gem 'exception_notification'
 
