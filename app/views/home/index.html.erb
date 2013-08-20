@@ -1,4 +1,4 @@
-<h2>Welcome!</h2> 
+<h1>Welcome!</h1> 
 
 <a target="_blank" href="/images/eleanor_bludsturm_large.png"><img style="float: right; margin: 0 0 1em 1em;" src="/images/eleanor_bludsturm.png"/></a>
 
@@ -27,7 +27,12 @@ Any feedback, bug reports, and feature requests can be
 made to <a href="http://boardgamegeek.com/article/13107069">this BGG Thread</a> or privately via our <a href="/contact">contact form</a>.
 </p>
 
-<h3>Recently Created Characters</h3> 
+<h2>Popular Tags</h2>
+<% @popular_tags.each do |tag| %>
+  <span class="tag"><%= link_to "#{tag.name} (#{tag.count})", tag_path(tag.name) %></span>
+<% end %>
+
+<h2>Recently Created Characters</h2> 
 <ul>
 <% @characters.each do |c| %>
   <li>

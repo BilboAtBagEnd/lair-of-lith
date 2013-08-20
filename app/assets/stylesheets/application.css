@@ -133,7 +133,7 @@ ul.topnav a, ul.topnav a:visited {
   margin: 0.5em 0 0.5em 0;
   font-family: "Eras Demi", serif;
 }
-#site-content h3 {
+#site-content h2, h3 {
   margin-top: 1.5em;
 }
 #site-content hr {
@@ -189,7 +189,4 @@ span.tag {
 }
 span.tag a, span.tag a:visited { 
   text-decoration: none; 
-}
-span.tag:before { 
-  content: "#";
 }
