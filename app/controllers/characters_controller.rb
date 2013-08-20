@@ -24,7 +24,7 @@ class CharactersController < ApplicationController
     @owner = User.friendly.find(params[:uid])
 
     if !@owner
-      raise ActionController::RoutingError.new('Character Not Found')
+      raise ActionController::RoutingError.new('User Not Found')
     end
 
     @character = @owner.characters.friendly.find(params[:cid])
@@ -49,7 +49,7 @@ class CharactersController < ApplicationController
     @owner = User.friendly.find(params[:uid])
 
     if !@owner 
-      raise ActionController::RoutingError.new('Character Not Found')
+      raise ActionController::RoutingError.new('User Not Found')
     end
 
     @character = @owner.characters.friendly.find(params[:cid])
@@ -118,6 +118,8 @@ class CharactersController < ApplicationController
   end
 
   def save_data
+    # TODO: remove the user id crap as we should only be working with the owner.
+
     @owner = User.friendly.find(params[:uid])
     if !@owner
       raise ActionController::RoutingError.new("User Not Found")
