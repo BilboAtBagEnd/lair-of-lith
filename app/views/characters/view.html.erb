@@ -11,7 +11,7 @@ $(document).ready(function() {
     });
 
     $("#generate-card").click(function() {
-        $("#card-generator").toggle(true);
+        $("#card-generator").show();
         $("#card-generator").data('DOA2_Image_Generator').generateCard();
     });
 
@@ -31,37 +31,41 @@ $(document).ready(function() {
 <% if @current_user_is_owner %>
     $("#edit-bgg-thread-id").click(function(e) {
         e.preventDefault();
-        $("#form-bgg-thread-id").toggle(true);
-        $("#bgg-thread-id").toggle(false);
+        $("#form-bgg-thread-id").show();
+        $("#bgg-thread-id").hide();
+        $("#edit-bgg-thread-id").hide();
     });
     $("#cancel-bgg-thread-id-update").click(function(e) {
         e.preventDefault();
-        $("#form-bgg-thread-id").toggle(false);
-        $("#bgg-thread-id").toggle(true);
+        $("#form-bgg-thread-id").hide();
+        $("#bgg-thread-id").show();
+        $("#edit-bgg-thread-id").show();
     });
 
     $("#edit-tags").click(function(e) {
         e.preventDefault();
-        $("#form-tags").toggle(true);
-        $("#tags").toggle(false);
+        $("#form-tags").show();
+        $("#tags").hide();
+        $("#edit-tags").hide();
     });
     $("#cancel-tags-update").click(function(e) {
         e.preventDefault();
-        $("#form-tags").toggle(false);
-        $("#tags").toggle(true);
+        $("#form-tags").hide();
+        $("#tags").show();
+        $("#edit-tags").show();
     });
 
     $("#description-text-area").markItUp(MarkItUp.settings);
 
     $("#edit-description").click(function(e) {
         e.preventDefault();
-        $("#form-description").toggle(true);
-        $("#description, #edit-description").toggle(false);
+        $("#form-description").show();
+        $("#description, #edit-description").hide();
     });
     $("#cancel-description-update").click(function(e) {
         e.preventDefault();
-        $("#form-description").toggle(false);
-        $("#description, #edit-description").toggle(true);
+        $("#form-description").hide();
+        $("#description, #edit-description").show();
     });
 <% end %>
 });
@@ -74,13 +78,14 @@ $(document).ready(function() {
 <h3>Tags</h3> 
 <% if @current_user_is_owner %>
   <%= form_for(@character, url: character_save_data_path(current_user, @character), 
+                           remote: true,
                            html: { id: 'form-tags', style: 'display: none;' }) do |f| %>
     Tags separated by commas: <%= f.text_field :tag_list %>
     <%= f.submit 'Update' %>
     <button id="cancel-tags-update">Cancel</button>
   <% end %>
 <% end %>
-<div id="tags">
+<div id="tags" style="margin-bottom: 0.5em;">
   <% if !@character.tags || @character.tags.empty? %>
     <em>No tags.</em>
   <% else %>
@@ -88,12 +93,13 @@ $(document).ready(function() {
       <span class="tag"><%= link_to tag.name, tag_path(tag.name) %></span>
     <% end %>
   <% end %>
-  <% if @current_user_is_owner %><a id="edit-tags" href="#">edit</a><% end %>
 </div>
+<p><% if @current_user_is_owner %><a id="edit-tags" href="#">edit</a><% end %></p>
 
 <h3>Description</h3>
 <% if @current_user_is_owner %>
   <%= form_for(@character, url: character_save_data_path(current_user, @character),
+                           remote: true,
                            html: { id: 'form-description', style: 'display: none;' }) do |f| %>
     <%= f.text_area :description, cols: 40, rows: 20, id: 'description-text-area' %>
     <br />
@@ -112,6 +118,7 @@ $(document).ready(function() {
 <h3>Links</h3> 
 <% if @current_user_is_owner %>
   <%= form_for(@character, url: character_save_data_path(current_user, @character), 
+                           remote: true,
                            html: { id: 'form-bgg-thread-id', style: 'display: none;' }) do |f| %>
     BoardGameGeek thread id: <%= f.text_field :bgg_thread_id %>
     <%= f.submit 'Update' %>
@@ -119,8 +126,8 @@ $(document).ready(function() {
   <% end %>
 <% end %>
 <p>
-<span id="bgg-thread-id"><%= @character.bgg_thread_link.html_safe %>
-<% if @current_user_is_owner %><a id="edit-bgg-thread-id" href="#">edit</a><% end %></span>
+<span id="bgg-thread-id"><%= @character.bgg_thread_link.html_safe %></span>
+<% if @current_user_is_owner %><a id="edit-bgg-thread-id" href="#">edit</a><% end %>
 </p>
 
 <h3>Current Version is <%= @newest_version.version %></h3>

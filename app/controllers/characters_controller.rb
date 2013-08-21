@@ -118,8 +118,6 @@ class CharactersController < ApplicationController
   end
 
   def save_data
-    # TODO: remove the user id crap as we should only be working with the owner.
-
     @owner = User.friendly.find(params[:uid])
     if !@owner
       raise ActionController::RoutingError.new("User Not Found")
@@ -140,6 +138,7 @@ class CharactersController < ApplicationController
     tag_list = new_data[:tag_list]
     
     if bgg_thread_id 
+      @bgg_thread_id_changed = true
       bgg_thread_id_int = bgg_thread_id.to_i
       if bgg_thread_id.empty? || bgg_thread_id_int == 0
         @character.bgg_thread_id = nil
@@ -149,6 +148,7 @@ class CharactersController < ApplicationController
     end
 
     if description
+      @description_changed = true
       if description.strip.empty?
         @character.description = nil
       else
@@ -158,6 +158,7 @@ class CharactersController < ApplicationController
     end
 
     if tag_list
+      @tags_changed = true
       if tag_list.strip.empty?
         @character.tag_list = ''
       else
@@ -168,7 +169,10 @@ class CharactersController < ApplicationController
     # TODO: flash error instead of silently failing.
     @character.save
 
-    redirect_to character_path(@owner, @character)
+    respond_to do |format|
+      format.html { redirect_to character_path(@owner, @character) }
+      format.js
+    end
   end
 
   def destroy

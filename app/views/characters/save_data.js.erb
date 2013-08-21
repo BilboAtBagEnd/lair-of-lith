@@ -1,0 +1,30 @@
+<% if @tags_changed %>
+  $('#form-tags').hide();
+  var tag_spans = '';
+  <% if !@character.tags || @character.tags.empty? %>
+    tag_spans = "<em>No tags.</em>";
+  <% else %>
+    <% @character.tags.each do |tag| %>
+      tag_spans += '<span class="tag"><%=j link_to tag.name, tag_path(tag.name) %></span> '
+    <% end %>
+  <% end %>
+  $('#tags').html(tag_spans);
+  $('#tags').show();
+  $("#edit-tags").show();
+<% end %>
+<% if @description_changed %>
+  $('#form-description').hide();
+  <% if @character.description %>
+    $('#description').html("<%=j @character.description_as_html.html_safe %>");
+  <% else %>
+    $('#description').html('<em>No description.</em>');
+  <% end %>
+  $('#description').show();
+  $('#edit-description').show();
+<% end %>
+<% if @bgg_thread_id_changed %>
+  $('#form-bgg-thread-id').hide();
+  $('#bgg-thread-id').html("<%=j @character.bgg_thread_link.html_safe %>");
+  $('#bgg-thread-id').show();
+  $('#edit-bgg-thread-id').show();
+<% end %>
