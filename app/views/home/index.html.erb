@@ -45,12 +45,12 @@ made to <a href="http://boardgamegeek.com/article/13107069">this BGG Thread</a> 
 
 <h2>Recently Created Characters</h2> 
 <ul>
-<% @characters.each do |c| %>
-  <li>
-    <%= link_to c.name, character_path(c.user, c) %>
+  <% @characters.each do |c| %>
+    <li>
+    <%= link_to c.name, character_path(c.user, c), class: "character-#{c.status}" %>
     by <%= link_to c.user.name, user_path(c.user) %>
     on <%= c.created_at %>
-  </li>
-<% end %>
+    </li>
+  <% end %>
 </ul>
 <p><%= link_to "See all #{@character_total} characters", characters_path %></p>

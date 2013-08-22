@@ -187,7 +187,14 @@ span.tag {
   padding: 0.25em;
   border: 1px solid black;
   line-height: 2.0em;
+  white-space: pre;
 }
 span.tag a, span.tag a:visited { 
   text-decoration: none; 
+}
+
+a.character-REVIEW {
+  padding-left: 25px;
+  background-image: url('/images/doa2_pass.png');
+  background-repeat: no-repeat;
 }

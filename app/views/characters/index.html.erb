@@ -5,7 +5,7 @@
 <ul>
   <% @characters.each do |character| %>
     <li><p>
-    <%= link_to character.name, character_path(character.user, character) %> 
+    <%= link_to character.name, character_path(character.user, character), class: "character-#{character.status}" %> 
     by <%= link_to character.user.name, user_path(character.user) %>
     </p></li>
   <% end %>
