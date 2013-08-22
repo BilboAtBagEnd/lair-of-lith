@@ -87,6 +87,7 @@ $(document).ready(function() {
 
 <h1><%= @character.name %></h1>
 <p>by <%= link_to @owner.name, user_path(@owner) %></p>
+<% if @character.status == 'REVIEW' %><p><a href="#comments">Go to comments</a></p><% end %>
 
 <h2>Status</h2> 
 <% if @current_user_is_owner %>
@@ -266,6 +267,7 @@ $(document).ready(function() {
 
 <% if @character.status == 'REVIEW' %>
 
+<a id="comments"></a>
 <script>
   var idcomments_acct = '39d669a1a66e25021389ef8cc06145af';
   var idcomments_post_id = "character-<%= @character.id %><%=j Rails.env.development? ? '-development' : '' %>";
