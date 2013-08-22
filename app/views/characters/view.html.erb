@@ -264,6 +264,8 @@ $(document).ready(function() {
 
 </div>
 
+<% if @character.status == 'REVIEW' %>
+
 <script>
   var idcomments_acct = '39d669a1a66e25021389ef8cc06145af';
   var idcomments_post_id = "character-<%= @character.id %><%=j Rails.env.development? ? '-development' : '' %>";
@@ -286,6 +288,8 @@ double spacing to create
 
 paragraphs.
 </pre>
+
+<% end %>
 
 <br /> <br /> <br />
 <br /> <br /> <br />
