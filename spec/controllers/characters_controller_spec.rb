@@ -292,7 +292,7 @@ describe CharactersController do
     end
   end
 
-  describe "POST save_data" do
+  describe "PATCH save_data" do
     setup_devise
     before(:each) do 
       @user = FactoryGirl.create(:user)
@@ -301,7 +301,7 @@ describe CharactersController do
 
     context "Non-authorized requests" do 
       it "will not handle the request" do 
-        post :save_data, :uid => @user.slug, :cid => @character.slug
+        post :save_data, :uid => @user.slug, :cid => @character.slug, :character => {}
         expect(response).to redirect_to '/users/sign_in'
       end
     end
@@ -343,9 +343,43 @@ describe CharactersController do
         expect(tags[1].name).to eq('master & commander')
       end
 
+      it "updates the status" do 
+        post :save_data, :uid => @user.slug, :cid => @character.slug, :character => { :status => 'REVIEW' }
+        character = Character.find @character.id
+        expect(character.status).to eq('REVIEW')
+      end
+
       it "redirects to the character page" do
         post :save_data, :uid => @user.slug, :cid => @character.slug, :character => {:bgg_thread_id => 1}
         expect(response).to redirect_to('/users/test-user-1/characters/a-very-long-name-indeed')
+      end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    setup_devise
+    before(:each) do 
+      @user = FactoryGirl.create(:user)
+      @character = FactoryGirl.create(:character)
+    end
+
+    context "Non-authorized requests" do 
+      it "will not handle the request" do 
+        delete :destroy, :id => @character.id
+        expect(response).to redirect_to '/users/sign_in'
+        expect(Character.find @character.id).to be
+      end
+    end
+
+    context "Authorized requests" do 
+      before(:each) do 
+        sign_in @user
+      end
+
+      it "will destroy the character" do 
+        delete :destroy, :id => @character.id
+        expect(response).to render_template 'destroy'
+        expect { Character.find @character.id }.to raise_error
       end
     end
   end

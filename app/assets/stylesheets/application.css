@@ -186,6 +186,7 @@ span.tag {
   background-color: #cccccc;
   padding: 0.25em;
   border: 1px solid black;
+  line-height: 2.0em;
 }
 span.tag a, span.tag a:visited { 
   text-decoration: none; 

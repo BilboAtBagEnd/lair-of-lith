@@ -136,6 +136,7 @@ class CharactersController < ApplicationController
     bgg_thread_id = new_data[:bgg_thread_id]
     description = new_data[:description]
     tag_list = new_data[:tag_list]
+    status = new_data[:status]
     
     if bgg_thread_id 
       @bgg_thread_id_changed = true
@@ -164,6 +165,11 @@ class CharactersController < ApplicationController
       else
         @character.tag_list = HTMLEntities.new.decode(Sanitize.clean(tag_list))
       end
+    end
+
+    if status
+      @status_changed = true
+      @character.status = status
     end
 
     # TODO: flash error instead of silently failing.

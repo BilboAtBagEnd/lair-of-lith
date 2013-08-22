@@ -12,6 +12,12 @@ class Character < ActiveRecord::Base
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [:user_id]
 
+  STATUSES = %w(WIP REVIEW)
+  FULL_STATUSES = { 
+    'WIP' => 'Work in progress',
+    'REVIEW' => 'Ready for comments'
+  }
+
   def name=(val)
     if name && val
       @name_case_insensitive_changed = val.downcase != name.downcase
@@ -19,6 +25,22 @@ class Character < ActiveRecord::Base
       @name_case_insensitive_changed = true
     end
     self[:name] = val
+  end
+
+  def status=(val)
+    if STATUSES.include? val
+      self[:status] = val
+    else
+      raise 'Unknown status'
+    end
+  end
+
+  def full_status_name
+    FULL_STATUSES[status]
+  end
+
+  def options_for_select
+    STATUSES.map { |status| [FULL_STATUSES[status], status] }
   end
 
   def should_generate_new_friendly_id?
@@ -29,7 +51,6 @@ class Character < ActiveRecord::Base
     end
   end
 
-  # TODO: move to helper
   def bgg_thread_link 
     if bgg_thread_id 
       url = %Q(http://www.boardgamegeek.com/thread/#{bgg_thread_id.to_i})
@@ -39,8 +60,11 @@ class Character < ActiveRecord::Base
     end
   end
 
-  # TODO: move to helper
   def description_as_html
     ApplicationHelper.parseBBCode(description)
+  end
+
+  def self.find_by_status(status)
+    Character.where('status = ?', status)
   end
 end

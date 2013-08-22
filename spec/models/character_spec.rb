@@ -71,4 +71,37 @@ describe Character do
     c.save!
     c.id.should be
   end
+
+  it "sets status to the accepted values" do 
+    c = FactoryGirl.create(:character)
+    c.status = 'WIP'
+    expect(c.status).to eq('WIP')
+    c.status = 'REVIEW'
+    expect(c.status).to eq('REVIEW')
+  end
+
+  it "does not set status to unknown values" do
+    c = FactoryGirl.create(:character)
+    expect {c.status = 'ILLEGAL'}.to raise_error
+  end
+
+  it "translates to full status readily" do 
+    c = FactoryGirl.create(:character)
+    expect(c.full_status_name).to eq('Work in progress')
+    c.status = 'REVIEW'
+    expect(c.full_status_name).to eq('Ready for comments')
+  end
+
+  it "defaults status to WIP" do 
+    c = FactoryGirl.build(:character)
+    expect(c.status).to eq('WIP')
+  end
+
+  it "locates everything with a particular status" do
+    c1 = FactoryGirl.create(:character, name: 'C1', status: 'WIP')
+    c2 = FactoryGirl.create(:character, name: 'C2', status: 'REVIEW')
+    c3 = FactoryGirl.create(:character, name: 'C3', status: 'REVIEW')
+    c4 = FactoryGirl.create(:character, name: 'C4', status: 'WIP')
+    expect(Character.find_by_status('WIP').order('id desc').to_a).to eq([c4,c1])
+  end
 end

@@ -42,6 +42,19 @@ $(document).ready(function() {
         $("#edit-bgg-thread-id").show();
     });
 
+    $("#edit-status").click(function(e) {
+        e.preventDefault();
+        $("#form-status").show();
+        $("#status").hide();
+        $("#edit-status").hide();
+    });
+    $("#cancel-status-update").click(function(e) {
+        e.preventDefault();
+        $("#form-status").hide();
+        $("#status").show();
+        $("#edit-status").show();
+    });
+
     $("#edit-tags").click(function(e) {
         e.preventDefault();
         $("#form-tags").show();
@@ -74,6 +87,21 @@ $(document).ready(function() {
 
 <h1><%= @character.name %></h1>
 <p>by <%= link_to @owner.name, user_path(@owner) %></p>
+
+<h3>Status</h3> 
+<% if @current_user_is_owner %>
+  <%= form_for(@character, url: character_save_data_path(current_user, @character),
+                           remote: true,
+                           html: { id: 'form-status', style: 'display: none;' }) do |f| %>
+    <%= select_tag(:status, options_for_select(@character.options_for_select, @character.status),
+                   id: 'select-status', name: 'character[status]')  %> 
+    <%= f.submit 'Update' %>
+    <button id="cancel-status-update">Cancel</button>
+  <% end %>
+<% end %>
+<p>
+<span id="status" class="status-<%= @character.status %>"><%= @character.full_status_name %></span>
+<% if @current_user_is_owner %><a id="edit-status" href="#">edit</a><% end %></p>
 
 <h3>Tags</h3> 
 <% if @current_user_is_owner %>

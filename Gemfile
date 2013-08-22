@@ -75,14 +75,17 @@ gem 'thumbs_up'
 # Exception notification
 gem 'exception_notification'
 
-# Use debugger
-gem 'debugger', group: [:development, :test]
-
 # Testing 
 group :development, :test do 
+  gem 'debugger'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+end
+group :development do
+  gem 'guard'
+  gem 'guard-rspec'
 end
 group :test do 
+  gem 'factory_girl_rails'
+  gem 'capybara'
   gem 'email_spec'
 end

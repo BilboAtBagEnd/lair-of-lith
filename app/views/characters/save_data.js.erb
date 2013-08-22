@@ -1,3 +1,10 @@
+<% if @status_changed %>
+  $('#form-status').hide();
+  $('#status').html("<%=j @character.full_status_name %>")
+  $('#status').attr('class', "status-<%=j @character.status %>")
+  $('#status').show();
+  $('#edit-status').show();
+<% end %>
 <% if @tags_changed %>
   $('#form-tags').hide();
   var tag_spans = '';
