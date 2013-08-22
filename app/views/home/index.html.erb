@@ -36,7 +36,7 @@ made to <a href="http://boardgamegeek.com/article/13107069">this BGG Thread</a> 
 <ul>
   <% @characters_for_comment.each do |c| %>
     <li>
-    <%= link_to c.name, character_path(c.user, c) %>
+    <%= link_to c.name, character_path(c.user, c), class: "character-#{c.status}"  %>
     by <%= link_to c.user.name, user_path(c.user) %>
     last updated <%= c.updated_at %>
     </li>
