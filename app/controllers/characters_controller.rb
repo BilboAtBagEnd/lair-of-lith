@@ -16,8 +16,17 @@ class CharactersController < ApplicationController
 
   def index
     @page = params[:page].to_i
+    @restrict_to_commentable = params[:commentable].to_i > 0
+
     @page = 1 if @page < 1
-    @characters = Character.joins(:user).order('characters.name, users.name').page(@page)
+
+    @characters = Character.joins(:user).order('characters.name, users.name')
+    @characters = @characters.where('status = ?', 'REVIEW') if @restrict_to_commentable
+    @characters = @characters.page(@page)
+
+    if !@restrict_to_commentable
+      @unrestricted = true
+    end
   end
 
   def view

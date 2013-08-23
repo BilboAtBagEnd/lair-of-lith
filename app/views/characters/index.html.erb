@@ -1,6 +1,16 @@
 <% @title = "All Characters: Page #{@page}" %>
 <h1>All Characters</h1>
 
+<p>
+<%= link_to 'All characters', 
+    characters_path, 
+    class: (@unrestricted ? 'selected' : 'unselected') %>
+|
+<%= link_to 'Commentable only', 
+    characters_path(commentable: 1),
+    class: (@restrict_to_commentable ? 'selected' : 'unselected') %>
+</p>
+
 <%= paginate @characters %>
 <ul>
   <% @characters.each do |character| %>
