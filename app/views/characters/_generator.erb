@@ -397,8 +397,27 @@ $(document).ready(function() {
           },
         });
     });
+
+    $('.help-tip').each(function() {
+        var help_url = '/help/' + $(this).attr('help') + '.html';
+        $(this).balloon({
+            position: $(this).attr('position'),
+            url: help_url,
+            css: { 
+                opacity: '1.0'
+            },
+        });
+    });
 });
 </script>
+<style type="text/css">
+  .help-tip {
+    padding-right: 20px;
+    background-image: url('/images/q025.png');
+    background-position: top right;
+    background-repeat: no-repeat;
+  }
+</style>
 
 <div style="clear: both; height: 1em;"></div>
 
@@ -417,8 +436,8 @@ $(document).ready(function() {
     Melee: <span id="melee-value"></span><br />
     Ranged: <span id="ranged-value"></span><br />
     Adventure: <span id="adventure-value"></span><br />
-    Total Value: <span id="total-value"></span>
-    <span class="note">(balanced = 500 ± 3)</span>
+    <span position="right" help="breakdown" class="help-tip">Total Value</span>
+    <span id="total-value"></span>
   </p>
   <p>
     <span class="title">Import</span>
@@ -500,38 +519,38 @@ $(document).ready(function() {
 </div>
 
 <table style="float: right;">
-  <tr><th>Speed</th><td><input class="number stat" id="speed" type="text" /></td></tr>
-  <tr><th>Health</th><td><input class="number stat" id="health" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="speed">Speed</span></th><td><input class="number stat" id="speed" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="health">Health</span></th><td><input class="number stat" id="health" type="text" /></td></tr>
   
   <tr><th class="stat-title" colspan="2">Melee</th></tr>
-  <tr><th>Wits</th><td><input class="number stat" id="wits" type="text" /></td></tr>
-  <tr><th>Melee</th><td><input class="number stat" id="melee" type="text" /></td></tr>
-  <tr><th>Power</th><td><input class="number stat" id="power" type="text" /></td></tr>
-  <tr><th>Damage</th><td><input class="number stat" id="damage" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="wits">Wits</span></th><td><input class="number stat" id="wits" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="melee">Melee</span></th><td><input class="number stat" id="melee" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="power">Power</span></th><td><input class="number stat" id="power" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="damage">Damage</span></th><td><input class="number stat" id="damage" type="text" /></td></tr>
   
   <tr><th class="stat-title" colspan="2">Ranged</th></tr>
-  <tr><th>Aim</th><td><input class="number stat" id="aim" type="text" /></td></tr>
-  <tr><th>Point</th><td><input class="number stat" id="point" type="text" /></td></tr>
-  <tr><th>Throw</th><td><input class="number stat" id="throw" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="aim">Aim</span></th><td><input class="number stat" id="aim" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="point">Point</span></th><td><input class="number stat" id="point" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="throw">Throw</span></th><td><input class="number stat" id="throw" type="text" /></td></tr>
   
   <tr><th class="stat-title" colspan="2">Defense</th></tr>
-  <tr><th>React</th><td><input class="number stat" id="react" type="text" /></td></tr>
-  <tr><th>Stealth</th><td><input class="number stat" id="stealth" type="text" /></td></tr>
-  <tr><th>Armor</th><td><input class="number stat" id="armor" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="react">React</span></th><td><input class="number stat" id="react" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="stealth">Stealth</span></th><td><input class="number stat" id="stealth" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="armor">Armor</span></th><td><input class="number stat" id="armor" type="text" /></td></tr>
   
   <tr><th class="stat-title" colspan="2">Traits</th></tr>
-  <tr><th>Strength</th><td><input class="number stat" id="strength" type="text" /></td></tr>
-  <tr><th>Intellect</th><td><input class="number stat" id="intellect" type="text" /></td></tr>
-  <tr><th>Honor</th><td><input class="number stat" id="honor" type="text" /></td></tr>
-  <tr><th>Respect</th><td><input class="number stat" id="respect" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="strength">Strength</span></th><td><input class="number stat" id="strength" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="intellect">Intellect</span></th><td><input class="number stat" id="intellect" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="honor">Honor</span></th><td><input class="number stat" id="honor" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="respect">Respect</span></th><td><input class="number stat" id="respect" type="text" /></td></tr>
 
   <tr><th class="stat-title" colspan="2">Ranged Weapon</th></tr>
-  <tr><th>Power</th><td><input class="number" id="ranged-power" type="text" /></td></tr>
-  <tr><th>Damage</th><td><input class="number" id="ranged-damage" type="text" /></td></tr>
-  <tr><th>OpFire</th><td><input class="number" id="ranged-opfire" type="text" /></td></tr>
-  <tr><th>rangeMax</th><td><input class="number" id="ranged-range-max" type="text" /></td></tr>
-  <tr><th>rangeMin</th><td><input class="number" id="ranged-range-min" type="text" /></td></tr>
-  <tr><th>Area</th><td><select id="ranged-area"><option>-</option><option>single</option><option>area</option></select></td></tr>
+  <tr><th><span class="help-tip" position="left" help="power">Power</span></th><td><input class="number" id="ranged-power" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="damage">Damage</span></th><td><input class="number" id="ranged-damage" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="opfire">OpFire</span></th><td><input class="number" id="ranged-opfire" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="range">rangeMax</span></th><td><input class="number" id="ranged-range-max" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="min-range">rangeMin</span></th><td><input class="number" id="ranged-range-min" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="area">Area</span></th><td><select id="ranged-area"><option>-</option><option>single</option><option>area</option></select></td></tr>
 </table>
 
 <table>
@@ -543,12 +562,12 @@ $(document).ready(function() {
     </td>
   </tr>
   <tr>
-    <th>Setting</th>
+    <th><span class="help-tip" position="left" help="setting">Setting</span></th>
     <td><select id="setting"></select>
     </td>
   </tr>
   <tr>
-    <th>Circle</th>
+    <th><span class="help-tip" position="left" help="circle">Circle</span></th>
     <td>
       <select id="circle">
           <option>Adventurer</option>
@@ -581,7 +600,7 @@ $(document).ready(function() {
 </table>
 
 <table>
-  <tr><th class="stat-title" colspan="4">Starting Cards</th></tr>
+  <tr><th class="stat-title" colspan="4"><span class="help-tip" position="right" help="cards">Starting Cards</span></th></tr>
   <tr><th>Common</th><td><input class="number" id="common-cards" type="text" /></td>
       <th>Secret</th><td><input class="number" id="secret-cards" type="text" /></td></tr>
   <tr><th>Elite</th><td><input class="number" id="elite-cards" type="text" /></td>
@@ -593,16 +612,16 @@ $(document).ready(function() {
 
 <table>
   <tr><th class="stat-title" colspan="2">Bonuses (comma-separated)</th></tr>
-  <tr><th>Ranged</th><td><input class="text" id="ranged-bonuses" type="text" /></td></tr>
-  <tr><th>Melee</th><td><input class="text" id="melee-bonuses" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="bonus-ranged">Ranged</span></th><td><input class="text" id="ranged-bonuses" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="bonus-melee">Melee</span></th><td><input class="text" id="melee-bonuses" type="text" /></td></tr>
   <tr><th>Medical</th><td><input id="medical-bonus" type="checkbox" /></td></tr>
   <tr><th>Stealth</th><td><input id="stealth-bonus" type="checkbox" /></td></tr>
   <tr><th>Armor</th><td><input id="armor-bonus" type="checkbox" /></td></tr>
-  <tr><th>Other</th><td><input class="text" id="other-bonuses" type="text" /></td></tr>
+  <tr><th><span class="help-tip" position="left" help="bonus-other">Other</span></th><td><input class="text" id="other-bonuses" type="text" /></td></tr>
 </table>
 
 <table id="ability-table">  
-  <tr><td class="stat-title">Ability</td><td class="stat-title">Value</td></tr>
+  <tr><td class="stat-title"><span class="help-tip" position="left" help="ability">Ability</span></td><td class="stat-title">Value</td></tr>
 </table>
 
 </div>
