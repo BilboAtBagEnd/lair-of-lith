@@ -1,0 +1,49 @@
+#!/home/ajarlith/.rvm/rubies/ruby-2.0.0-p247/bin/ruby
+#
+# Note: this script should be run after manually cleaning up 
+# special abilities. This script will only allow interactive 
+# setting of special abilities.
+#
+require 'DOA2'
+characters = YAML.load_file(ARGV[0])
+
+quit = false
+
+characters.each do |cdata|
+  character = DOA2::Character.new(csv: cdata[:csv])
+  puts character.name
+  character.specials.each do |special| 
+    if special.survival != 0 || special.adventure != 0 ||
+       special.melee != 0 || special.ranged != 0
+      next
+    end
+
+    puts special.description
+    print 'Survival? '
+    special.survival = STDIN.gets.strip.to_i
+    print 'Ranged? '
+    special.ranged = STDIN.gets.strip.to_i
+    print 'Melee? '
+    special.melee = STDIN.gets.strip.to_i
+    print 'Adventure? '
+    special.adventure = STDIN.gets.strip.to_i
+
+    puts 'Quit? [y/any]'
+    if STDIN.gets.strip == 'y'
+      quit = true
+      break
+    end
+  end
+
+  cdata[:csv] = character.csv
+
+  break if quit
+
+end
+
+outfile = "session-#{Time.now.to_i}.yml"
+File.open(outfile, 'w') do |file|
+  file.write characters.to_yaml
+end
+puts "wrote to #{outfile}"
+

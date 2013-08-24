@@ -11,7 +11,7 @@
 
 # Extra files to ignore
 /config/initializers/devise.rb
-spawn
+/sessions/*
 
 # github .gitignore
 *.rbc
