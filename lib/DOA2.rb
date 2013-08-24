@@ -7,6 +7,8 @@ module DOA2
     "strength", "intellect", "honor", "respect" 
   ]
 
+  RATINGS_AS_SYMBOLS = RATINGS.map { |s| s.to_sym }
+
   # Default evaluation of any rating value. 
   # Specific ratings may have different valuations, in 
   # which when they should use a different function.
@@ -245,7 +247,11 @@ module DOA2
   def self.calculateSpecialValueFor(specials, category)
     value = 0
     specials.each do |s|
-      value += s[:value][category]
+      if s.class == Hash
+        value += s[:value][category]
+      else
+        value += s.value[category]
+      end
     end
     return value
   end
@@ -345,6 +351,345 @@ module DOA2
         :melee => meleeValue,
         :adventure => adventureValue
       }
+  end
+
+  def self.CSVToHash(csv)
+    values = csv.split('|')
+    hash = {}
+
+    j = 0 
+    hash[:name] = values[j+=1]
+    hash[:title] = values[j+=1]
+    hash[:age] = values[j+=1]
+    hash[:setting] = values[j+=1]
+    hash[:circle] = values[j+=1]
+    hash[:nature] = values[j+=1]
+
+    RATINGS_AS_SYMBOLS.each do |stat|
+      hash[stat] = values[j+=1].to_i
+    end
+
+    hash[:rangedWeapon] = {
+      :power =>  values[j+=1].to_i,
+      :damage =>  values[j+=1].to_i,
+      :opfire =>  values[j+=1].to_i,
+      :rangeMax =>  values[j+=1].to_i,
+      :rangeMin =>  values[j+=1].to_i,
+      :area =>  values[j+=1]
+    }
+
+    hash[:cards] = {
+      :common =>  values[j+=1].to_i,
+      :secret =>  values[j+=1].to_i,
+      :elite =>  values[j+=1].to_i,
+      :henchmen =>  values[j+=1].to_i,
+    }
+
+    hash[:bonuses] = {
+      :ranged =>  values[j+=1].split(/ *, */),
+      :melee =>  values[j+=1].split(/ *, */),
+      :medical =>  values[j+=1].to_i == 1,
+      :stealth =>  values[j+=1].to_i == 1,
+      :armor =>  values[j+=1].to_i == 1,
+      :other =>  values[j+=1].split(/ *, */),
+    }
+
+    hash[:cards][:noGive] = values[j+=1].to_i == 1
+    hash[:cards][:noTrade] = values[j+=1].to_i == 1
+    hash[:cards][:noLimit] = values[j+=1].to_i == 1
+
+    hash[:specials] = []
+    i = j
+    while (i+1 < values.size) do 
+      hash[:specials].push({
+        :description =>  values[i+1],
+        :value =>  {
+          :survival =>  values[i+2].to_i,
+          :melee =>  values[i+3].to_i,
+          :ranged =>  values[i+4].to_i,
+          :adventure =>  values[i+5].to_i,
+        }
+      })
+      i += 5
+    end
+
+    return hash
+  end
+
+  class Character
+    class RangedWeapon
+      attr_accessor :power, :damage, :opfire, 
+        :rangeMax, :rangeMin, :area
+    end
+
+    class StartingCardData
+      attr_accessor :common, :secret, :elite, :henchmen, 
+        :noGive, :noTrade, :noLimit
+    end
+
+    class BonusData
+      attr_accessor :ranged, :melee, :medical, :stealth, 
+        :armor, :other
+    end
+
+    class Special
+      attr_accessor :description, :survival, :melee, 
+        :ranged, :adventure
+
+      def value
+        Value.new(
+          survival: @survival, 
+          melee: @melee, 
+          ranged: @ranged,
+          adventure: @adventure
+        )
+      end
+    end
+
+    class Value
+      attr_accessor :survival, :melee, :ranged, :adventure
+
+      def initialize(params)
+        @survival = params[:survival]
+        @melee = params[:melee]
+        @ranged = params[:ranged]
+        @adventure = params[:adventure]
+      end
+
+      def total
+        @survival + @melee + @ranged + @adventure
+      end
+
+      def [](value_type)
+        case value_type.to_sym
+        when :survival
+          @survival
+        when :melee
+          @melee
+        when :ranged
+          @ranged
+        when :adventure
+          @adventure
+        end
+      end
+    end
+
+    attr_accessor :name, :title, :age, :setting, 
+      :circle, :nature, :rangedWeapon, :cards, 
+      :bonuses, :specials
+
+    def initialize(params) 
+      if params.has_key? :csv
+        initializeFromCSV(params[:csv])
+      end
+    end
+
+    def initializeFromCSV(csv)
+      values = csv.split('|')
+
+      j = 0 
+      @name = values[j+=1]
+      @title = values[j+=1]
+      @age = values[j+=1]
+      @setting = values[j+=1]
+      @circle = values[j+=1]
+      @nature = values[j+=1]
+
+      RATINGS.each do |rating|
+        instance_variable_set("@#{rating}".to_sym, values[j+=1].to_i)
+      end
+
+      @rangedWeapon = RangedWeapon.new
+      @rangedWeapon.power =  values[j+=1].to_i
+      @rangedWeapon.damage =  values[j+=1].to_i
+      @rangedWeapon.opfire =  values[j+=1].to_i
+      @rangedWeapon.rangeMax =  values[j+=1].to_i
+      @rangedWeapon.rangeMin =  values[j+=1].to_i
+      @rangedWeapon.area =  values[j+=1]
+
+      @cards = StartingCardData.new
+      @cards.common =  values[j+=1].to_i
+      @cards.secret =  values[j+=1].to_i
+      @cards.elite =  values[j+=1].to_i
+      @cards.henchmen =  values[j+=1].to_i
+
+      @bonuses = BonusData.new
+      @bonuses.ranged =  values[j+=1].split(/ *, */)
+      @bonuses.melee =  values[j+=1].split(/ *, */)
+      @bonuses.medical =  values[j+=1].to_i == 1
+      @bonuses.stealth =  values[j+=1].to_i == 1
+      @bonuses.armor =  values[j+=1].to_i == 1
+      @bonuses.other =  values[j+=1].split(/ *, */)
+
+      @cards.noGive = values[j+=1].to_i == 1
+      @cards.noTrade = values[j+=1].to_i == 1
+      @cards.noLimit = values[j+=1].to_i == 1
+
+      @specials = []
+      i = j
+      while (i+1 < values.size) do 
+        special = Special.new
+        special.description =  values[i+1]
+        special.survival =  values[i+2].to_i
+        special.melee =  values[i+3].to_i
+        special.ranged =  values[i+4].to_i
+        special.adventure =  values[i+5].to_i
+        @specials.push special
+
+        i += 5
+      end
+    end
+
+    def toCSV
+      header = []
+      row = []
+
+      header.push('Version'); row.push("v4")
+
+      header.push('Name'); row.push(@name)
+      header.push('Title'); row.push(@title)
+      header.push('Age'); row.push(@age)
+      header.push('Setting'); row.push(@setting)
+      header.push('Circle'); row.push(@circle)
+      header.push('Nature'); row.push(@nature)
+
+      RATINGS.each do |rating|
+        header.push(rating.capitalize)
+        row.push(instance_variable_get("@#{rating}".to_sym))
+      end
+
+      header.push('RangedWeaponPower'); row.push(@rangedWeapon.power)
+      header.push('RangedWeaponDamage'); row.push(@rangedWeapon.damage)
+      header.push('RangedWeaponOpFire'); row.push(@rangedWeapon.opfire)
+      header.push('RangedWeaponRangeMax'); row.push(@rangedWeapon.rangeMax)
+      header.push('RangedWeaponRangeMin'); row.push(@rangedWeapon.rangeMin)
+      header.push('RangedWeaponArea'); row.push(@rangedWeapon.area)
+
+      header.push('CardsCommon'); row.push(@cards.common)
+      header.push('CardsSecret'); row.push(@cards.secret)
+      header.push('CardsElite'); row.push(@cards.elite)
+      header.push('Henchmen'); row.push(@cards.henchmen)
+
+      header.push('BonusRanged'); row.push(@bonuses.ranged.join(','))
+      header.push('BonusMelee'); row.push(@bonuses.melee.join(','))
+      header.push('BonusMedical'); row.push(@bonuses.medical)
+      header.push('BonusStealth'); row.push(@bonuses.stealth)
+      header.push('BonusArmor'); row.push(@bonuses.armor)
+      header.push('BonusOther'); row.push(@bonuses.other.join(','))
+
+      header.push('NoGive'); row.push(@cards.noGive ? 1 : 0)
+      header.push('NoTrade'); row.push(@cards.noTrade ? 1 : 0)
+      header.push('NoLimit'); row.push(@cards.noLimit ? 1 : 0)
+
+      @specials.each_index do |i|
+        special = character.specials[i]
+        num = i+1
+
+        header.push('Special' + num); row.push(special.description.gsub(/\r\n/, '\\n'))
+        header.push('Special' + num + 'Survival'); row.push(special.survival)
+        header.push('Special' + num + 'Melee'); row.push(special.melee)
+        header.push('Special' + num + 'Ranged'); row.push(special.ranged)
+        header.push('Special' + num + 'Adventure'); row.push(special.adventure)
+      end
+
+      var text = ''
+
+      # Too noisy to output the header each time. 
+      #text += header.join('|') + "\n"
+      text += row.join('|')
+
+      return text
+    end
+
+    def value
+      # Survival
+      survivalValue = 0
+      survivalValue += DOA2.calculateSpeedValue(@speed)
+      survivalValue += DOA2.calculateGenericRatingValue(@stealth)
+      survivalValue += DOA2.calculateGenericRatingValue(@react)
+      survivalValue += DOA2.calculateHealthValue(@health, @armor)
+      survivalValue += 7 if @bonuses.medical
+      survivalValue += 7 if @bonuses.stealth
+      survivalValue += 7 if @bonuses.armor
+      survivalValue += DOA2.calculateSpecialValueFor(@specials, :survival)
+      survivalValue += DOA2.calculateCardValue(@cards.common, 
+                                               @cards.secret,
+                                               @cards.elite,
+                                               @cards.henchmen,
+                                               :survival)
+      survivalValue += DOA2.calculateCardBonusValue(@cards.noGive, 
+                                                    @cards.noTrade,
+                                                    @cards.noLimit, 
+                                                    :survival)
+
+      # Ranged
+      rangedValue = 0
+      rangedValue += DOA2.calculateGenericRatingValue(@aim)
+      rangedValue += DOA2.calculateGenericRatingValue(@point)
+      rangedValue += DOA2.calculateGenericRatingValue(@throw)
+      rangedValue += DOA2.calculateRangedDamageValue(@rangedWeapon.power,
+                                                     @rangedWeapon.damage,
+                                                     @rangedWeapon.opfire,
+                                                     @rangedWeapon.rangeMax,
+                                                     @rangedWeapon.rangeMin,
+                                                     @rangedWeapon.area)
+      rangedValue += 7 * @bonuses.ranged.length
+      rangedValue += DOA2.calculateSpecialValueFor(@specials, :ranged)
+      rangedValue += DOA2.calculateCardValue(@cards.common, 
+                                             @cards.secret,
+                                             @cards.elite,
+                                             @cards.henchmen,
+                                             :ranged)
+      rangedValue += DOA2.calculateCardBonusValue(@cards.noGive, 
+                                                  @cards.noTrade,
+                                                  @cards.noLimit, 
+                                                  :ranged)
+
+      # Melee
+      meleeValue = 0
+      meleeValue += DOA2.calculateGenericRatingValue(@wits)
+      meleeValue += @melee * @speed
+      meleeValue += DOA2.calculateMeleeDamageValue(@power, @damage, @melee) * 1.5
+      meleeValue += 7 * @bonuses.melee.length
+      meleeValue += DOA2.calculateSpecialValueFor(@specials, :melee)
+      meleeValue += DOA2.calculateCardValue(@cards.common, 
+                                            @cards.secret,
+                                            @cards.elite,
+                                            @cards.henchmen,
+                                            :melee)
+      meleeValue += DOA2.calculateCardBonusValue(@cards.noGive, 
+                                                 @cards.noTrade,
+                                                 @cards.noLimit, 
+                                                 :melee)
+
+      # Adventure
+      adventureValue = 0
+      adventureValue += DOA2.calculateSpeedValue(@speed)
+      adventureValue += DOA2.calculateGenericRatingValue(@strength)
+      adventureValue += DOA2.calculateGenericRatingValue(@intellect)
+      if @strength < 1 || @intellect< 1
+        adventureValue -= 20
+      end
+      adventureValue += DOA2.calculateGenericRatingValue(@honor)
+      adventureValue += DOA2.calculateGenericRatingValue(@respect)
+      adventureValue += 7 * @bonuses.other.length
+      adventureValue += DOA2.calculateSpecialValueFor(@specials, :adventure)
+      adventureValue += DOA2.calculateCardValue(@cards.common, 
+                                                @cards.secret,
+                                                @cards.elite,
+                                                @cards.henchmen,
+                                                :adventure)
+      adventureValue += DOA2.calculateCardBonusValue(@cards.noGive, 
+                                                     @cards.noTrade,
+                                                     @cards.noLimit, 
+                                                     :adventure)
+
+      Value.new(
+        survival: survivalValue,
+        ranged: rangedValue,
+        melee: meleeValue,
+        adventure: adventureValue)
+    end
   end
 end
 
