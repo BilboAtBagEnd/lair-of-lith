@@ -89,6 +89,20 @@ describe CharactersController do
         c_u1[24], c_u2[24]
       ])
     end
+
+    it "filters for the commentable characters" do
+      u = FactoryGirl.create(:user)
+      c1 = FactoryGirl.create(:character, :name => 'Not commentable 1')
+      c2 = FactoryGirl.create(:character, :name => 'Not commentable 2')
+      c3 = FactoryGirl.create(:character, :name => 'Not commentable 3')
+      c4 = FactoryGirl.create(:character, :name => 'Not commentable 4')
+      c5 = FactoryGirl.create(:character, :name => 'Commentable 5', :status => 'REVIEW')
+      c6 = FactoryGirl.create(:character, :name => 'Commentable 6', :status => 'REVIEW')
+      c7 = FactoryGirl.create(:character, :name => 'Not commentable 7')
+
+      get :index, :commentable => 1
+      expect(assigns(:characters).to_a).to eq([c5, c6])
+    end
   end
 
   describe "GET view" do
