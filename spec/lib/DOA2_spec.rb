@@ -107,4 +107,9 @@ describe DOA2 do
     expect(value.adventure).to eq(234)
     expect(value.total).to eq(835.2)
   end
+
+  it "conversta a DOA2::Character to CSV" do 
+    c = DOA2::Character.new(csv: CSV)
+    expect(c.csv).to eq(CSV)
+  end
 end

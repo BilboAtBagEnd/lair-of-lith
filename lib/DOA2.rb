@@ -9,6 +9,13 @@ module DOA2
 
   RATINGS_AS_SYMBOLS = RATINGS.map { |s| s.to_sym }
 
+  BONUSES = {
+    melee: %w(Blade Brawler Swing Thrust),
+    ranged: 'Auto Pistol,Auto Rifle,Bow,Crossbow,Energy Pistol,Energy Rifle,Grenade,Heavy,Long Pistol,Long Rifle,Powder Pistol,Powder Rifle,Revolver,Thrown'.split(/,/),
+    other: %w(Bot Gadget Medical Mount Pet Vehicle),
+    special: %w(Medical Stealth Armor),
+  }
+
   # Default evaluation of any rating value. 
   # Specific ratings may have different valuations, in 
   # which when they should use a different function.
@@ -160,6 +167,7 @@ module DOA2
   # Calculate the value of a melee attack, either of a character or a weapon.
   def self.calculateMeleeDamageValue(power, damage, melee) 
     value = POWER_DAMAGE_VALUE_TABLE["#{power} #{damage}"]
+    return 0 unless value
 
     case melee 
     when 0
@@ -430,11 +438,28 @@ module DOA2
     class BonusData
       attr_accessor :ranged, :melee, :medical, :stealth, 
         :armor, :other
+
+      def initialize
+        @ranged = []
+        @melee = []
+        @other = []
+        @medical = false
+        @stealth = false
+        @armor = false
+      end
     end
 
     class Special
       attr_accessor :description, :survival, :melee, 
         :ranged, :adventure
+
+      def initialize
+        @description = nil
+        @survival = 0
+        @melee = 0
+        @ranged = 0
+        @adventure = 0
+      end
 
       def value
         Value.new(
@@ -478,7 +503,9 @@ module DOA2
       :circle, :nature, :rangedWeapon, :cards, 
       :bonuses, :specials
 
-    def initialize(params) 
+    RATINGS_AS_SYMBOLS.each { |r| attr_accessor r }
+
+    def initialize(params = {}) 
       if params.has_key? :csv
         initializeFromCSV(params[:csv])
       end
@@ -540,7 +567,7 @@ module DOA2
       end
     end
 
-    def toCSV
+    def csv
       header = []
       row = []
 
@@ -572,9 +599,9 @@ module DOA2
 
       header.push('BonusRanged'); row.push(@bonuses.ranged.join(','))
       header.push('BonusMelee'); row.push(@bonuses.melee.join(','))
-      header.push('BonusMedical'); row.push(@bonuses.medical)
-      header.push('BonusStealth'); row.push(@bonuses.stealth)
-      header.push('BonusArmor'); row.push(@bonuses.armor)
+      header.push('BonusMedical'); row.push(@bonuses.medical ? 1 : 0)
+      header.push('BonusStealth'); row.push(@bonuses.stealth ? 1 : 0)
+      header.push('BonusArmor'); row.push(@bonuses.armor ? 1 : 0)
       header.push('BonusOther'); row.push(@bonuses.other.join(','))
 
       header.push('NoGive'); row.push(@cards.noGive ? 1 : 0)
@@ -582,17 +609,17 @@ module DOA2
       header.push('NoLimit'); row.push(@cards.noLimit ? 1 : 0)
 
       @specials.each_index do |i|
-        special = character.specials[i]
+        special = @specials[i]
         num = i+1
 
-        header.push('Special' + num); row.push(special.description.gsub(/\r\n/, '\\n'))
-        header.push('Special' + num + 'Survival'); row.push(special.survival)
-        header.push('Special' + num + 'Melee'); row.push(special.melee)
-        header.push('Special' + num + 'Ranged'); row.push(special.ranged)
-        header.push('Special' + num + 'Adventure'); row.push(special.adventure)
+        header.push("Special#{num}"); row.push(special.description.gsub(/\r\n/, '\\n'))
+        header.push("Special#{num}Survival"); row.push(special.survival)
+        header.push("Special#{num}Melee"); row.push(special.melee)
+        header.push("Special#{num}Ranged"); row.push(special.ranged)
+        header.push("Special#{num}Adventure"); row.push(special.adventure)
       end
 
-      var text = ''
+      text = ''
 
       # Too noisy to output the header each time. 
       #text += header.join('|') + "\n"

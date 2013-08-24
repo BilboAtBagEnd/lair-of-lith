@@ -1,0 +1,118 @@
+#!/home/ajarlith/.rvm/rubies/ruby-2.0.0-p247/bin/ruby
+require 'DOA2'
+require 'roo'
+
+spreadsheet = Roo::Spreadsheet.open('spreadsheets/DoA II Codex.xlsx')
+character_sheet = spreadsheet.sheet('Characters')
+
+character_columns = {
+  name: 'Name',
+  profession: 'Profession',
+  age: 'Age',
+  number: 'CardNbr',
+  set: 'GameSet',
+  setting: 'Setting',
+  circle: 'Circle', 
+  nature: 'Class1',
+  speed: 'Speed', 
+  health: 'Hlth',
+  wits: 'Wits', 
+  melee: 'Melee', 
+  power: 'Power', 
+  damage: 'Damage',
+  aim: 'Aim', 
+  point: 'Point', 
+  throw: 'Throw',
+  react: 'React',
+  stealth: 'Stlth',
+  armor: 'Armor', 
+  strength: 'Str', 
+  intellect: 'Int', 
+  honor: 'Honor', 
+  respect: 'Resp', 
+  range_opfire: 'OpFire',
+  range_power: 'RngPower',
+  range_max: 'RngMax',
+  range_min: 'RngMin',
+  area: 'ArSi',
+  range_damage: 'RangeDmg',
+  common_cards: 'CardC',
+  secret_cards: 'CardS',
+  elite_cards: 'CardE',
+  henchmen: 'Hench',
+  standard_abilities: 'StandardAbilities',
+  specials: 'CharSpecial',
+}
+
+characters = []
+character_sheet.each(character_columns) do |hash| 
+  c = DOA2::Character.new
+  c.name = hash[:name]
+  c.title = hash[:profession]
+  c.age = hash[:age]
+  c.setting = hash[:setting]
+  c.circle = hash[:circle]
+  c.nature = hash[:nature]
+
+  DOA2::RATINGS_AS_SYMBOLS.each do |r|
+    c.instance_variable_set("@#{r}".to_sym, hash[r].to_i)
+  end
+
+  c.rangedWeapon = DOA2::Character::RangedWeapon.new
+  c.rangedWeapon.power = hash[:ranged_power].to_i
+  c.rangedWeapon.damage = hash[:ranged_damage].to_i
+  c.rangedWeapon.opfire = hash[:opfire].to_i
+  c.rangedWeapon.rangeMax = hash[:range_max].to_i
+  c.rangedWeapon.rangeMin = hash[:range_min].to_i
+  c.rangedWeapon.area = (!hash[:area] || hash[:area].empty?) ? '-' : hash[:area]
+
+  c.cards = DOA2::Character::StartingCardData.new
+  c.cards.common = hash[:common_cards].to_i
+  c.cards.secret = hash[:secret_cards].to_i
+  c.cards.elite = hash[:elite_cards].to_i
+  c.cards.henchmen = hash[:henchmen].to_i
+
+  c.bonuses = DOA2::Character::BonusData.new
+  c.specials = []
+
+  standards = hash[:standard_abilities].split(/ *, */)
+  standards.each do |s|
+    if DOA2::BONUSES[:melee].include? s
+      c.bonuses.melee.push s
+    elsif DOA2::BONUSES[:ranged].include? s
+      c.bonuses.ranged.push s
+    elsif DOA2::BONUSES[:other].include? s
+      c.bonuses.other.push s
+    else 
+      case s
+      when 'Medical'
+        c.bonuses.medical = true
+      when 'Stealth'
+        c.bonuses.stealth = true
+      when 'Armor'
+        c.bonuses.armor = true
+      when 'Not Give Cards'
+        c.cards.noGive = true
+      when 'No Trade'
+        c.cards.noTrade = true
+      when 'No Card Limit'
+        c.cards.noLimit = true
+      else
+        special = DOA2::Character::Special.new
+        special.description = s
+        c.specials.push special
+      end
+    end
+  end
+
+  hash[:specials].split("\n").each do |s|
+    special = DOA2::Character::Special.new
+    special.description = s.strip
+    c.specials.push special
+  end
+
+  characters << { data: hash, csv: c.csv, value: c.value }
+end
+
+puts characters.to_yaml
+
