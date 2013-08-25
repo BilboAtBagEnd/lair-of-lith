@@ -1,7 +1,7 @@
 class Character < ActiveRecord::Base
   extend FriendlyId
   belongs_to :user
-  has_many :character_versions
+  has_many :character_versions, :dependent => :delete_all
 
   paginates_per 25
 

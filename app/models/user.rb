@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   extend FriendlyId
-  has_many :characters
+  has_many :characters, :dependent => :delete_all
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

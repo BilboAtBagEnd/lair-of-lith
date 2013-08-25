@@ -106,14 +106,16 @@ class CharactersController < ApplicationController
     end
 
     @character_version = nil
+    @version = @prev_version + 1
     if @character
       @character_version = CharacterVersion.new
       @character_version.character_id = @character.id
-      @character_version.version = @prev_version + 1
+      @character_version.version = @version
       @character_version.csv = CharactersHelper.html_decode(params[:csv]).gsub(/[<>]/, '_')
       unless @character_version.save
         flash[:error] = 'Could not save character version'
         @character_version = nil
+        @version = @prev_version
       else
         ApplicationHelper.ga_event('Character', 'Create Version', @character.name, 1, true)
       end
@@ -125,7 +127,14 @@ class CharactersController < ApplicationController
     }
 
     respond_to do |format|
-      format.html { redirect_to character_generate_path(@user, @character.slug, @character_version.version) }
+      format.html { 
+        if @character 
+          redirect_to character_generate_path(@user, @character.slug, @version) 
+        else
+          redirect_to character_new_path
+        end
+      }
+
       format.json { render json: @result.to_json, status: @character_version ? 200 : 500 }
     end
   end
