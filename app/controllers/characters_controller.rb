@@ -129,7 +129,11 @@ class CharactersController < ApplicationController
     respond_to do |format|
       format.html { 
         if @character 
-          redirect_to character_generate_path(@user, @character.slug, @version) 
+          if @version > 0
+            redirect_to character_generate_path(@user, @character.slug, @version) 
+          else
+            redirect_to character_path(@user, @character)
+          end
         else
           redirect_to character_new_path
         end
