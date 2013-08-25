@@ -100,6 +100,8 @@ class CharactersController < ApplicationController
       unless @character.save 
         flash[:error] = 'Could not save character'
         @character = nil
+      else
+        ApplicationHelper.ga_event('Character', 'Create', @character.name, 1, true)
       end
     end
 
@@ -112,6 +114,8 @@ class CharactersController < ApplicationController
       unless @character_version.save
         flash[:error] = 'Could not save character version'
         @character_version = nil
+      else
+        ApplicationHelper.ga_event('Character', 'Create Version', @character.name, 1, true)
       end
     end
 
@@ -182,11 +186,16 @@ class CharactersController < ApplicationController
     end
 
     # TODO: flash error instead of silently failing.
-    @character.save
+    if @character.save
+      status = 200
+      ApplicationHelper.ga_event('Character', 'Save Data', @character.name, 1, true)
+    else 
+      status = 500
+    end
 
     respond_to do |format|
       format.html { redirect_to character_path(@owner, @character) }
-      format.js
+      format.js { render status: status }
     end
   end
 

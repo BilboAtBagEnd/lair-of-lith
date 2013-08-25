@@ -91,6 +91,7 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.0)
     formatador (0.2.4)
+    gabba (1.0.1)
     guard (1.8.2)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
@@ -244,6 +245,7 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails
   friendly_id!
+  gabba
   guard
   guard-rspec
   htmlentities

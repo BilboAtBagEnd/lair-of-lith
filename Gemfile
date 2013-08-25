@@ -69,8 +69,8 @@ gem 'acts-as-taggable-on'
 # Exception notification
 gem 'exception_notification'
 
-# Spreadsheets
-gem 'roo'
+# Google analytics server-side events
+gem 'gabba'
 
 # Testing 
 group :development, :test do 
@@ -80,6 +80,7 @@ end
 group :development do
   gem 'guard'
   gem 'guard-rspec'
+  gem 'roo' # Spreadsheets
 end
 group :test do 
   gem 'factory_girl_rails'
