@@ -27,7 +27,9 @@ SitemapGenerator::Sitemap.create do
   User.find_each do |user|
     add user_path(user), :lastmod => user.updated_at, :changefreq => 'daily'
     user.characters.each do |character|
-      add character_path(user, character), :lastmod => character.updated_at, :changefreq => 'daily'
+      if character.status != 'HIDE'
+        add character_path(user, character), :lastmod => character.updated_at, :changefreq => 'daily'
+      end
     end
   end
 
