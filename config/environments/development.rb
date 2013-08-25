@@ -37,7 +37,7 @@ end
 # Exception notification through email
 AppLairoflithCom::Application.config.middleware.use ExceptionNotification::Rack,
   :email => {
-  :email_prefix => "[(Devo) Lair of Lith] ",
-  :sender_address => %{"Lair of Lith" <lith@lairoflith.com>},
-  :exception_recipients => %w{arachne.jar@gmail.com}
-}
+    :email_prefix => "[(Devo) Lair of Lith] ",
+    :sender_address => %{"Lair of Lith" <lith@lairoflith.com>},
+    :exception_recipients => %w{arachne.jar@gmail.com}
+  }

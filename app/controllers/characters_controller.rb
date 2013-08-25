@@ -102,8 +102,7 @@ class CharactersController < ApplicationController
       @character.user_id = @user.id
       @character.name = @character_name
       unless @character.save 
-        flash[:error] = 'Could not save character'
-        @character = nil
+        raise "Could not save character '#{@character_name}'"
       else
         ApplicationHelper.ga_event('Character', 'Create', @character.name, 1, true)
       end
@@ -117,9 +116,7 @@ class CharactersController < ApplicationController
       @character_version.version = @version
       @character_version.csv = CharactersHelper.html_decode(params[:csv]).gsub(/[<>]/, '_')
       unless @character_version.save
-        flash[:error] = 'Could not save character version'
-        @character_version = nil
-        @version = @prev_version
+        raise "Could not save character version '#{@character.name}'"
       else
         ApplicationHelper.ga_event('Character', 'Create Version', @character.name, 1, true)
       end
