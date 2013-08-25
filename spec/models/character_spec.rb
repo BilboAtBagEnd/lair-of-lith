@@ -78,6 +78,8 @@ describe Character do
     expect(c.status).to eq('WIP')
     c.status = 'REVIEW'
     expect(c.status).to eq('REVIEW')
+    c.status = 'HIDE'
+    expect(c.status).to eq('HIDE')
   end
 
   it "does not set status to unknown values" do

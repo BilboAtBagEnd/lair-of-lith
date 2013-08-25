@@ -21,7 +21,11 @@ class CharactersController < ApplicationController
     @page = 1 if @page < 1
 
     @characters = Character.joins(:user).order('characters.name, users.name')
-    @characters = @characters.where('status = ?', 'REVIEW') if @restrict_to_commentable
+    if @restrict_to_commentable
+      @characters = @characters.where("status = 'REVIEW'") 
+    else
+      @characters = @characters.where("status != 'HIDE'")
+    end
     @characters = @characters.page(@page)
 
     if !@restrict_to_commentable

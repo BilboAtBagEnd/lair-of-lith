@@ -12,10 +12,11 @@ class Character < ActiveRecord::Base
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [:user_id]
 
-  STATUSES = %w(WIP REVIEW)
+  STATUSES = %w(WIP REVIEW HIDE)
   FULL_STATUSES = { 
     'WIP' => 'Work in progress',
-    'REVIEW' => 'Ready for comments'
+    'REVIEW' => 'Ready for comments',
+    'HIDE' => 'Hide from public',
   }
 
   def name=(val)

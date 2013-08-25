@@ -103,6 +103,17 @@ describe CharactersController do
       get :index, :commentable => 1
       expect(assigns(:characters).to_a).to eq([c5, c6])
     end
+
+    it "does not show hidden characters unfiltered OR filtered" do
+      u = FactoryGirl.create(:user)
+      c1 = FactoryGirl.create(:character, name: 'A')
+      c2 = FactoryGirl.create(:character, name: 'B', status: 'REVIEW')
+      c3 = FactoryGirl.create(:character, name: 'C', status: 'HIDE')
+      get :index
+      expect(assigns(:characters)).to eq([c1, c2])
+      get :index, :commentable => 1
+      expect(assigns(:characters)).to eq([c2])
+    end
   end
 
   describe "GET view" do
