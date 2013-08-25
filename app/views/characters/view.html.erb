@@ -149,7 +149,7 @@ $(document).ready(function() {
   <%= form_for(@character, url: character_save_data_path(current_user, @character), 
                            remote: true,
                            html: { id: 'form-bgg-thread-id', style: 'display: none;' }) do |f| %>
-    BoardGameGeek thread id: <%= f.text_field :bgg_thread_id %>
+    BoardGameGeek article id: <%= f.text_field :bgg_thread_id %>
     <%= f.submit 'Update' %>
     <button id="cancel-bgg-thread-id-update">Cancel</button>
   <% end %>

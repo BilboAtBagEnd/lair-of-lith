@@ -53,7 +53,7 @@ class Character < ActiveRecord::Base
 
   def bgg_thread_link 
     if bgg_thread_id 
-      url = %Q(http://www.boardgamegeek.com/thread/#{bgg_thread_id.to_i})
+      url = %Q(http://www.boardgamegeek.com/article/#{bgg_thread_id.to_i})
       %Q(<a href="#{url}">#{url}</a>)
     else
       'No BoardGameGeek discussion thread.'
