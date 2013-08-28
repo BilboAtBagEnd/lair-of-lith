@@ -1,0 +1,12 @@
+<% @title = 'Codex' %>
+<h1>Codex</h1>
+
+<h2>Browse Official Characters</h2>
+<table class="codex">
+  <tr><th>Name</th><th>Profession</th><th>Age</th><th>Setting</th><th>Circle</th><th>Nature</th></tr>
+  <% @characters.each do |c| %>
+    <tr><td><%= link_to c.name, codex_character_path(c.name) %></td>
+      <td><%= c.profession %></td><td><%= c.age %></td><td><%= c.setting %></td>
+      <td><%= c.circle %></td><td><%= c.nature %></td></tr>
+  <% end %>
+</table>

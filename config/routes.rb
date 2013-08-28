@@ -24,6 +24,9 @@ AppLairoflithCom::Application.routes.draw do
   patch 'users/:uid/characters/:cid/save_data', to: 'characters#save_data', as: 'character_save_data'
   delete 'characters/destroy' => 'characters#destroy'
 
+  get 'codex', to: 'codex#index', as: 'codex'
+  get 'codex/character/:name', to: 'codex#character', as: 'codex_character', :name => /.*/, :format => false
+
   get 'characters/help', to: 'characters#help', as: 'character_help'
   get 'characters/walkthrough', to: 'characters#walkthrough', as: 'character_walkthrough'
   get 'characters/guide', to: 'characters#guide', as: 'character_guide'

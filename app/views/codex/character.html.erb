@@ -1,0 +1,64 @@
+<% @title = @character.name %>
+
+<%= link_to '<< Codex', codex_path %>
+
+<h1><%= @character.name %></h1>
+<h2 style="margin-top: -0.5em;"><%= @character.profession %></h2>
+
+<p><%= @character.age %> / <%= @character.setting %> / <%= @character.nature %></p>
+<p><strong>Set:</strong> <%= @character.set %> <strong>Number:</strong> <%= @character.number %></p>
+
+<p><strong>Ratings:</strong><br />
+<strong>Basic:</strong> Speed: <%= @character.speed %> Health: <%= @character.health %><br />
+<strong>Melee:</strong> Wits: <%= @character.wits %> Melee: <%= @character.melee %> Power: <%= @character.power %> Damage: <%= @character.damage %><br />
+<strong>Range:</strong> Aim: <%= @character.aim %> Point: <%= @character.point %> Throw: <%= @character.throw %><br />
+<strong>Defense:</strong> React: <%= @character.react %> Stealth: <%= @character.stealth %> Armor: <%= @character.armor %><br />
+<strong>Traits:</strong> Strength: <%= @character.strength %> Intellect: <%= @character.intellect %> Honor: <%= @character.honor %> Respect: <%= @character.respect %>
+</p>
+
+<% if @character_alt %>
+  <p><strong>Left Ratings:</strong><br />
+  <strong>Basic:</strong> Speed: <%= @character_alt.speed %> Health: <%= @character_alt.health %><br />
+  <strong>Melee:</strong> Wits: <%= @character_alt.wits %> Melee: <%= @character_alt.melee %> Power: <%= @character_alt.power %> Damage: <%= @character_alt.damage %><br />
+  <strong>Range:</strong> Aim: <%= @character_alt.aim %> Point: <%= @character_alt.point %> Throw: <%= @character_alt.throw %><br />
+  <strong>Defense:</strong> React: <%= @character_alt.react %> Stealth: <%= @character_alt.stealth %> Armor: <%= @character_alt.armor %><br />
+  <strong>Traits:</strong> Strength: <%= @character_alt.strength %> Intellect: <%= @character_alt.intellect %> Honor: <%= @character_alt.honor %> Respect: <%= @character_alt.respect %>
+  </p>
+<% end %>
+
+<% if @character.area %> 
+  <p><strong>Ranged Weapon:</strong><br />
+  Power: <%= @character.range_power %> Damage: <%= @character.range_damage %> OpFire: <%= @character.range_opfire %> Range: <%= @character.range_max %> Area: <%= @character.area %>
+  </p>
+<% end %>
+
+<p><strong>Specials</strong></p>
+
+<% @character.official_specials.order(:id).each do |s| %>
+  <% 
+    scorings = []
+    scorings << "Survival: #{s.survival}" if s.survival != 0 
+    scorings << "Ranged: #{s.ranged}" if s.ranged != 0 
+    scorings << "Melee: #{s.melee}" if s.melee != 0 
+    scorings << "Adventure: #{s.adventure}" if s.adventure != 0 
+  %>
+  <p>
+  <%= s.description %> 
+  <% unless scorings.empty? %>
+    (<%= scorings.join(', ') %>)
+  <% end %>
+  </p>
+<% end %>
+
+<% if false %>
+<a id="comments"></a>
+<script>
+  var idcomments_acct = '39d669a1a66e25021389ef8cc06145af';
+  var idcomments_post_id = "official-<%= @character.name %><%=j Rails.env.development? ? '-development' : '' %>";
+  var idcomments_post_url = "<%=j request.protocol %><%=j request.host_with_port %><%=j codex_character_path(@character.name) %><%=j Rails.env.development? ? '-development' : '' %>";
+</script>
+<span id="IDCommentsPostTitle" style="display:none"></span>
+<script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
+
+<%= render 'shared/intense_debate_guide' %>
+<% end %>
