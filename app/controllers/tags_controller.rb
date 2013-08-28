@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   def index
-    @character_tags = Character.tag_counts.order('name')
+    @character_tags = Character.where("status != 'HIDE'").tag_counts.order('name')
   end
 
   def view
