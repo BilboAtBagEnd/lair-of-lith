@@ -12,6 +12,7 @@
 # Extra files to ignore
 /config/initializers/devise.rb
 /sessions/*
+/db/sphinx/*
 
 # github .gitignore
 *.rbc

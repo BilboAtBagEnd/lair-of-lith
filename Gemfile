@@ -72,6 +72,9 @@ gem 'exception_notification'
 # Google analytics server-side events
 gem 'gabba'
 
+# Searching 
+gem 'thinking-sphinx'
+
 # Testing 
 group :development, :test do 
   gem 'debugger'

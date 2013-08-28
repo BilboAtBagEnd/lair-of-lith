@@ -1,0 +1,8 @@
+development:
+  mysql41: 9305
+
+test:
+  mysql41: 9306
+
+production:
+  mysql41: 9307
