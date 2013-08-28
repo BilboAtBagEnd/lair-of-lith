@@ -21,17 +21,21 @@ task :promote do
   mkdir_p "#{staging_dir}/log"
   mkdir_p "#{staging_dir}/tmp"
 
-  # create the big symlink 
   prod_dir = "#{home_dir}/#{app_name}"
+
+  # Stop ThinkingSphinx in the current directory
+  chdir prod_dir
+  system "RAILS_ENV=production rake ts:stop"
+
+  # create the big symlink 
+  chdir staging_dir
   safe_unlink prod_dir
   ln_s staging_dir, prod_dir
 
-  # switch over to the prod directory
   chdir prod_dir
   system "RAILS_ENV=production rake db:migrate"
   system "bundle exec rake assets:precompile"
   system "RAILS_ENV=production rake sitemap:refresh:no_ping"
   system "RAILS_ENV=production rake ts:index"
-  system "RAILS_ENV=production rake ts:stop"
   system "RAILS_ENV=production rake ts:start"
 end
