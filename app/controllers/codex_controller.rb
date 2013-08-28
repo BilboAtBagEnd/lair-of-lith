@@ -4,7 +4,8 @@ class CodexController < ApplicationController
   end
 
   def character
-    @characters = OfficialCharacter.where('name = ?', params[:name])
+    name = params[:name].gsub('+', ' ')
+    @characters = OfficialCharacter.where('name = ?', name)
 
     if @characters.size == 0 
       raise ActiveRecord::RecordNotFound
