@@ -40,7 +40,7 @@
       Suffer double the final damage from Area attacks. Cannot use Armor.
   :csv: v4|A Pile of Weewaks|The Horde|Future|Altspace|Lord|Being|5|20|5|4|4|2|3|3|6|5|6|3|3|3|4|3|0|0|0|0|0|-|0|0|0|0||Swing|0|0|0||0|0|0|Can
     attack every enemy in their space in melee.|0|25|0|0|Can use multiple Melee cards
-    in a single melee, but each can be used only once.|-1|0|0|0|Suffer double the
+    in a single melee, but each can be used only once.|00|0|0|Suffer double the
     final damage from Area attacks.|-12|0|0|0|Cannot use Armor.|-8|0|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 297
@@ -2071,7 +2071,7 @@
   :csv: 'v4|Dr. Hume|The Invisible Man|Colonial|Folktales|Villain|Man|6|4|5|2|1|2|3|5|3|3|5|2|4|5|2|2|0|0|0|0|0|-|1|3|0|0|||0|0|0|Gadget,Vehicle,Bot|0|0|0|Invisibility:
     Does not need to stop in an enemy space. Gains +6 Stealth for all purposes. Against
     enemies that cannot negate the Stealth bonus, Gains +4 React and melee Hit for
-    combat only.|70|25|0|0|Free action: One enemy in Hume’s space must reveal 1 card.|-1|0|0|0'
+    combat only.|70|25|0|0|Free action: One enemy in Hume’s space must reveal 1 card.|00|0|0'
   :value: !ruby/object:DOA2::Character::Value
     survival: 108.2
     melee: 60.75
@@ -2469,7 +2469,7 @@
     and an enemy attempts to Hit Erik, Erik becomes wronged at the end of that phase.
     While wronged, Erik has no restrictions. He ignores Strength/Intellect restrictions
     for all cards.|0|-85|-60|0|Cracked: On an adventure Fopp, Erik cracks.  Discard
-    all cards. He cannot trade cards or use the Vault. He can attack normally.|-1|0|0|0'
+    all cards. He cannot trade cards or use the Vault. He can attack normally.|00|0|0'
   :value: !ruby/object:DOA2::Character::Value
     survival: 169.0
     melee: 206.39999999999998
@@ -2616,7 +2616,7 @@
   :csv: 'v4|Fanged Tracnids|The Multipliers|Future|Starmarch|Outcast|Being|6|8|4|6|4|2|6|7|8|7|7|4|1|7|2|1|0|0|0|0|0|-|0|0|0|0||Brawler|0|0|0||0|0|0|Begin
     with only 4 current Health. Free Action: If in a Water or Swamp space, increase
     current Health by 1. Gains +1 Strength and Intellect for each point of current
-    Health above 4.|-1|0|0|0'
+    Health above 4.|00|0|0'
   :value: !ruby/object:DOA2::Character::Value
     survival: 246.6
     melee: 100.0
@@ -3388,7 +3388,7 @@
     ability. Enemies that begin their Free Action within 2 aura gain +1 Speed but
     cannot adventure or attack during their turn. Enemies that begin in a Building
     or with an ally ignore Spook.|0|10|0|35|The Head. Natural ranged attack using
-    the Throw rating, as shown.|-1|0|0|0|Cannot use Transports.|-4|0|0|0
+    the Throw rating, as shown.|00|0|0|Cannot use Transports.|-4|0|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 181
     melee: 96.1
@@ -3622,7 +3622,7 @@
       STAR skills equal current Health.
       ARROW skills equal 10 minus current Health.
   :csv: v4|Illinth|The Growing Threat|Ancient|Chasms|Villain|Fiend|8|9|7|6|0|2|3|6|4|9|9|0|0|6|0|0|0|0|0|0|0|-|0|0|0|0|||0|0|0||0|0|0|Begin
-    at 3 Health. Cannot use Pets or Mounts.|-1|0|0|0|Pain Feeder. Each time any enemy
+    at 3 Health. Cannot use Pets or Mounts.|00|0|0|Pain Feeder. Each time any enemy
     or ally (not Illinth) within 5 aura takes damage, Illinth heals 1 Health. Cannot
     heal in any other way. STAR skills equal current Health. ARROW skills equal 10
     minus current Health.|50|45|0|0
@@ -4099,7 +4099,7 @@
       Normally, use the left ratings.
       Free Action:  Can discard one card to become the superhero until the beginning of his next turn. Use the right ratings during this time, and can fly.
   :csv: 'v4|Joshua Jordan|The Superhero|Modern|Strange Times|Icon|Man|7|6|7|7|8|3|6|5|8|8|5|6|9|5|7|5|0|0|0|0|0|-|0|0|0|0|||0|0|0||0|0|0|Normally,
-    use the left ratings.|-1|0|0|0|Free Action:  Can discard one card to become the
+    use the left ratings.|00|0|0|Free Action:  Can discard one card to become the
     superhero until the beginning of his next turn. Use the right ratings during this
     time, and can fly.|50|65|30|10'
   :value: !ruby/object:DOA2::Character::Value
@@ -4147,7 +4147,7 @@
       Normally, use the left ratings.
       Free Action:  Can discard one card to become the superhero until the beginning of his next turn. Use the right ratings during this time, and can fly.
   :csv: 'v4|Joshua Jordan|The Superhero|Modern|Strange Times|Icon|Man|6|6|1|2|2|2|4|3|3|3|4|2|4|3|7|4|0|0|0|0|0|-|0|0|0|0|||0|0|0||0|0|0|Normally,
-    use the left ratings.|-1|0|0|0|Free Action:  Can discard one card to become the
+    use the left ratings.|00|0|0|Free Action:  Can discard one card to become the
     superhero until the beginning of his next turn. Use the right ratings during this
     time, and can fly.|50|65|30|10'
   :value: !ruby/object:DOA2::Character::Value
@@ -4245,7 +4245,7 @@
       Free Action:  Discard one card to become the dragon until the beginning of her next turn.
       While Dragon: Use right ratings. Can fly. Cannot use cards. Breath attack using Point rating.
   :csv: 'v4|Kassina|The Dragon Queen|Ancient|Chasms|Lord|Fairy|7|7|3|7|5|4|0|7|0|2|0|8|9|7|6|7|0|0|0|3|0|area|0|0|0|0|||0|0|0||0|0|0|Normally,
-    Kassina is in human form. Use the left ratings.|-1|0|0|0|Free Action:  Discard
+    Kassina is in human form. Use the left ratings.|00|0|0|Free Action:  Discard
     one card to become the dragon until the beginning of her next turn. While Dragon:
     Use right ratings. Can fly. Cannot use cards. Breath attack using Point rating.|25|50|40|5'
   :value: !ruby/object:DOA2::Character::Value
@@ -4472,7 +4472,7 @@
     :henchmen: 0.0
     :standard_abilities: Blade,Throw,Mount,Pet
     :specials: Cannot use Armor, Vehicles, Bots or Gadgets.
-  :csv: v4|Kraator|The Barbarian|Ancient|Chasms|Adventurer|Man|7|5|6|8|4|2|3|3|4|7|5|3|8|3|4|3|0|0|0|0|0|-|0|0|0|0||Blade|0|0|0|Mount,Pet|0|0|0|Throw|-1|0|0|0|Cannot
+  :csv: v4|Kraator|The Barbarian|Ancient|Chasms|Adventurer|Man|7|5|6|8|4|2|3|3|4|7|5|3|8|3|4|3|0|0|0|0|0|-|0|0|0|0||Blade|0|0|0|Mount,Pet|0|0|0|Throw|00|0|0|Cannot
     use Armor, Vehicles, Bots or Gadgets.|-8|0|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 171
@@ -5179,7 +5179,7 @@
       Natural ranged attack using Throw, as shown.
       If an enemy in M&J’s space Fopps on a Hit, M&J steal 1 card from that enemy.
   :csv: v4|Minx and Jinx|The Little People|Ancient|Faer|Commoner|Fairy|5|7|8|3|2|2|5|4|9|7|8|2|3|4|4|2|0|0|0|3|0|single|0|0|0|0|Thrown||0|0|0||0|0|0|Natural
-    ranged attack using Throw, as shown.|-1|0|0|0|If an enemy in M&J’s space Fopps
+    ranged attack using Throw, as shown.|00|0|0|If an enemy in M&J’s space Fopps
     on a Hit, M&J steal 1 card from that enemy.|10|5|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 178.60000000000002
@@ -5319,7 +5319,7 @@
       Floater Platform. Move cost 1 through Water, Rough. Does not fly.
       Cannot use Transports.
   :csv: v4|Mogred Ghan|The Alien Crime Lord|Future|Altspace|Lord|Being|3|4|1|3|5|3|2|3|1|0|2|5|7|3|1|6|0|0|0|0|0|-|1|1|1|3|||0|1|0||0|1|1|Floater
-    Platform. Move cost 1 through Water, Rough. Does not fly.|-1|0|0|0|Cannot use
+    Platform. Move cost 1 through Water, Rough. Does not fly.|00|0|0|Cannot use
     Transports.|-4|0|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 82.2
@@ -5462,7 +5462,7 @@
       Move cost 1 in Woods, Building, Swamp, Rough and Water. No extra cost to move up Slope.
   :csv: v4|Napoleon|The Tactician|Colonial|Horizons|Lord|Man|6|4|5|3|2|2|4|3|3|3|6|2|4|3|3|7|0|0|0|0|0|-|0|0|0|1|Heavy||0|0|0||0|0|0|Mental
     ability. Allies within 3 aura gain +1 Speed. Does not apply to Napoleon himself.|15|0|0|0|Move
-    cost 1 in Woods, Building, Swamp, Rough and Water. No extra cost to move up Slope.|-1|0|0|0
+    cost 1 in Woods, Building, Swamp, Rough and Water. No extra cost to move up Slope.|00|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 114.2
     melee: 78.0
@@ -5660,7 +5660,7 @@
   :csv: v4|Nimsea|The Nuisance|Ancient|Faer|Adventurer|Fairy|8|3|6|3|8|0|4|7|6|9|8|2|2|7|3|6|0|0|0|0|0|-|0|1|0|0|||0|0|0||0|0|0|On
     Hits and Adventures by enemies within 4 aura and by Nimsea herself, check Luck.  On
     3 or 7, the result is Fopp.|0|0|0|-10|Enemies and allies within 2 aura at start
-    of movement suffer -2 Speed.|-1|0|0|0|Can fly.|10|0|0|25
+    of movement suffer -2 Speed.|00|0|0|Can fly.|10|0|0|25
   :value: !ruby/object:DOA2::Character::Value
     survival: 174.4
     melee: 69.0
@@ -5898,7 +5898,7 @@
       Ranged attack using Aim, as shown.
       Suffers -3 Hit if not in a Cavern space.
   :csv: v4|Orpithu|The Cave Monster|Ancient|Chasms|Villain|Being|6|5|7|6|6|3|8|0|1|6|5|5|4|0|0|1|0|0|0|4|0|single|0|0|0|0|||0|0|0||0|0|0|Ranged
-    attack using Aim, as shown.|-1|0|0|0|Suffers -3 Hit if not in a Cavern space.|0|0|-15|0
+    attack using Aim, as shown.|00|0|0|Suffers -3 Hit if not in a Cavern space.|0|0|-15|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 189.0
     melee: 165.0
@@ -6511,7 +6511,7 @@
   :csv: v4|Quaal|The Matriarch|Future|Starmarch|Lord|Being|6|4|5|4|8|1|3|4|4|3|3|3|4|4|5|8|0|0|0|2|0|single|0|0|0|1|||0|0|0||0|0|0|Swirling
     fog. +3 Stealth for combat purposes only. Allies in her space during the enemy
     Fire phase also gain +3 Stealth.|20|0|0|0|Static storm. Natural ranged attack,
-    using Wits versus Stealth for Hit.|-1|0|0|0
+    using Wits versus Stealth for Hit.|00|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 109
     melee: 103.2
@@ -6711,7 +6711,7 @@
       can simply reappear up to 3 spaces away, even through Cavern Walls. Cannot appear
       in a Dome. Enemies cannot OpFire at Rizzik if he \nmoves this way."
   :csv: v4|Rizzik The Red|The Wizard|Ancient|Chasms|Defender|Fairy|5|4|8|2|2|2|2|7|3|8|6|2|4|7|4|6|0|0|0|18|0|single|0|2|0|0|||0|0|0||0|0|1|Flameburst.  Ranged
-    attack using Point, as shown.|-1|0|0|0|Instead of moving, can simply reappear
+    attack using Point, as shown.|00|0|0|Instead of moving, can simply reappear
     up to 3 spaces away, even through Cavern Walls. Cannot appear in a Dome. Enemies
     cannot OpFire at Rizzik if he moves this way.|20|0|0|0
   :value: !ruby/object:DOA2::Character::Value
@@ -7002,7 +7002,7 @@
   :csv: 'v4|Ryder|The Adept|Future|Altspace|Exemplar|Man|6|4|7|8|3|2|3|4|5|8|5|2|6|4|6|3|0|0|0|0|0|-|0|0|0|0|||0|1|0||0|0|0|Mental
     ability. Enemies within 4 aura that have Luck 4 on a Hit:  fail to hit, drop the
     weapon being used, and must reveal all cards. This includes attacks not directed
-    at Ryder.|-1|0|0|0'
+    at Ryder.|00|0|0'
   :value: !ruby/object:DOA2::Character::Value
     survival: 145.2
     melee: 133.5
@@ -7049,7 +7049,7 @@
       imprisoned (Creatures are killed)\n– Squeak/Pass = target takes 2 damage,  drops
       all cards and is banished.\n– Fail = target takes 1 damage.\n– Fopp = no effect.\n\nCannot
       use Transports, Armor or Pets."
-  :csv: 'v4|Sandman|The Urban Legend|Modern|Strange Times|Commoner|Being|3|3|6|9|-1|0|1|1|1|9|9|5|7|1|3|0|0|0|0|0|0|-|0|2|0|0|||0|0|0||0|0|0|Move
+  :csv: 'v4|Sandman|The Urban Legend|Modern|Strange Times|Commoner|Being|3|3|6|9|00|1|1|1|9|9|5|7|1|3|0|0|0|0|0|0|-|0|2|0|0|||0|0|0||0|0|0|Move
     cost 0 in Building.|20|25|0|20|Move 1 in Rough.|6|0|0|6|On a melee hit, don’t
     check damage.  Challenge Intellect vs. Intellect (Creatures use Wits): Amaze =
     imprisoned (Creatures are killed) Squeak/Pass = target takes 2 damage, drops all
@@ -7394,7 +7394,7 @@
   :csv: v4|Sir Bodkin|The Prudent|Ancient|Faer|Icon|Man|6|5|6|4|2|2|2|3|6|3|5|6|5|3|4|7|0|0|0|0|0|-|0|0|0|0|||0|0|1||0|0|0|If
     Sir Bodkin takes damage, he can – if he wishes – immediately move to an empty
     Dome of his choice, or to his team base HQ.|55|0|0|0|No event can do more than
-    1 damage to Sir Bodkin. But, Poison causes full damage.|-1|0|0|0|Cannot end his
+    1 damage to Sir Bodkin. But, Poison causes full damage.|00|0|0|Cannot end his
     Move in a space containing an enemy character unless forced to.|0|-15|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 196.0
@@ -7951,7 +7951,7 @@
     :specials: "If he owns a revealed Mount, Tex can Move normally even after \nfiring
       in the Fire phase."
   :csv: v4|The Iron Pole|The Tall Tale|Colonial|Folktales|Commoner|Man|6|6|4|5|4|2|3|4|8|4|4|2|9|4|5|4|0|0|0|0|0|-|0|0|0|0||Swing|0|0|0||0|0|0|TO
-    DO FIX|-1|0|0|0
+    DO FIX|00|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 133.8
     melee: 86.80000000000001
@@ -8142,7 +8142,7 @@
       Pass: Target drops all cards and is banished.
       Amaze: Target switches sides. The target becomes an enemy again if Thotus dies.
   :csv: 'v4|Thotus|The Pulsating Brain|Modern|Strange Times|Villain|Being|5|3|8|0|0|1|1|2|1|0|5|1|2|2|1|1|0|0|0|5|0|single|0|4|0|0|||0|0|0||0|0|0|Gains
-    +3 on Intellect and Wits Adventures.|-1|0|0|0|Mental Ability. Use as a ranged
+    +3 on Intellect and Wits Adventures.|00|0|0|Mental Ability. Use as a ranged
     attack with OpFire 1 and Range 5. Stealth bonuses apply. Instead of a Hit, challenge
     Intellect vs. Intellect: Pass: Target drops all cards and is banished. Amaze:
     Target switches sides. The target becomes an enemy again if Thotus dies.|0|0|130|0'
@@ -8240,7 +8240,7 @@
     :standard_abilities: Thrown, Grenade
     :specials: Rock-thrower. Natural ranged attack as shown, using Throw rating.
   :csv: v4|Thump|The Giant|Ancient|Chasms|Commoner|Being|5|7|2|5|4|3|3|3|8|2|3|4|8|3|5|4|0|0|0|4|0|single|0|0|0|0|Thrown,Grenade||0|0|0||0|0|0|Rock-thrower.  Natural
-    ranged attack as shown, using Throw rating.|-1|0|0|0
+    ranged attack as shown, using Throw rating.|00|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 163.4
     melee: 86.80000000000001
@@ -8714,7 +8714,7 @@
       back at turn end. Cannot use, trade or look at the enemy’s cards.'
   :csv: 'v4|Whisper|The Secret Superhero|Modern|Strange Times|Outcast|Woman|6|4|8|2|1|2|4|2|5|6|6|2|3|2|5|3|0|0|0|0|0|-|0|1|0|0|||0|0|0||0|0|0|Secret
     Identity. Each Free Action: If an allied character is within 4 aura, Whisper is
-    human. Use left ratings. If not, use right ratings and see below.|-1|0|0|0|Windwraith,
+    human. Use left ratings. If not, use right ratings and see below.|00|0|0|Windwraith,
     Mental ability. Free Action: Enemy characters within 2 aura and with less Wits
     than Whisper join her side, but only for her turn, switching back at turn end.  Cannot
     use, trade or look at the enemy’s cards.|20|40|20|40'
@@ -8766,7 +8766,7 @@
       back at turn end. Cannot use, trade or look at the enemy’s cards.'
   :csv: 'v4|Whisper|The Secret Superhero|Modern|Strange Times|Outcast|Woman|7|4|8|3|6|1|1|4|7|9|9|4|3|4|5|4|0|0|0|0|0|-|0|1|0|0|||0|0|0||0|0|0|Secret
     Identity. Each Free Action: If an allied character is within 4 aura, Whisper is
-    human. Use left ratings. If not, use right ratings and see below.|-1|0|0|0|Windwraith,
+    human. Use left ratings. If not, use right ratings and see below.|00|0|0|Windwraith,
     Mental ability. Free Action: Enemy characters within 2 aura and with less Wits
     than Whisper join her side, but only for her turn, switching back at turn end.  Cannot
     use, trade or look at the enemy’s cards.|20|40|20|40'
@@ -8956,7 +8956,7 @@
       Swarming warriors. During Melee, can make a melee attack on every enemy within 2 aura.
   :csv: v4|Xecttyl|The Hive Mother|Future|Forty Worlds|Outcast|Being|3|11|2|5|6|2|6|2|3|1|0|6|9|2|3|1|0|0|0|0|0|-|0|0|0|0|||0|0|0||0|0|0|Move
     cost ½ through Cavern.|8|0|0|8|Cannot use Armor or Transports.|-8|0|0|0|Swarming
-    workers.  Enemies that begin their Move within 4 aura suffer -1 Speed that turn.|-1|0|0|0|Swarming
+    workers.  Enemies that begin their Move within 4 aura suffer -1 Speed that turn.|00|0|0|Swarming
     warriors. During Melee, can make a melee attack on every enemy within 2 aura.|0|55|0|0
   :value: !ruby/object:DOA2::Character::Value
     survival: 248.0
