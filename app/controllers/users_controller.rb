@@ -7,6 +7,11 @@ class UsersController < ApplicationController
     end
 
     # list out characters.
-    @characters = Character.where('user_id = ?', @user.id).order(:name)
+
+    if current_user && @user.id == current_user.id 
+      @characters = Character.where('user_id = ?', @user.id).order(:name)
+    else
+      @characters = Character.where("user_id = ? and status != 'HIDE'", @user.id).order(:name)
+    end
   end
 end

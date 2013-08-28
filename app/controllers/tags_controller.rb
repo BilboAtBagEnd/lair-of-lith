@@ -5,6 +5,6 @@ class TagsController < ApplicationController
 
   def view
     @tag = params[:tag]
-    @characters = Character.tagged_with(@tag).order('characters.name').includes(:user)
+    @characters = Character.where("status != 'HIDE'").tagged_with(@tag).order('characters.name').includes(:user)
   end
 end
