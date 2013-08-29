@@ -1,3 +1,3 @@
 class OfficialSpecial < ActiveRecord::Base
-  belongs_to :OfficialCharacter
+  belongs_to :official_character
 end
