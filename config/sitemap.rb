@@ -38,4 +38,8 @@ SitemapGenerator::Sitemap.create do
   add character_walkthrough_path, :changefreq => 'weekly'
   add character_guide_path, :changefreq => 'weekly'
 
+  add codex_path, :changefreq => 'weekly'
+  OfficialCharacter.select(:name).distinct.each do |character|
+    add codex_character_path(character.name), :changefreq => 'weekly'
+  end
 end
