@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :character do
-    name 'A Very Long Name Indeed'
+    name 'Eleanor Bludsturm'
     user_id 1
     description "[b]A title[/b]\r\n\r\nSome words"
     bgg_thread_id 1

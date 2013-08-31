@@ -5,3 +5,10 @@ module ControllerMacros
     end
   end
 end
+
+module FeatureMacros
+  def setup_warden
+    include Warden::Test::Helpers
+    Warden.test_mode!
+  end
+end

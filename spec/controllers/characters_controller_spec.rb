@@ -311,7 +311,7 @@ describe CharactersController do
 
         it "redirects to the generate page" do 
           post :save, :name => @character.name, :csv => 'Some CSV'
-          expect(response).to redirect_to '/users/test-user-1/characters/a-very-long-name-indeed/2/generate'
+          expect(response).to redirect_to '/users/test-user-1/characters/eleanor-bludsturm/2/generate'
         end
       end
     end
@@ -376,7 +376,7 @@ describe CharactersController do
 
       it "redirects to the character page" do
         post :save_data, :uid => @user.slug, :cid => @character.slug, :character => {:bgg_thread_id => 1}
-        expect(response).to redirect_to('/users/test-user-1/characters/a-very-long-name-indeed')
+        expect(response).to redirect_to('/users/test-user-1/characters/eleanor-bludsturm')
       end
     end
   end

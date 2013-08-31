@@ -79,6 +79,7 @@ GEM
       launchy (~> 2.1)
       mail (~> 2.2)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     exception_notification (4.0.0)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
@@ -89,6 +90,8 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    faye-websocket (0.4.7)
+      eventmachine (>= 0.12.0)
     ffi (1.9.0)
     formatador (0.2.4)
     gabba (1.0.1)
@@ -103,6 +106,7 @@ GEM
       rspec (~> 2.13)
     hike (1.2.3)
     htmlentities (4.3.1)
+    http_parser.rb (0.5.3)
     i18n (0.6.4)
     innertube (1.1.0)
     jbuilder (1.5.0)
@@ -136,6 +140,10 @@ GEM
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     orm_adapter (0.4.0)
+    poltergeist (1.3.0)
+      capybara (~> 2.1.0)
+      faye-websocket (>= 0.4.4, < 0.5.0)
+      http_parser.rb (~> 0.5.3)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -262,6 +270,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mysql2
+  poltergeist
   rails (= 4.0.0)
   rbbcode!
   roo
