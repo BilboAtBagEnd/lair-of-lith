@@ -25,7 +25,7 @@ class CodexController < ApplicationController
     @page = 1 if @page < 1
 
     @specials = []
-    if @query
+    if @query && !@query.strip.empty?
       @specials = OfficialSpecial.search(@query, :populate => true).page(@page).per(50)
     end
   end

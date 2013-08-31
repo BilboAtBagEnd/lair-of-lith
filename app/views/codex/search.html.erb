@@ -3,7 +3,7 @@
 <%= render 'search_form' %>
 
 <div id="search-results">
-  <div class="pagination"><%= paginate @specials %></div>
+  <div class="pagination"><%= paginate @specials if @specials.size > 0 %></div>
 
   <% @specials.each do |special| %>
     <% name = special.official_character.name %>
@@ -13,5 +13,5 @@
     </div>
   <% end %>
 
-  <div class="pagination"><%= paginate @specials %></div>
+  <div class="pagination"><%= paginate @specials if @specials.size > 0 %></div>
 </div>

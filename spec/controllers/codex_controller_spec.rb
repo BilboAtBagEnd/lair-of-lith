@@ -42,5 +42,10 @@ describe CodexController do
       get :search
       expect(response).to render_template('search')
     end
+
+    it "doesn't search an empty query" do 
+      get :search, :query => ''
+      expect(assigns(:specials)).to eq([])
+    end
   end
 end
