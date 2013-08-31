@@ -35,19 +35,7 @@
 <p><strong>Specials</strong></p>
 
 <% @character.official_specials.order(:id).each do |s| %>
-  <% 
-    scorings = []
-    scorings << "Survival: #{s.survival}" if s.survival != 0 
-    scorings << "Ranged: #{s.ranged}" if s.ranged != 0 
-    scorings << "Melee: #{s.melee}" if s.melee != 0 
-    scorings << "Adventure: #{s.adventure}" if s.adventure != 0 
-  %>
-  <p>
-  <%= s.description %> 
-  <% unless scorings.empty? %>
-    (<%= scorings.join(', ') %>)
-  <% end %>
-  </p>
+  <p><%= s %></p>
 <% end %>
 
 <% if false %>

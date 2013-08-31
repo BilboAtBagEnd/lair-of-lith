@@ -17,4 +17,16 @@ class CodexController < ApplicationController
       @character_alt = @characters[1]
     end
   end
+
+  def search
+    @query = params[:query]
+    @page = params[:page].to_i 
+
+    @page = 1 if @page < 1
+
+    @specials = []
+    if @query
+      @specials = OfficialSpecial.search(@query, :populate => true).page(@page).per(50)
+    end
+  end
 end

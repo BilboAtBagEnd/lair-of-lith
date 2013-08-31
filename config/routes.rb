@@ -26,6 +26,7 @@ AppLairoflithCom::Application.routes.draw do
 
   get 'codex', to: 'codex#index', as: 'codex'
   get 'codex/character/:name', to: 'codex#character', as: 'codex_character', :name => /.*/, :format => false
+  get 'codex/search', to: 'codex#search', as: 'codex_search'
 
   get 'characters/help', to: 'characters#help', as: 'character_help'
   get 'characters/walkthrough', to: 'characters#walkthrough', as: 'character_walkthrough'

@@ -1,0 +1,17 @@
+<h1>Codex Search</h1> 
+
+<%= render 'search_form' %>
+
+<div id="search-results">
+  <div class="pagination"><%= paginate @specials %></div>
+
+  <% @specials.each do |special| %>
+    <% name = special.official_character.name %>
+    <div class="result">
+      <p class="character-name"><%= link_to name, codex_character_path(name) %></p>
+      <p class="special"><%= special %></p>
+    </div>
+  <% end %>
+
+  <div class="pagination"><%= paginate @specials %></div>
+</div>
