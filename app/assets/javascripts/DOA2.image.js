@@ -206,7 +206,7 @@ DOA2_Image.generateCard = function (params) {
         { fill: "#ffffff", font: (35 * titleScaleFactor) + 'px "Eras Bold"', text: character.title, x: 60, y: 150 }
     ];
     
-    var specialTextFontSize = 28;
+    var specialTextFontSize = 32;
     
     if (!specialImages) {
         specialY += 71 + specialTextFontSize - 5; // move back to the bottom
@@ -244,7 +244,7 @@ DOA2_Image.generateCard = function (params) {
             if (!pastSpecialImages) {
                 metrics = context.measureText(lines[i]);
                 if (metrics.width + 50 < specialX) {
-                    specialY += fontSize * 1.25;
+                    specialY += fontSize * 1.50;
                 }
                 pastSpecialImages = true;
             }
