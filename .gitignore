@@ -10,8 +10,6 @@
 *.swo
 
 # Extra files to ignore
-/config/initializers/devise.rb
-/config/database.yml
 /sessions/*
 /db/sphinx/*
 
