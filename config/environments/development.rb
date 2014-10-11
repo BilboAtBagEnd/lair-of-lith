@@ -31,7 +31,7 @@ AppLairoflithCom::Application.configure do
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { :host => 'app.lairoflith.com:8300' }
+  config.action_mailer.default_url_options = { :host => 'ec2-54-68-127-235.us-west-2.compute.amazonaws.com:3000' }
 end
 
 # Exception notification through email
