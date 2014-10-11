@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.1.6'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 gem 'mysql2'
+gem 'pg'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -40,7 +41,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'devise'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -77,7 +78,7 @@ gem 'thinking-sphinx'
 
 # Testing 
 group :development, :test do 
-  gem 'debugger'
+  gem 'byebug'
   gem 'rspec-rails'
 end
 group :development do
@@ -91,3 +92,5 @@ group :test do
   gem 'email_spec'
   gem 'poltergeist'
 end
+
+ruby "2.1.2"
