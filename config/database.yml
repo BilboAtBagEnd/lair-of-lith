@@ -1,16 +1,7 @@
-<% 
-require 'yaml'
-config = YAML.load_file("/home/#{ENV['USER']}/config/app.lairoflith.yml")
-env_config = config[Rails.env] || {}
-%>
 development:
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
-  reconnect: false
-  database: <%= env_config['dbname'] %>
-  host: <%= env_config['dbhost'] %>
-  username: <%= env_config['dbuser'] %>
-  password: <%= env_config['dbpass'] %>
+  database: lairoflith_devo
   pool: 5
 
 # Warning: The database defined as "test" will be erased and
@@ -23,15 +14,7 @@ test:
   timeout: 5000
 
 production:
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
-  reconnect: false
-  database: <%= env_config['dbname'] %>
-  host: <%= env_config['dbhost'] %>
-  username: <%= env_config['dbuser'] %>
-  password: <%= env_config['dbpass'] %>
+  database: lairoflith_prod
   pool: 5
-<% 
-config = nil
-env_config = nil
-%>
