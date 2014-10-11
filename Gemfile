@@ -90,5 +90,8 @@ group :test do
   gem 'email_spec'
   gem 'poltergeist'
 end
+group :production do
+  gem 'rails_12factor'
+end
 
 ruby "2.1.2"
