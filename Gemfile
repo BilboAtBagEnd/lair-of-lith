@@ -72,7 +72,7 @@ gem 'exception_notification'
 gem 'gabba'
 
 # Searching 
-gem 'thinking-sphinx'
+#gem 'thinking-sphinx'
 
 # Testing 
 group :development, :test do 
