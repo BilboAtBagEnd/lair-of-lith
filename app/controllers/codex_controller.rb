@@ -1,6 +1,6 @@
 class CodexController < ApplicationController
   def index
-    @characters = OfficialCharacter.select(:name, :profession, :age, :setting, :circle, :nature).distinct
+    @characters = OfficialCharacter.select(:name, :profession, :age, :setting, :circle, :nature).distinct.order(:name)
   end
 
   def character
