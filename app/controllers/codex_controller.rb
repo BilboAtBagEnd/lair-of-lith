@@ -19,7 +19,7 @@ class CodexController < ApplicationController
   end
 
   def search
-    @query = params[:query]}
+    @query = params[:query]
     @page = params[:page].to_i 
 
     @page = 1 if @page < 1
