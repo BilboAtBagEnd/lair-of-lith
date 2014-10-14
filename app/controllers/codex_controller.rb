@@ -19,14 +19,14 @@ class CodexController < ApplicationController
   end
 
   def search
-    @query = params[:query]
+    @query = "%#{params[:query]}%"
     @page = params[:page].to_i 
 
     @page = 1 if @page < 1
 
     @specials = []
     if @query && !@query.strip.empty?
-      @specials = OfficialSpecial.search(@query, :populate => true).page(@page).per(50)
+      @specials = OfficialSpecial.where('description like ?', @query).page(@page).per(50)
     end
   end
 end
