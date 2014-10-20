@@ -26,7 +26,7 @@ class CodexController < ApplicationController
 
     @specials = []
     if @query && !@query.strip.empty?
-      @specials = OfficialSpecial.where('description like ?', "%#{@query}%").page(@page).per(50)
+      @specials = OfficialSpecial.where('description ilike ?', "%#{@query}%").page(@page).per(50)
     end
   end
 end
