@@ -19,6 +19,8 @@ class Character < ActiveRecord::Base
     'HIDE' => 'Hide from public',
   }
 
+  self.primary_key = :id
+
   def name=(val)
     if name && val
       @name_case_insensitive_changed = val.downcase != name.downcase
