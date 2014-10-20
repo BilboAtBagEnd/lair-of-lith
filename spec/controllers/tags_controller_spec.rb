@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TagsController do
+describe TagsController, :type => :controller do
   before(:each) do 
     c1 = FactoryGirl.create(:character, name: 'Sherlock Holmes')
     c2 = FactoryGirl.create(:character, name: 'Catwoman')

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe CharacterVersion do
+describe CharacterVersion, :type => :model do
   it "saves successfully" do
     cv = FactoryGirl.create(:character_version)
-    cv.id.should be
+    expect(cv.id).to be
   end
 
   it "validates presence of character_id" do
@@ -35,6 +35,6 @@ describe CharacterVersion do
     cv2 = FactoryGirl.build(:character_version)
     cv2.character_id = 2
     cv2.save!
-    cv2.id.should be
+    expect(cv2.id).to be
   end
 end

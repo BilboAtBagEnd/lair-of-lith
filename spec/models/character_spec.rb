@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Character do
+describe Character, :type => :model do
   it "creates successfully" do 
     character = FactoryGirl.create(:character)
-    character.should be
-    character.id.should be
+    expect(character).to be
+    expect(character.id).to be
   end
 
   it "checks for presence of name" do 
@@ -30,13 +30,13 @@ describe Character do
     c2 = FactoryGirl.build(:character)
     c2.user_id = 2
     c2.save!
-    c2.id.should be
+    expect(c2.id).to be
   end
 
   it "has a slug on creation" do 
     c = FactoryGirl.create(:character)
-    c.slug.should be
-    c.slug.empty?.should be_false
+    expect(c.slug).to be
+    expect(c.slug.empty?).to be_falsey
   end
 
   it "changes slugs on case-insensitive name change" do 
@@ -44,7 +44,7 @@ describe Character do
     first_slug = c.slug
     c.name += '-New'
     c.save!
-    c.slug.should_not be == first_slug
+    expect(c.slug).not_to eq(first_slug)
   end
 
   it "does not change slug on case-insensitive name change" do 
@@ -52,7 +52,7 @@ describe Character do
     first_slug = c.slug
     c.name = c.name.upcase
     c.save!
-    c.slug.should be == first_slug
+    expect(c.slug).to eq(first_slug)
   end
 
   it "does not change slug on non-name changes" do 
@@ -61,7 +61,7 @@ describe Character do
     refreshed_c = Character.find c.id
     refreshed_c.description = '[i]Some words[/i]'
     refreshed_c.save!
-    refreshed_c.slug.should be == first_slug
+    expect(refreshed_c.slug).to eq(first_slug)
   end
 
   it "does not require description or thread id" do 
@@ -69,7 +69,7 @@ describe Character do
     c.description = nil
     c.bgg_thread_id = nil
     c.save!
-    c.id.should be
+    expect(c.id).to be
   end
 
   it "sets status to the accepted values" do 

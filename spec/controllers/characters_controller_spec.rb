@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'spec_helper.rb'
 
-describe CharactersController do
+describe CharactersController, :type => :controller do
   describe "GET new" do 
     it "renders the new template" do
       get :new
@@ -8,7 +8,7 @@ describe CharactersController do
     end
     it "sets the new flag" do 
       get :new
-      expect(assigns(:is_new)).to be_true
+      expect(assigns(:is_new)).to be_truthy
     end
   end
 
@@ -155,24 +155,24 @@ describe CharactersController do
     context "Non-authorized requests" do 
       it "sets the current_user_is_owner to false" do
         get :view, :uid => @user.slug, :cid => @character.slug
-        expect(assigns(:current_user_is_owner)).to be_false
+        expect(assigns(:current_user_is_owner)).to be_falsey
       end
     end
 
     context "Authorized requests" do 
-      setup_devise
+      #setup_devise
 
       it "sets the current_user_is_owner to true if the owner is the current user" do
         sign_in @user
         get :view, :uid => @user.slug, :cid => @character.slug
-        expect(assigns(:current_user_is_owner)).to be_true
+        expect(assigns(:current_user_is_owner)).to be_truthy
       end
 
       it "sets the current_user_is_owner to false if the owner is not the current user" do 
         user = FactoryGirl.create(:user, :name => 'Something Else', :email => 'something@else.com')
         sign_in user
         get :view, :uid => @user.slug, :cid => @character.slug
-        expect(assigns(:current_user_is_owner)).to be_false
+        expect(assigns(:current_user_is_owner)).to be_falsey
       end
     end
 
@@ -212,24 +212,24 @@ describe CharactersController do
     context "Non-authorized requests" do 
       it "sets the current_user_is_owner to false" do
         get :generate, :uid => @user.slug, :cid => @character.slug, :version => 1
-        expect(assigns(:current_user_is_owner)).to be_false
+        expect(assigns(:current_user_is_owner)).to be_falsey
       end
     end
 
     context "Authorized requests" do 
-      setup_devise
+      #setup_devise
 
       it "sets the current_user_is_owner to true if the owner is the current user" do
         sign_in @user
         get :generate, :uid => @user.slug, :cid => @character.slug, :version => 1
-        expect(assigns(:current_user_is_owner)).to be_true
+        expect(assigns(:current_user_is_owner)).to be_truthy
       end
 
       it "sets the current_user_is_owner to false if the owner is not the current user" do 
         user = FactoryGirl.create(:user, :name => 'Something Else', :email => 'something@else.com')
         sign_in user
         get :generate, :uid => @user.slug, :cid => @character.slug, :version => 1
-        expect(assigns(:current_user_is_owner)).to be_false
+        expect(assigns(:current_user_is_owner)).to be_falsey
       end
     end
 
@@ -258,7 +258,7 @@ describe CharactersController do
     end
 
     context "Authorized requests" do 
-      setup_devise
+      #setup_devise
 
       before(:each) do
         @user = FactoryGirl.create(:user)
@@ -318,7 +318,7 @@ describe CharactersController do
   end
 
   describe "PATCH save_data" do
-    setup_devise
+    #setup_devise
     before(:each) do 
       @user = FactoryGirl.create(:user)
       @character = FactoryGirl.create(:character)
@@ -382,7 +382,7 @@ describe CharactersController do
   end
 
   describe 'DELETE destroy' do
-    setup_devise
+    #setup_devise
     before(:each) do 
       @user = FactoryGirl.create(:user)
       @character = FactoryGirl.create(:character)

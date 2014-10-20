@@ -3,7 +3,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 Warden.test_mode!
 
-describe "Features for characters" do 
+describe "Features for characters", :type => :feature do 
 
   describe "Index page" do 
     it "shows an empty collection of characteres" do 

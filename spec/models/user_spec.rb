@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe User do
+describe User, :type => :model do
   it "creates successfully" do
     user = FactoryGirl.create(:user)
-    user.should be
-    user.id.should be
+    expect(user).to be
+    expect(user.id).to be
   end
 
   it "checks for presence of name" do 
@@ -49,8 +49,8 @@ describe User do
 
   it "has a slug on creation" do
     user = FactoryGirl.create(:user)
-    user.slug.should be
-    user.slug.empty?.should be_false
+    expect(user.slug).to be
+    expect(user.slug.empty?).to be_falsey
   end
 
   it "changes slugs on case-insensitive name change" do
@@ -58,7 +58,7 @@ describe User do
     first_slug = user.slug
     user.name += '-New'
     user.save!
-    user.slug.should_not be == first_slug
+    expect(user.slug).not_to eq(first_slug)
   end
 
   it "does not change slug on case-insensitive name change" do
@@ -66,7 +66,7 @@ describe User do
     first_slug = user.slug
     user.name = user.name.upcase
     user.save!
-    user.slug.should be == first_slug
+    expect(user.slug).to eq(first_slug)
   end
 
   it "does not change slug on non-name changes" do 
@@ -75,6 +75,6 @@ describe User do
     refreshed_user = User.find user.id
     refreshed_user.email = 'new-email@example.com'
     refreshed_user.save!
-    refreshed_user.slug.should be == first_slug
+    expect(refreshed_user.slug).to eq(first_slug)
   end
 end

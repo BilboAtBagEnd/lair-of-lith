@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CodexController do
+describe CodexController, :type => :controller do
 
   describe 'GET index' do
     it "renders the index template" do 

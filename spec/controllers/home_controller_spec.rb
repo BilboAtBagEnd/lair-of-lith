@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HomeController do
+describe HomeController, :type => :controller do
   describe "GET index" do 
     it "renders the index template" do 
       get :index
@@ -15,8 +15,8 @@ describe HomeController do
       c3 = FactoryGirl.create(:character, user_id: u2.id)
       c4 = FactoryGirl.create(:character, name: 'Samael Bludsturm', user_id: u2.id)
       get 'index'
-      assigns(:characters).should eq([c4, c3, c2, c1])
-      assigns(:character_total).should eq(4)
+      expect(assigns(:characters)).to eq([c4, c3, c2, c1])
+      expect(assigns(:character_total)).to eq(4)
     end
 
     it "populates an array of characters ready for comment, updated_at descending" do
@@ -44,13 +44,13 @@ describe HomeController do
     it "echoes back HTML for valid pure BB code" do
       request.env['HTTP_ACCEPT'] = 'text/plain'
       post 'bbcode', :data => "[b]Strong text.[/b]\n\nSome text."
-      response.body.should eq("\n<p><strong>Strong text.</strong></p>\n\n<p>Some text.</p>")
+      expect(response.body).to eq("\n<p><strong>Strong text.</strong></p>\n\n<p>Some text.</p>")
     end
 
     it "strips tags for any embedded HTML code" do 
       request.env['HTTP_ACCEPT'] = 'text/plain'
       post 'bbcode', :data => "[b]Text.[/b]\n\n<script>alert(1);</script>\n\n<strong>Text.</strong>"
-      response.body.should eq("\n<p><strong>Text.</strong></p>\n\n<p>alert(1);Text.</p>")
+      expect(response.body).to eq("\n<p><strong>Text.</strong></p>\n\n<p>alert(1);Text.</p>")
     end
   end
 end
