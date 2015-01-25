@@ -14,6 +14,7 @@
 /db/sphinx/*
 
 # github .gitignore
+.DS_Store
 *.rbc
 *.sassc
 .sass-cache
