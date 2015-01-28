@@ -32,8 +32,8 @@ AppLairoflithCom::Application.routes.draw do
   get 'characters/walkthrough', to: 'characters#walkthrough', as: 'character_walkthrough'
   get 'characters/guide', to: 'characters#guide', as: 'character_guide'
 
-  get 'contact' => 'contact#new'
-  post 'contact' => 'contact#create'
+  #get 'contact' => 'contact#new'
+  #post 'contact' => 'contact#create'
 
   post 'bbcode' => 'home#bbcode'
 
